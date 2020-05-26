@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    ComitaSport
                 </div>
 
                 <div class="links">
