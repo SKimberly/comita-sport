@@ -31,13 +31,13 @@
                     </div>
                     <ul class="enlaces navbar-nav  ml-auto mt-2 mt-lg-0 animate__animated animate__lightSpeedInRight animate__delay-1s" id="enlaces">
                         <li class="nav-item active">
-                            <a href="#inicio" class="">INICIO</a>
+                            <a href="/#inicio" class="">INICIO</a>
                         </li>
                         <li class="nav-item active">
                             <a href="#servicio" class="" >SERVICIO</a>
                         </li>
                         <li class="nav-item active">
-                            <a href="#productos" class="">PRODUCTOS</a>
+                            <a href="#producto" class="">PRODUCTOS</a>
                         </li>
                         <li class="nav-item active">
                             <a href="#opiniones" class="" >OPINIONES</a>
@@ -48,10 +48,24 @@
                         <li class="nav-item active">
                             <a href="#contacto" class="" >CONTACTO</a>
                         </li>
+                        @guest
 
+                        @else
+                            <li class="nav-item dropdown">
+                                <a href="/admin" role="button" class="text-white">
+                                   {{ strtoupper(Auth::user()->fullname) }}
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                              <a class="text-white"  href="">
+                                <img src="{{ asset('img/shoppingcard.svg') }}" alt="pedidos" width="40" class="">
+                              </a>
+                            </li>
+                        @endguest
                     </ul>
                 </div>
             </nav>
+
             <section class="caratula" id="inicio">
                 <div class="contenedor">
                     <div class="caratula-cont row">
@@ -66,8 +80,9 @@
                     </div>
                 </div>
             </section>
-            <div class="ola sus-clases"><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M-2.25,74.50 C256.20,250.16 247.74,-88.31 502.25,74.50 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: #fff;"></path></svg></div>
+             <div class="ola sus-clases"  ><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M-2.25,74.50 C256.20,250.16 247.74,-88.31 502.25,74.50 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: #fff;"></path></svg></div>
         </div>
+
         <main>
             <section class="about-services" id="servicio">
                 <div class="contenedor">
@@ -75,33 +90,33 @@
                     <div class="servicio-cont">
                         <div class="servicio-ind">
                             <img src="{{ asset('/img/welcome/dudas.svg') }}" alt="">
-                            <h3>Atendemos tus dudas</h3>
+                            <h3 class="subtitulo">Atendemos tus dudas</h3>
                             <p>Atendemos rápidamente cualquier consulta que tengas via chat. No estás sólo, sino que siempre estamos atentos a tus inquietudes.</p>
                         </div>
 
                         <div class="servicio-ind">
                             <img src="{{ asset('/img/welcome/money.svg') }}" alt="">
-                            <h3>Pago seguro</h3>
+                            <h3 class="subtitulo">Pago seguro</h3>
                             <p>Todo pedido que realices será confirmado a travéz de una llamada. Todos los pagos los puedes realizar contra entrega el valor acordado.</p>
                         </div>
                         <div class="servicio-ind">
                             <img src="{{ asset('/img/welcome/security.svg') }}" alt="">
-                            <h3>Información privada</h3>
+                            <h3 class="subtitulo">Información privada</h3>
                             <p>Los pedidos que realices sólo los conocerás tú a través de tu panel de usuario. Nadie más tiene acceso a esta información.</p>
                         </div>
                     </div>
                 </div>
             </section>
-            <section class="producto" id="productos">
+            <section class="productos" id="producto">
                 <div class="contenedor">
                     <h2 class="titulo">CATEGORIA DE LOS PRODUCTOS</h2>
                     <div class="galeria-port">
-                    <!--@if(isset($categorias))
+                    @if(isset($categorias))
                         @foreach($categorias as $categoria)
                             <div class="imagen-port">
                                 <img src="{{ $categoria->urlcate }}" alt="Categoria Foto">
                                 <div class="hover-galeria">
-                                    <a href="{{ route('categoria.productos', $categoria->id) }}" class="text-center" style="text-decoration: none;">
+                                    <a href="{{ route('categoria.productos', $categoria) }}" class="text-center" style="text-decoration: none;">
                                     <img src="{{ asset('/img/icono1.png') }}" alt="">
                                     <p>{{ $categoria->nombre }}</p>
                                     <p class="text-justify" style="padding-left:12px; padding-right: 12px;">{{ $categoria->descripcion }}</p>
@@ -109,7 +124,7 @@
                                 </div>
                             </div>
                         @endforeach
-                    @endif-->
+                    @endif
                     </div>
                 </div>
             </section>
@@ -136,9 +151,7 @@
             </section>
             <section class="sobre-nosotros" id="nosotros">
                 <div class="contenedor">
-                <h2 class="titulo">
-                    INFORMACIÓN
-                </h2>
+                <h2 class="titulo"> INFORMACIÓN </h2>
                 <div class="contenedor-sobre-nosotros row">
                     <img src="{{ asset('/img/welcome/portada.svg') }}" alt="img-sobre-nosotros" class="imagen-developer">
                     <div class="contenido-textos col-md-6">
@@ -154,7 +167,7 @@
                 </div>
                 </div>
             </section>
-            <section class="about-services" id="contacto" >
+            <section class="clientes-sin-clase" id="contacto" >
                 <div class="contenedor">
                     <h2 class="titulo">CONTÁCTANOS</h2>
                     <div class="servicio-cont col-lg-12 d-flex align-items-stretch">
@@ -208,7 +221,7 @@
                                         </span>
                                     @endif
                                 </div>
-                                <button type="submit" class="btn btn-comita text-white btn-lg btn-block">Enviar</button>
+                                <button type="submit" class="btn btn-comita text-white btn-lg btn-block" >Enviar</button>
                             </form>
                         </div><hr>
                         <div class="col-12 col-lg-6 shadow embed-responsive embed-responsive-1by1">
@@ -218,6 +231,7 @@
                     </div>
                 </div>
             </section>
+
         </main>
         <footer>
             <div class="contenedor-footer">
@@ -240,6 +254,7 @@
             </div>
             <h2 class="titulo-final">&copy; S. Kimberly Marquina Ch. | UATF Potosí </h2>
         </footer>
+
     </div>
     </body>
 </html>

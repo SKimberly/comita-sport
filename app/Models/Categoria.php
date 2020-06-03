@@ -13,4 +13,11 @@ class Categoria extends Model
     public function productos(){
     	return $this->hasMany(Producto::class);
     }
+	public function getUrlcateAttribute()
+    {
+    	if(substr($this->imagen, 0, 4) === "http"){
+    		return $this->imagen;
+    	}
+    	return '/img/categorias/'.$this->imagen;
+    }
 }

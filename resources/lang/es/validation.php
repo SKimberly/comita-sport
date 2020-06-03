@@ -181,5 +181,7 @@ return [
         'title'                 => 'título',
         'username'              => 'usuario',
         'year'                  => 'año',
+        'fullname'              => 'nombre completo',
+        'cedula'                => 'cédula de identidad',
     ],
 ];
