@@ -10,6 +10,7 @@
   <meta name="keyword" content="Sistema web Sport La Comita ">
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  <link rel="shortcut icon" href="{{ asset('/img/welcome/sport.png') }}" />
 
 
 
