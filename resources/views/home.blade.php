@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('titulo','La-Comita/Inicio')
 @section('cabecera')
+
 <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -18,6 +19,7 @@
 </div>
 @endsection
 @section('contenido')
+
 <div class="container-fluid mt-50">
     <div class="row">
         <div class="col-md-4">
@@ -175,7 +177,7 @@
                       <span>Precio</span>
                     </a>
                     <a class="product-button" href="#" data-abc="true">
-                      <i class="fas fa-eye"></i>
+                      <i class="fas fa-eye" style="color: Dodgerblue;"></i>
                       <span>Ver Detalles</span>
                     </a>
                     <a class="product-button btn-wishlist" href="#" data-abc="true">
@@ -287,7 +289,7 @@
                       <span>Precio</span>
                     </a>
                     <a class="product-button" href="#" data-abc="true">
-                      <i class="fas fa-eye"></i>
+                      <i class="fas fa-eye" style="color: Dodgerblue;"></i>
                       <span>Ver Detalles</span>
                     </a>
                     <a class="product-button btn-wishlist" href="#" data-abc="true">
@@ -342,7 +344,7 @@
                       <span>Precio</span>
                     </a>
                     <a class="product-button" href="#" data-abc="true">
-                      <i class="fas fa-eye"></i>
+                      <i class="fas fa-eye" style="color: Dodgerblue;"></i>
                       <span>Ver Detalles</span>
                     </a>
                     <a class="product-button btn-wishlist" href="#" data-abc="true">
@@ -354,6 +356,7 @@
         </div>
     </div>
 </div>
+
 @endsection
 @push('styles')
 <style>

@@ -6,6 +6,7 @@ use App\Models\Producto;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
+
 $factory->define(Producto::class, function (Faker $faker) {
 	$nombre = substr($faker->sentence(3),0,-1);
 	$slug = Str::of($nombre)->slug('-');

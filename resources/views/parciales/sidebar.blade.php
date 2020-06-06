@@ -12,8 +12,8 @@
         <div class="image">
           <img src="{{ asset('img/sidebar/userdefault.svg') }}" class="img-circle elevation-2" alt="User Image">
         </div>
-        <div class="info ">
-          <a href="" class="text-center" ><b>Perfil: ()</b> </a>
+        <div class="info">
+          <a href="{{ route('admin.users.show', [Auth::user()->slug]) }}" class="text-center" ><b>Perfil: {{ Auth::user()->fullname }}</b> </a>
         </div>
       </div>
       <!-- Sidebar Menu -->
@@ -22,7 +22,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="" class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
+            <a href="{{ route('admin') }}" class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
               <img src="{{ asset('img/sidebar/escritorio.svg') }}" alt="" class="nav-icon">
               <p>
                 Escritorio
@@ -30,6 +30,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->is('admin/users*') ? 'active' : '' }}">
+                <img src="{{ asset('img/sidebar/users.svg') }}" alt="usuarios" class="nav-icon">
+                <p>
+                    Usuarios
+                </p>
+              </a>
           </li>
           <li class="nav-item has-treeview {{ request()->is('admin/productos*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link {{ request()->is('admin/productos*') ? 'active' : '' }}">

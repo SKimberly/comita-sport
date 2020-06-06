@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class UsersTableSeeder extends Seeder
 {
@@ -14,6 +15,7 @@ class UsersTableSeeder extends Seeder
     {
         $suadmin = new User;
         $suadmin->fullname = 'Silvana Marquina';
+        $suadmin->slug = Str::of('Silvana Marquina')->slug('-');
         $suadmin->cedula = '12345678';
         $suadmin->telefono = '78630742';
         $suadmin->tipo = 'Super-Admin';
@@ -23,6 +25,7 @@ class UsersTableSeeder extends Seeder
 
         $administrador = new User;
         $administrador->fullname = 'Emilio Salas';
+        $administrador->slug = Str::of('Emilio Salas')->slug('-');
         $administrador->cedula = '87654321';
         $administrador->telefono = '70462939';
         $administrador->tipo = 'Administrador';
@@ -32,6 +35,7 @@ class UsersTableSeeder extends Seeder
 
         $ventas = new User;
         $ventas->fullname = 'Karen Vendedora';
+        $ventas->slug = Str::of('Karen Vendedora')->slug('-');
         $ventas->cedula = '87654311';
         $ventas->telefono = '70001111';
         $ventas->tipo = 'Ventas';
@@ -41,6 +45,7 @@ class UsersTableSeeder extends Seeder
 
         $cliente = new User;
         $cliente->fullname = 'Juan Cliente';
+        $cliente->slug = Str::of('Juan Cliente')->slug('-');
         $cliente->cedula = '87654322';
         $cliente->telefono = '70055111';
         $cliente->tipo = 'Cliente';
@@ -50,6 +55,7 @@ class UsersTableSeeder extends Seeder
 
         $cliente2 = new User;
         $cliente2->fullname = 'Carla Cliente';
+        $cliente2->slug = Str::of('Carla Cliente')->slug('-');
         $cliente2->cedula = '87654300';
         $cliente2->telefono = '70050011';
         $cliente2->tipo = 'Cliente';
