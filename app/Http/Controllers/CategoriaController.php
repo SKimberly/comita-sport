@@ -91,7 +91,7 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $id, $slug)
+    public function update(Request $request, $slug)
     {
         $this->validate($request, [
             'imagen' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024'

@@ -1,20 +1,20 @@
-<div class="modal fade" id="modalTalla" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalMaterial" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header btn-comita text-white">
-        <h5 class="modal-title" id="exampleModalLabel">Nueva Talla</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Nuevo Material</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
         <div class="modal-body">
-            <form method="POST" action="{{ route('tallas.store','#talla') }}" class="bg-white shadow rounded py-3 px-4 was-validated" enctype="multipart/form-data" >
+            <form method="POST" action="{{ route('materiales.store','#mate') }}" class="bg-white shadow rounded py-3 px-4 was-validated" enctype="multipart/form-data" >
 			@csrf
 		        <div class="form-group">
 		            <label for="nombre">Nombre:</label>
 		            <input class="form-control bg-light shadow-sm {{ $errors->has('nombre') ? ' is-invalid' : 'border-0' }}"
 		                    id="nombre" name="nombre"
-		                    placeholder="Ingrese el nombre de la talla" value="{{ old('nombre') }}" required>
+		                    placeholder="Ingrese el nombre del material" value="{{ old('nombre') }}" required>
 		            @if ($errors->has('nombre'))
 		                    <span class="invalid-feedback" role="alert">
 		                    	<strong>{{ $errors->first('nombre') }}</strong>
@@ -23,7 +23,7 @@
 		        </div>
 		        <div class="form-group">
 		            <label for="descripcion">Descripción</label>
-                    <textarea class="form-control {{ $errors->has('descripcion') ? ' is-invalid' : 'border-1' }}" rows="2" name="descripcion" id="descripcion"  placeholder="Ingrese una breve descripción de la talla" >{{ old('descripcion') }}</textarea>
+                    <textarea class="form-control {{ $errors->has('descripcion') ? ' is-invalid' : 'border-1' }}" rows="2" name="descripcion" id="descripcion"  placeholder="Ingrese una breve descripción del material" >{{ old('descripcion') }}</textarea>
                     @if ($errors->has('descripcion'))
 		                <span class="invalid-feedback" role="alert">
 		                    <strong>{{ $errors->first('descripcion') }}</strong>
@@ -33,7 +33,7 @@
 		        <button class="btn btn-block btn-comita text-white" type="submit" >
 		          CREAR
 		        </button>
-		        <a href="{{ route('admin.tallas.index') }}" class="btn btn-block btn-outline-comita"  >
+		        <a href="{{ route('admin.materiales.index') }}" class="btn btn-block btn-outline-comita "  >
 		          CANCELAR
 		        </a>
 			</form>

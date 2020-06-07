@@ -43,11 +43,19 @@ function(){
     Route::put('categorias/{slug}/actualizar', 'CategoriaController@update')->name('admin.categorias.update');
     Route::delete('categorias/{slug}/baja', 'CategoriaController@destroy')->name('admin.categorias.delete');
 
+    //rutas para las tallas
     Route::resource('tallas','TallaController');
     Route::get('tallas','TallaController@index')->name('admin.tallas.index');
     Route::post('tallas', 'TallaController@store')->name('tallas.store');
     Route::get('tallas/{slug}/edit', 'TallaController@edit')->name('admin.tallas.edit');
     Route::put('tallas/{slug}', 'TallaController@update')->name('admin.tallas.update');
     Route::delete('tallas/{slug}/baja', 'TallaController@destroy')->name('admin.tallas.delete');
+
+    //Rutas para los materiales
+    Route::get('materiales','MaterialController@index')->name('admin.materiales.index');
+    Route::post('materiales', 'MaterialController@store')->name('materiales.store');
+    Route::get('materiales/{slug}/edit', 'MaterialController@edit')->name('admin.materiales.edit');
+    Route::put('materiales/{slug}', 'MaterialController@update')->name('admin.materiales.update');
+    Route::delete('materiales/{slug}/baja', 'MaterialController@destroy')->name('admin.materiales.delete');
     }
 );

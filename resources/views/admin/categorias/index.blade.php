@@ -56,7 +56,7 @@
 									<td>{{ $categoria->estado ? 'Activo' : 'Baja'}}</td>
 
 									<td>
-										<a href="{{ route('admin.categorias.edit',$categoria->id) }}" class="btn btn-sm btn-block btn-comita text-white">
+										<a href="{{ route('admin.categorias.edit',$categoria->slug) }}" class="btn btn-sm btn-block btn-comita text-white">
 											Editar
 										</a>
 										<form method="post" action="{{ route('admin.categorias.delete', [$categoria->slug]) }}">

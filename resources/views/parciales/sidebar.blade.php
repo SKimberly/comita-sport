@@ -59,7 +59,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="" class="nav-link {{ request()->is('admin/materiales') ? 'active' : '' }}">
+                  <a href="{{ route('admin.materiales.index') }}" class="nav-link {{ request()->is('admin/materiales') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-tshirt"></i>
                     <p>Materiales</p>
                   </a>

@@ -16,6 +16,7 @@ class CreateMaterialesTable extends Migration
         Schema::create('materiales', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->string('slug')->unique();
             $table->string('descripcion')->nullable();
             $table->boolean('estado')->default(1); //Disponible o Agotado
             $table->timestamps();
