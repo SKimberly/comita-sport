@@ -35,5 +35,16 @@ function(){
     Route::get('users/{slug}/edit', 'UserController@edit')->name('admin.users.edit');
     Route::put('users/{slug}/update','UserController@update')->name('admin.users.update');
     Route::delete('users/{slug}/baja','UserController@destroy')->name('admin.users.delete');
-	}
+    //Estas son las rutas para Complementos
+    Route::get('categorias', 'CategoriaController@index')->name('admin.categorias');
+	Route::post('categorias', 'CategoriaController@store')->name('admin.categorias.store');
+    Route::get('categorias/{slug}/edit', 'CategoriaController@edit')->name('admin.categorias.edit');
+
+    Route::put('categorias/{slug}/actualizar', 'CategoriaController@update')->name('admin.categorias.update');
+    Route::delete('categorias/{slug}/baja', 'CategoriaController@destroy')->name('admin.categorias.delete');
+
+
+
+
+    }
 );

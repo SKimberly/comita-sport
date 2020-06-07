@@ -33415,6 +33415,11 @@ readers do not read off random characters that represent icons */
   overflow: hidden;
 }
 
+.img-tam {
+  width: 50% !important;
+  height: 100px !important;
+}
+
 .sidebar-dark-primary {
   background: #0c1926;
 }
@@ -33437,7 +33442,24 @@ body {
   font-family: "Times New Roman", Times, serif;
 }
 
-.nav-bar-comita {
+.navbar-light {
+  background: #0a2b4e;
+}
+
+.navbar-header {
+  width: 100%;
+  height: 600px;
+  background: #0a2b4e;
+  /*background: -webkit-linear-gradient(to left, hsla(205, 100%, 12%, 0.459), hsla(185, 67%, 42%, 0.664)), url(../img/welcome/potosi.jpg);
+  background: linear-gradient(to left, hsla(205, 100%, 12%, 0.459), hsla(185, 67%, 42%, 0.664)), url(../img/welcome/potosi.jpg); */
+  background: linear-gradient(to right, rgba(0, 36, 61, 0.459), rgba(0, 46, 102, 0.664)), url(../img/welcome/potosi.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+  background-position: center center;
+}
+
+.navbar-comita {
   display: flex;
   margin: auto;
   width: 100%;
@@ -33447,25 +33469,6 @@ body {
   height: auto;
   /*height:inherit;*/
   overflow: hidden;
-}
-
-.navbar-light {
-  background: #0a2b4e;
-}
-
-.navbar-header {
-  width: 100%;
-  height: 600px;
-  background: #0a2b4e;
-  /*background: -webkit-linear-gradient(to right, hsla(205, 100%, 12%, 0.459), hsla(185, 67%, 42%, 0.664)), url(../img/welcome/potosi.jpg);  /* Chrome 10-25, Safari 5.1-6 */
-  /*background: linear-gradient(to right, hsla(205, 100%, 12%, 0.459), hsla(185, 67%, 42%, 0.664)), url(../img/welcome/potosi.jpg); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, rgba(0, 36, 61, 0.459), rgba(0, 46, 102, 0.664)), url(../img/welcome/potosi.jpg);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background-size: cover;
-  background-attachment: fixed;
-  position: relative;
-  background-position: center center;
 }
 
 .logo, .logo img {

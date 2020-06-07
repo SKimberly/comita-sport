@@ -37,6 +37,35 @@
                 </p>
               </a>
           </li>
+          <li class="nav-item has-treeview {{ request()->is('admin/categorias*') || request()->is('admin/tallas*') || request()->is('admin/materiales*') ? 'menu-open' : '' }}">
+              <a href="#" class="nav-link {{ request()->is('admin/categorias*') || request()->is('admin/tallas*') || request()->is('admin/materiales*') ? 'active' : '' }}">
+                <img src="{{ asset('img/sidebar/otros.svg') }}" alt="complementos" class="nav-icon">
+                <p>
+                    Complementos
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('admin.categorias') }}" class="nav-link {{ request()->is('admin/categorias') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-sitemap"></i>
+                    <p>Categorias</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="" class="nav-link {{ request()->is('admin/tallas') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-sort-numeric-up"></i>
+                    <p>Tallas</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="" class="nav-link {{ request()->is('admin/materiales') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-tshirt"></i>
+                    <p>Materiales</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
           <li class="nav-item has-treeview {{ request()->is('admin/productos*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link {{ request()->is('admin/productos*') ? 'active' : '' }}">
               <img src="{{ asset('img/sidebar/producto.svg') }}" alt="usuarios" class="nav-icon">
