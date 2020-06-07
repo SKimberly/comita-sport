@@ -53,7 +53,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="" class="nav-link {{ request()->is('admin/tallas') ? 'active' : '' }}">
+                  <a href="{{ route('admin.tallas.index') }}" class="nav-link {{ request()->is('admin/tallas') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-sort-numeric-up"></i>
                     <p>Tallas</p>
                   </a>

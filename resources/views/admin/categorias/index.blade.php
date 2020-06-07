@@ -53,13 +53,13 @@
 									<td class="text-center">
 										<img src="{{ asset($categoria->urlcate) }}" class="img-tam" alt="Categoria Foto">
 									</td>
-									<td>{{ $categoria->estado }}</td>
+									<td>{{ $categoria->estado ? 'Activo' : 'Baja'}}</td>
 
 									<td>
 										<a href="{{ route('admin.categorias.edit',$categoria->id) }}" class="btn btn-sm btn-block btn-comita text-white">
 											Editar
 										</a>
-										<form method="post" action="{{ route('admin.categorias.delete', $categoria->id) }}">
+										<form method="post" action="{{ route('admin.categorias.delete', [$categoria->slug]) }}">
 											@method('DELETE') @csrf
 											<button class="btn btn-sm btn-block btn-outline-comita" type="submit">
 												Eliminar
