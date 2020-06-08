@@ -27,7 +27,7 @@
 		<div class="card card-info">
 			<div class="card-header" >
 
-					<button type="button" class="btn-comita text-white" data-toggle="modal" data-target="#myModal">
+					<button type="button" class="btn btn-comita text-white" data-toggle="modal" data-target="#myModal">
 				 	<i class="fas fa-user-check"></i> Nuevo Usuario
 					</button>
 

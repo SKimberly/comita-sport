@@ -76,11 +76,17 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link {{ request()->is('admin/productos') ? 'active' : '' }}">
+                <a href="{{ route('admin.productos.index') }}" class="nav-link {{ request()->is('admin/productos') ? 'active' : '' }}">
                   <i class="fa fa-dumpster"></i>
                   <p>Ver lista</p>
                 </a>
               </li>
+               <li class="nav-item">
+                  <a href="{{ route('admin.productos.create') }}" class="nav-link {{ request()->is('admin/productos/create') ? 'active' : '' }}">
+                    <i class="fas fa-share-square"></i>
+                    <p>Agregar nuevo</p>
+                  </a>
+                </li>
             </ul>
           </li>
           <li class="nav-item">

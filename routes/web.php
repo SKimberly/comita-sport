@@ -21,7 +21,7 @@ Route::get('/', function () {
 Route::get('/', 'WellcomeController@index');
 
 Auth::routes();
-Route::get('{categoria}/productos','WellcomeController@show')->name('categoria.productos');
+Route::get('categorias/{categoria}/productos','WellcomeController@show')->name('categoria.productos');
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::group([
 	'prefix' => 'admin',
@@ -57,5 +57,9 @@ function(){
     Route::get('materiales/{slug}/edit', 'MaterialController@edit')->name('admin.materiales.edit');
     Route::put('materiales/{slug}', 'MaterialController@update')->name('admin.materiales.update');
     Route::delete('materiales/{slug}/baja', 'MaterialController@destroy')->name('admin.materiales.delete');
+    //Rutas para los productos
+    Route::get('productos','ProductoController@index')->name('admin.productos.index');
+    Route::get('productos/create','ProductoController@create')->name('admin.productos.create');
+    Route::post('productos','ProductoController@store')->name('admin.productos.store');
     }
 );

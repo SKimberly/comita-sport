@@ -12,6 +12,9 @@ try {
 
     require('bootstrap');
     require('admin-lte');
+    require('select2');
+    require('ion-rangeslider');
+    require('bootstrap-switch');
 } catch (e) {}
 
 /**
