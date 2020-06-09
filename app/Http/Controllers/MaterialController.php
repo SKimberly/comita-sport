@@ -61,8 +61,7 @@ class MaterialController extends Controller
      */
     public function edit($slug)
     {
-        $material = Material::where('slug',$slug)->first();
-        return view('admin.materiales.edit', compact('material'));
+
     }
     /**
      * Update the specified resource in storage.
@@ -71,9 +70,9 @@ class MaterialController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $slug)
+    public function update(Request $request)
     {
-        $material = Material::where('slug',$slug)->first();
+        $material = Material::findOrFail($request->material_id);
         $material->nombre = $request['nombre'];
         $material->descripcion = $request['descripcion'];
         $material->save();

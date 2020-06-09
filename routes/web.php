@@ -47,7 +47,7 @@ function(){
     Route::resource('tallas','TallaController');
     Route::get('tallas','TallaController@index')->name('admin.tallas.index');
     Route::post('tallas', 'TallaController@store')->name('tallas.store');
-    Route::get('tallas/{slug}/edit', 'TallaController@edit')->name('admin.tallas.edit');
+
     Route::put('tallas/{slug}', 'TallaController@update')->name('admin.tallas.update');
     Route::delete('tallas/{slug}/baja', 'TallaController@destroy')->name('admin.tallas.delete');
 
@@ -59,7 +59,9 @@ function(){
     Route::delete('materiales/{slug}/baja', 'MaterialController@destroy')->name('admin.materiales.delete');
     //Rutas para los productos
     Route::get('productos','ProductoController@index')->name('admin.productos.index');
-    Route::get('productos/create','ProductoController@create')->name('admin.productos.create');
     Route::post('productos','ProductoController@store')->name('admin.productos.store');
+    Route::get('productos/{slug}/edit','ProductoController@edit')->name('admin.productos.edit');
+    Route::put('productos/{slug}','ProductoController@update')->name('admin.productos.update');
+    Route::post('productos/{id}/fotos','ProductoController@storefotos');
     }
 );

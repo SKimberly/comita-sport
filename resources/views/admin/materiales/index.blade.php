@@ -20,6 +20,7 @@
 @endsection
 @section('contenido')
 @include('admin.materiales.create')
+@include('admin.materiales.edit')
 <section class="content">
 	<div class="container-fluid">
 		<div class="card card-info">
@@ -50,11 +51,11 @@
 									<td class="text-center">{{ $material->created_at->format('M d') }}</td>
 									<td class="text-center">{{ $material->estado ? 'Activo' : 'Baja' }}</td>
 									<td class="text-center">
+										<button type="button" class="btn btn-sm btn-comita text-white" data-mateid="{{ $material->id }}" data-myname="{{ $material->nombre }}" data-mydescrip="{{ $material->descripcion }}" data-toggle="modal" data-target="#editMate">
+										   <i class="fas fa-sort-numeric-up"></i> Editar
+										</button>
 										<form method="post" action="{{ route('admin.materiales.delete', [$material->slug]) }}">
 											@method('DELETE') @csrf
-											<a href="{{ route('admin.materiales.edit',[$material->slug]) }}" class="btn btn-sm btn-comita text-white">
-												Editar
-											</a>
 											<button class="btn btn-sm  btn-outline-comita" type="submit">
 												Dar Baja
 											</button>
@@ -87,4 +88,16 @@
     });
 </script>
 @endunless
+<script>
+$('#editMate').on('show.bs.modal', function (event) {
+	  var button = $(event.relatedTarget)
+	  var ma_id = button.data('mateid')
+	  var nombre = button.data('myname')
+	  var descripcion = button.data('mydescrip')
+	  var modal = $(this)
+	  modal.find('.modal-body #material_id').val(ma_id);
+	  modal.find('.modal-body #nombre').val(nombre);
+	  modal.find('.modal-body #descripcion').val(descripcion);
+})
+</script>
 @endpush

@@ -68,8 +68,7 @@ class TallaController extends Controller
      */
     public function edit($slug)
     {
-        $talla = Talla::where('slug',$slug)->first();
-        return view('admin.tallas.edit', compact('talla'));
+
     }
 
     /**
@@ -79,10 +78,10 @@ class TallaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $slug)
+    public function update(Request $request)
     {
 
-        $talla = Talla::where('slug',$slug)->first();
+        $talla = Talla::findOrFail($request->talla_id);
         $talla->nombre = $request['nombre'];
         $talla->descripcion = $request['descripcion'];
         $talla->save();

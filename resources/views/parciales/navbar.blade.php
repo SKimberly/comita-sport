@@ -35,7 +35,7 @@
     <ul class="navbar-nav ml-auto">
         <li class="nav-item ">
           <a class="nav-link"  href="">
-            <img src="{{ asset('img/cart.svg') }}" alt="pedidos" width="35" class="nav-icon">
+            <img src="{{ asset('img/shoppingcard.svg') }}" alt="pedidos" width="35" class="nav-icon">
           </a>
         </li>
       <!-- Messages Dropdown Menu -->

@@ -20,6 +20,7 @@
 @endsection
 @section('contenido')
 @include('admin.tallas.create')
+@include('admin.tallas.edit')
 <section class="content">
 	<div class="container-fluid">
 		<div class="card card-info">
@@ -50,13 +51,13 @@
 									<td class="text-center">{{ $talla->created_at->format('M d') }}</td>
 									<td class="text-center">{{ $talla->estado ? 'Activo' : 'Baja' }}</td>
 									<td class="text-center">
+										<button type="button" class="btn btn-sm btn-comita text-white" data-tallaid="{{ $talla->id }}" data-myname="{{ $talla->nombre }}" data-mydescrip="{{ $talla->descripcion }}" data-toggle="modal" data-target="#editTalla">
+										   <i class="fas fa-sort-numeric-up"></i> Editar
+										</button>
 										<form method="post" action="{{ route('admin.tallas.delete', [$talla->slug]) }}">
 											@method('DELETE') @csrf
-											<a href="{{ route('admin.tallas.edit',[$talla->slug]) }}" class="btn btn-sm btn-comita text-white">
-												Editar
-											</a>
 											<button class="btn btn-sm  btn-outline-comita" type="submit">
-												Dar de baja
+												Dar Baja
 											</button>
 										</form>
 									</td>
@@ -87,4 +88,16 @@
     });
 </script>
 @endunless
+<script>
+$('#editTalla').on('show.bs.modal', function (event) {
+	  var button = $(event.relatedTarget)
+	  var ta_id = button.data('tallaid')
+	  var nombre = button.data('myname')
+	  var descripcion = button.data('mydescrip')
+	  var modal = $(this)
+	  modal.find('.modal-body #talla_id').val(ta_id);
+	  modal.find('.modal-body #nombre').val(nombre);
+	  modal.find('.modal-body #descripcion').val(descripcion);
+})
+</script>
 @endpush
