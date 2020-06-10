@@ -1,11 +1,13 @@
 @extends('layouts.master')
+
 @section('titulo','Crear-Producto')
+
 @section('cabecera')
 <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark"><strong>Nuevo Producto</strong></h1>
+          <h1 class="m-0 text-dark"><strong>Producto: {{ $producto->codigo }}</strong></h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -18,9 +20,27 @@
     </div><!-- /.container-fluid -->
   </div>
 @endsection
+
 @section('contenido')
 <section class="content">
     <div class="container-fluid">
+    	<div class="row justify-content-center">
+    		<div class="text-center col-md-10">
+		    	@if($fotos->count())
+				<div class="row row-cols-1 row-cols-md-3 p-2">
+					@foreach($fotos as $foto)
+					  <div class="btn-comita text-center p-2">
+					  	<form method="POST" action="{{ route('producto.foto.delete',$foto->id) }}" class="">
+					  		@csrf @method('DELETE')
+					  		<button class="btn btn-danger btn-xs" style="position:absolute" type="submit"><i class="fas fa-times-circle"></i></button>
+					      	<img src="{{ url($foto->imagen) }}" class="img-tam-edit" alt="...">
+					    </form>
+					  </div>
+					@endforeach
+				</div>
+				@endif
+			</div>
+		</div>
 		<form method="POST" action="{{ route('admin.productos.update',[$producto->slug]) }}" class="was-validated">
 			@csrf @method('PUT')
 	        <div class="card card-info">
@@ -47,10 +67,10 @@
 									<select class="form-control select2 {{ $errors->has('categoria') ? ' is-invalid' : 'border-1' }}" name="categoria">
 				                    	<option value="">Seleccione una opcion</option>
 				                    	@foreach($categorias as $categoria)
-											<option value="{{ $categoria->id }}"
-											{{ old('categoria') == $categoria->id ? 'selected' : '' }}
-											>{{ $categoria->nombre }}</option>
-				                    	@endforeach
+			                                <option value="{{ $categoria->id }}"
+			                                   {{ old('categoria',$producto->categoria_id) == $categoria->id ? 'selected' : '' }}
+			                                 >{{ $categoria->nombre }}</option>
+			                            @endforeach
 				                  	</select>
 				                  	@if ($errors->has('categoria'))
 						                <span class="invalid-feedback" role="alert">
@@ -66,7 +86,7 @@
 							<div class="form-group row">
 						        <label for="descripcion" class="col-sm-4 col-form-label text-md-right"><strong></strong>{{ __('Descripción:') }}</strong></label>
 						        <div class="col-sm-8">
-									<textarea class="form-control {{ $errors->has('descripcion') ? ' is-invalid' : 'border-1' }}" rows="2" name="descripcion" id="descripcion"  placeholder="Ingrese la descripción del producto" >{{ old('descripcion') }}</textarea>
+									<textarea class="form-control {{ $errors->has('descripcion') ? ' is-invalid' : 'border-1' }}" rows="2" name="descripcion" id="descripcion"  placeholder="Ingrese la descripción del producto" >{{ old('descripcion',$producto->descripcion) }}</textarea>
 				                    @if ($errors->has('descripcion'))
 						                <span class="invalid-feedback" role="alert">
 						                    <strong>{{ $errors->first('descripcion') }}</strong>
@@ -79,10 +99,10 @@
 			                <div class="form-group row">
 						        <label for="tallas" class="col-sm-4 col-form-label text-md-right"><strong></strong>{{ __('Tallas:') }}</strong></label>
 						        <div class="col-sm-8">
-									<select class="form-control select2 {{ $errors->has('tallas') ? ' is-invalid' : 'border-1' }}" name="tallas[]" multiple="multiple" style="width: 100%;"   data-placeholder="Seleccione las tallas" style="width: 178px;">
+									<select class="form-control select2 {{ $errors->has('tallas') ? ' is-invalid' : 'border-1' }}" name="tallas[]" multiple="multiple" data-placeholder="Seleccione las tallas" >
 										@foreach($tallas as $talla)
-											<option {{ collect(old('tallas'))->contains($talla->id) ? 'selected' : '' }} value="{{ $talla->id }}">{{ $talla->nombre }}</option>
-										@endforeach
+				                          <option {{ collect(old('tallas', $producto->tallas->pluck('id')))->contains($talla->id) ? 'selected' : '' }} value="{{ $talla->id }}">{{ $talla->nombre }}</option>
+				                        @endforeach
 					                </select>
 					                @if ($errors->has('tallas'))
 						                <span class="invalid-feedback" role="alert">
@@ -99,7 +119,7 @@
 						        <label for="precio" class="col-sm-4 col-form-label text-md-right"><strong></strong>{{ __('Precio unitario:') }}</strong></label>
 						        <div class="col-sm-8">
 						        	<div class="input-group">
-					                <input type="number" name="precio" step="0.01" class="form-control {{ $errors->has('precio') ? ' is-invalid' : 'border-1' }}" value="{{ old('precio') }}" required>
+					                <input type="number" name="precio" step="0.01" class="form-control {{ $errors->has('precio') ? ' is-invalid' : 'border-1' }}" value="{{ old('precio', $producto->precio) }}" required>
 					                <div class="input-group-prepend">
 					                    <span class="input-group-text">Bs.</span>
 					                </div>
@@ -119,7 +139,7 @@
 						            	<div class="input-group-prepend">
 						                    <span class="input-group-text">Stock:</span>
 						                </div>
-					                	<input type="number" name="stock" class="form-control {{ $errors->has('stock') ? ' is-invalid' : 'border-1' }}" value="{{ old('stock') }}" required>
+					                	<input type="number" name="stock" class="form-control {{ $errors->has('stock') ? ' is-invalid' : 'border-1' }}" value="{{ old('stock', $producto->stock) }}" required>
 					                	<div class="input-group-append">
 					                    	<span class="input-group-text"> Cantidad</span>
 					                	</div>
@@ -136,7 +156,7 @@
 			        <div class="row pt-4 bg-light justify-content-center">
 		                <div class="col-md-10">
 		                    <div class="form-group row">
-						        <label for="fotos" class="col-sm-2 col-form-label text-md-right"><strong></strong>{{ __('Fotos:') }}</strong></label>
+						        <label for="fotos" class="col-sm-2 col-form-label text-md-right"><strong>{{ __('Fotos:') }}</strong></label>
 						        <div class="col-sm-10">
 									<div class="dropzone "></div>
 						        </div>
@@ -150,14 +170,14 @@
 				    <div class="btn-comita text-white text-center" id="headingThree">
 				      <h5 class="mb-0">
 				        <a class="btn text-white collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-				          ¿Desea añadir algún descuento?
+				          ¿Desea añadir algún descuento u oferta?
 				        </a>
 				      </h5>
 				    </div>
-		    		<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+		    		<div id="collapseThree" class="collapse {{ ($producto->descuento || $producto->oferta) != '' ? 'show' : '' }}" aria-labelledby="headingThree" data-parent="#accordion">
 		      			<div class="card-body">
 		          			<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-4">
 									<div class="form-group row">
 							            <label for="descuento" class="col-sm-4 col-form-label text-md-right"><strong></strong>{{ __('Descuento:') }}</strong></label>
 							            <div class="col-sm-8">
@@ -170,12 +190,12 @@
 							            </div>
 							        </div>
 					            </div>
-					            <div class="col-md-6">
+					            <div class="col-md-4">
 									<div class="input-group">
 						            	<div class="input-group-prepend">
 						                    <span class="input-group-text">Cantidad:</span>
 						                </div>
-					                	<input type="number" name="cant_descuento" class="form-control {{ $errors->has('cant_descuento') ? ' is-invalid' : 'border-1' }}" value="{{ old('cant_descuento') }}" >
+					                	<input type="number" name="cant_descuento" class="form-control {{ $errors->has('cant_descuento') ? ' is-invalid' : 'border-1' }}" value="{{ old('cant_descuento',$producto->cant_descuento) }}" >
 					                	<div class="input-group-append">
 					                    	<span class="input-group-text"> Descuento</span>
 					                	</div>
@@ -186,27 +206,12 @@
 							            @endif
 					            	</div>
 								</div>
-							</div>
-		      			</div>
-		    		</div>
-		  		</div>
-		  		<div class="card">
-				    <div class="btn-comita text-white text-center" id="headingTwo">
-				        <h5 class="mb-0">
-					        <a class="btn text-white collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-					          ¿Desea añadir algúna oferta?
-					        </a>
-				        </h5>
-					</div>
-				    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-						<div class="card-body">
-							<div class="row">
 								<div class="col-md-4">
 					        		<div class="form-group row">
-								        <label for="descripcion" class="col-sm-4 col-form-label text-md-right"><strong></strong>{{ __('Oferta:') }}</strong></label>
-								        <div class="col-sm-8">
-											<input name="oferta" type="checkbox" data-toggle="switch"  data-on-text="SI" data-off-color="danger" data-off-text="NO" data-handle-width="100" value="{{ old('oferta') }}">
-											@if ($errors->has('oferta'))
+								        <label for="oferta" class="col-sm-3 col-form-label text-md-right"><strong></strong>{{ __('Oferta:') }}</strong></label>
+								        <div class="col-sm-9">
+											<textarea class="form-control {{ $errors->has('oferta') ? ' is-invalid' : 'border-1' }}" rows="2" name="oferta" id="oferta"  placeholder="Ingrese la descripción de la oferta" >{{ old('oferta',$producto->oferta) }}</textarea>
+						                    @if ($errors->has('oferta'))
 								                <span class="invalid-feedback" role="alert">
 								                    <strong>{{ $errors->first('oferta') }}</strong>
 								                </span>
@@ -214,23 +219,10 @@
 								        </div>
 								    </div>
 					        	</div>
-					        	<div class="col-md-8">
-					        		<div class="form-group row">
-								        <label for="des_oferta" class="col-sm-4 col-form-label text-md-right"><strong></strong>{{ __('Descripción de la oferta:') }}</strong></label>
-								        <div class="col-sm-8">
-											<textarea class="form-control {{ $errors->has('des_oferta') ? ' is-invalid' : 'border-1' }}" rows="2" name="des_oferta" id="des_oferta"  placeholder="Ingrese la descripción de la oferta" >{{ old('des_oferta') }}</textarea>
-						                    @if ($errors->has('des_oferta'))
-								                <span class="invalid-feedback" role="alert">
-								                    <strong>{{ $errors->first('des_oferta') }}</strong>
-								                </span>
-								            @endif
-								        </div>
-								    </div>
-					        	</div>
 							</div>
-						</div>
-					</div>
-			    </div>
+		      			</div>
+		    		</div>
+		  		</div>
 		  	</div>
 		  	<div class="row  justify-content-center">
 	        	<button class="btn btn-outline-comita " type="submit" >
@@ -241,6 +233,7 @@
 	</div>
 </section>
 @endsection
+
 @push('scripts')
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
 <script type="text/javascript">
@@ -249,18 +242,21 @@
     $('.select2').select2({
       theme: "classic",
     })
+
     $('#descuento').ionRangeSlider({
-      min     : -0,
-      max     : 50,
-      from    : 0,
-      type    : 'single',
-      step    : 1,
-      postfix : '%',
-      prettify: false,
-      hasGrid : true
+    	skin: "big",
+        min: 0,
+        max: 50,
+        from: '{{ $producto->descuento }}',
+ 		postfix : '%',
+	    step    : 1,
+	    prettify: false,
+	    hasGrid : true,
     })
-    $("[name='oferta']").bootstrapSwitch();
+
+
   })
+
  var myDropzone = new Dropzone('.dropzone', {
 		url: '/admin/productos/{{ $producto->id }}/fotos',
 		paramName: 'foto',
@@ -271,12 +267,14 @@
 			'x-CSRF-TOKEN': '{{ csrf_token() }}'
 		},
 		dictDefaultMessage: 'Arrastra las fotos aquí para enviarlas',
-		dictMaxFilesExceeded: 'Solo se permiten subir 3 imágenes.'
+		dictMaxFilesExceeded: 'Solo se permiten subir 4 imágenes.'
 	});
 	myDropzone.on('error', function(file, res){
 		var msj = res.errors.foto[0];
 		$('.dz-error-message:last > span').text(msj);
 	});
 	Dropzone.autoDiscover = false;
+
+
 </script>
 @endpush

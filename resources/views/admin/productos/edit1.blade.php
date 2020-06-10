@@ -58,16 +58,18 @@
                                 </td>
                                 {{--<td>{{ $producto->created_at->format('d M h:m') }}</td>--}}
                                 <td class="text-center">
-                                  <a href="{{ route('admin.productos.edit', [$producto->slug]) }}" class="btn btn-sm btn-block btn-comita text-white">
+                                  <form method="post" action=" ">
+                                      @method('DELETE') @csrf
+                                      <a href=" " class="btn btn-sm btn-block colorcard">
+                                        <i class="fa fa-eye"></i> Ver Fotos
+                                      </a>
+                                        <a href="{{ route('admin.productos.edit', [$producto->slug]) }}" class="btn btn-sm btn-block btn-comita text-white">
                                           Editar
                                         </a>
-                                  <form method="post" action="{{ route('admin.productos.baja', $producto->id) }}">
-                                   @method('DELETE') @csrf
-                                   <button class="btn btn-sm  btn-outline-comita" type="submit">
-                                      Dar Baja
-                                   </button>
+                                        <button class="btn btn-sm btn-block btn-danger" type="submit">
+                                          Eliminar
+                                        </button>
                                   </form>
-
                                 </td>
                             </tr>
                          @endforeach

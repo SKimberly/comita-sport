@@ -63,5 +63,7 @@ function(){
     Route::get('productos/{slug}/edit','ProductoController@edit')->name('admin.productos.edit');
     Route::put('productos/{slug}','ProductoController@update')->name('admin.productos.update');
     Route::post('productos/{id}/fotos','ProductoController@storefotos');
+    Route::post('productos/foto{id}/eliminar','ProductoController@deletefotos')->name('producto.foto.');
+    Route::delete('productos/{id}/baja','ProductoController@destroy')->name('admin.productos.baja');
     }
 );

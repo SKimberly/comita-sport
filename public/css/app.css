@@ -35139,6 +35139,11 @@ readers do not read off random characters that represent icons */
   height: 100px !important;
 }
 
+.img-tam-edit {
+  width: 70% !important;
+  height: 135px !important;
+}
+
 .select2-search__field {
   width: 130px !important;
 }
