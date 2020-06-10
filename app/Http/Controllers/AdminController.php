@@ -11,7 +11,7 @@ class AdminController extends Controller
     }
     public function index(){
     	$categorias = Categoria::orderBy('id','DESC')->get();
-        $productos = Producto::orderBy('id','DESC')->get();
+        $productos = Producto::where('estado', true)->orderBy('id','DESC')->get();
         return view('home', compact('categorias', 'productos'));
     }
 

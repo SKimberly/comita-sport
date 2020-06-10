@@ -1,7 +1,5 @@
 @extends('layouts.master')
-
 @section('titulo','Editar Categoria')
-
 @section('cabecera')
 <div class="content-header">
 	<div class="container-fluid">
@@ -20,16 +18,15 @@
 	</div>
 </div>
 @endsection
-
 @section('contenido')
 <section class="content">
 	<div class="container-fluid">
 		<div class="col-12 col-sm-10 col-lg-6 mx-auto">
-		<div class="card btn-comita ">
+		<div class="card btn-comita">
 			<div class="card-header" >
 			</div>
 			<div class="card-body">
-				<form method="POST" action="{{ route('admin.categorias.update', [$categoria->slug]) }}" class="bg-white shadow rounded py-3 px-4 was-validated" enctype="multipart/form-data" >
+				<form method="POST" action="{{ route('admin.categorias.update', [$categoria->slug] ) }}" class="bg-white shadow rounded py-3 px-4 was-validated" enctype="multipart/form-data" >
 					@method('PUT') @csrf
 		                <div class="form-group">
 			                <label for="nombre">Nombre:</label>
@@ -55,7 +52,7 @@
 		                    @endif
 		                </div>
 		                <div class="form-group text-center">
-		                	<img src="{{ $categoria->urlcate }}" class="img-fluid" style="width: 30%;" alt="Categoria Foto">
+		                	<img src="{{ $categoria->urlcate }}" class="img-fluid" style="width: 30%;"  alt="Categoria Foto">
 		                </div>
 						<div class="form-group">
 							<label class="form-control-file" for="imagen" > Seleccione una imagen  </label>
@@ -65,7 +62,7 @@
 		                <button class="btn btn-block btn-comita text-white" type="submit" >
 	                      ACTUALIZAR
 	                    </button>
-	                    <a href="{{ route('admin.categorias') }}" class="btn btn-block btn-outline-comita" >
+	                    <a href="{{ route('admin.categorias') }}" class="btn btn-block btn-outline-comita " >
 	                      CANCELAR
 	                    </a>
 				</form>
@@ -75,4 +72,3 @@
 	</div>
 </section>
 @endsection
-

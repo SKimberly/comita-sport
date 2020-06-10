@@ -1,7 +1,5 @@
 @extends('layouts.master')
-
 @section('titulo','Listar Categorias')
-
 @section('cabecera')
 <div class="content-header">
 	<div class="container-fluid">
@@ -20,15 +18,14 @@
 	</div>
 </div>
 @endsection
-@include('admin.categorias.create')
 @section('contenido')
-
+@include('admin.categorias.create')
 <section class="content">
 	<div class="container-fluid">
 		<div class="card card-info">
 			<div class="card-header" >
 				<button type="button" class="btn btn-comita text-white" data-toggle="modal" data-target="#modalCategoria">
-				   <i class="fas fa-sitemap "></i> Crear Categoria
+				   <i class="fas fa-sitemap"></i> Crear Categoria
 				</button>
 			</div>
 			<div class="card-body">
@@ -53,16 +50,15 @@
 									<td class="text-center">
 										<img src="{{ asset($categoria->urlcate) }}" class="img-tam" alt="Categoria Foto">
 									</td>
-									<td>{{ $categoria->estado ? 'Activo' : 'Baja'}}</td>
-
+									<td>{{ $categoria->estado ? 'Activo' : 'Baja' }}</td>
 									<td>
-										<a href="{{ route('admin.categorias.edit',$categoria->slug) }}" class="btn btn-sm btn-block btn-comita text-white">
+										<a href="{{ route('admin.categorias.edit',[$categoria->slug]) }}" class="btn btn-sm btn-block btn-comita text-white">
 											Editar
 										</a>
 										<form method="post" action="{{ route('admin.categorias.delete', [$categoria->slug]) }}">
 											@method('DELETE') @csrf
 											<button class="btn btn-sm btn-block btn-outline-comita" type="submit">
-												Eliminar
+												Dar de Baja
 											</button>
 										</form>
 									</td>
@@ -76,14 +72,7 @@
 	</div>
 </section>
 @endsection
-
-@push('styles')
-
-@endpush
-
 @push('scripts')
-
-
 @unless(request()->is('admin/categorias/*'))
 <script>
     if(window.location.hash === '#create')
@@ -98,7 +87,6 @@
        $('#fullname').focus();
        window.location.hash = '#create';
     });
-
 </script>
 @endunless
 @endpush
