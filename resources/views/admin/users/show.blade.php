@@ -109,7 +109,7 @@
 		                    </button>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		                    <a href="{{ route('admin') }}" class="btn   btn-outline-comita" >
-		                      CANCELAR
+		                      VOLVER
 		                    </a>
 			                </div>
 					</form>

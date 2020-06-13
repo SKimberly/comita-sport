@@ -6,6 +6,7 @@ use App\Http\Requests\UserCrearRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -56,7 +57,8 @@ class UserController extends Controller
         }
 
         $user->save();
-        return back()->with('success','Actualizaste tu perfil.');
+        Alert::success('¡Excelente!', 'Actualizaste tu perfil');
+        return back();
 
     }
 

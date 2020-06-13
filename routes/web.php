@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function(){
     return view('welcome');
 });
 
-Route::get('/', 'WellcomeController@index');
+//Route::get('/', 'WellcomeController@index');
 
 Auth::routes();
 Route::get('categorias/{categoria}/productos','WellcomeController@show')->name('categoria.productos');
@@ -57,6 +57,7 @@ function(){
     Route::get('materiales/{slug}/edit', 'MaterialController@edit')->name('admin.materiales.edit');
     Route::put('materiales/{slug}', 'MaterialController@update')->name('admin.materiales.update');
     Route::delete('materiales/{slug}/baja', 'MaterialController@destroy')->name('admin.materiales.delete');
+
     //Rutas para los productos
     Route::get('productos','ProductoController@index')->name('admin.productos.index');
     Route::post('productos','ProductoController@store')->name('admin.productos.store');
@@ -64,6 +65,7 @@ function(){
     Route::put('productos/{slug}','ProductoController@update')->name('admin.productos.update');
     Route::post('productos/{id}/fotos','ProductoController@storefotos');
     Route::post('productos/foto{id}/eliminar','ProductoController@deletefotos')->name('producto.foto.delete');
-    Route::delete('productos/{id}/baja','ProductoController@destroy')->name('admin.productos.baja');
+    Route::delete('producto/{id}/baja','ProductoController@destroy')->name('admin.productos.baja');
+    Route::get('producto/{slug}/detalle','ProductoController@prodetalle')->name('admin.producto.detalles');
     }
 );

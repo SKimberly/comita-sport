@@ -15,6 +15,7 @@ try {
     require('select2');
     require('ion-rangeslider');
     require('bootstrap-switch');
+    require('sweetalert2');
 } catch (e) {}
 
 /**

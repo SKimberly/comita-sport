@@ -1,5 +1,7 @@
 @extends('layouts.master')
+
 @section('titulo','Listar Productos')
+
 @section('cabecera')
 <div class="content-header">
     <div class="container-fluid">
@@ -17,6 +19,7 @@
     </div><!-- /.container-fluid -->
 </div>
 @endsection
+
 @section('contenido')
 @include('admin.productos.create')
 <section class="content">
@@ -58,16 +61,11 @@
                                 </td>
                                 {{--<td>{{ $producto->created_at->format('d M h:m') }}</td>--}}
                                 <td class="text-center">
-                                  <a href="{{ route('admin.productos.edit', [$producto->slug]) }}" class="btn btn-sm btn-block btn-comita text-white">
+                                    <a href="{{ route('admin.productos.edit', [$producto->slug]) }}" class="btn btn-sm btn-block btn-comita text-white">
                                           Editar
-                                        </a>
-                                  <form method="post" action="{{ route('admin.productos.baja', $producto->id) }}">
-                                   @method('DELETE') @csrf
-                                   <button class="btn btn-sm  btn-outline-comita" type="submit">
-                                      Dar Baja
-                                   </button>
-                                  </form>
+                                    </a>
 
+                                     <button class="btn btn-sm  btn-outline-comita btn-block" onclick="deleteConfirmation('{{$producto->id}}')">Dar Baja</button>
                                 </td>
                             </tr>
                          @endforeach
@@ -79,3 +77,47 @@
     </div>
 </section>
 @endsection
+
+
+@push('scripts')
+<script type="text/javascript">
+    function deleteConfirmation(id) {
+        swal.fire({
+          title: '¿Estás seguro?',
+          text: "¿Deseas dar de baja este producto?",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#0a2b4e',
+          cancelButtonColor: '#d33',
+          showCancelButton: true,
+          confirmButtonText: 'Si, dar de baja!',
+          cancelButtonText: 'No, todavía'
+        }).then((e) => {
+
+            if (e.value === true) {
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                $.ajax({
+                    type: 'DELETE',
+                    url: "{{ url('/admin/producto') }}/"+id+"/baja",
+                    data: {_token: CSRF_TOKEN },
+                    dataType: 'JSON',
+                    success: function (results) {
+                        setTimeout(function() {
+                             location.reload();
+                        },0);
+                        swal.fire("Excelente!", results.success, "success");
+                    }
+                });
+
+            } else {
+                e.dismiss;
+            }
+
+        }, function (dismiss) {
+            return false;
+        })
+    }
+</script>
+@endpush
+
+

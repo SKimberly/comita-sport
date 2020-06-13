@@ -13,10 +13,6 @@
 @import '@fortawesome/fontawesome-free/scss/solid.scss';
 @import '@fortawesome/fontawesome-free/scss/brands.scss';
 
-@import "~animate.css/animate.css";
-
-@import '~owl.carousel/dist/assets/owl.carousel.css';
-
 @import '~select2/dist/css/select2.min.css';
 @import '~select2/src/scss/_multiple.scss';
 @import '~select2/src/scss/core.scss';
@@ -25,6 +21,12 @@
 @import '~ion-rangeslider/css/ion.rangeSlider.css';
 @import '~bootstrap-switch/src/sass/bootstrap4/bootstrap-switch.scss';
 @import '~dropzone/dist/dropzone.css';
+
+@import "~animate.css/animate.css";
+
+@import '~sweetalert2/src/sweetalert2.scss';
+
+
 /* NUESTROS STYLOS opcionales*/
 .btn-comita {
     background-color:#0a2b4e;
@@ -564,7 +566,11 @@ footer{
         overflow: hidden;
     }
 }
-//Aqui va los estilos de las tarjetas
+
+
+
+/*AQUI VAN LOS ESTILOS DE LAS TARJETAS*/
+
 
 /**** CODIGO PARA LAS TALLAS ****/
 .tallas-css {
@@ -573,16 +579,19 @@ footer{
 .checkbox-btn {
      position: relative
  }
+
  .checkbox-btn input {
      position: absolute;
      z-index: -1;
      opacity: 0
  }
+
  .checkbox-btn input:checked~.btn {
      border-color: #2193b0;
      background-color: #12d8fa;
      color: #fff
  }
+
  .btn-light-checkbox{
      display: inline-block;
      font-weight: 600;
@@ -600,13 +609,18 @@ footer{
      line-height: 1.5;
      border-radius: 0.37rem
  }
+
+
 /* CODIGO PARA LAS IMAGENES */
+
 .product-image--list {
   display: flex;
   justify-content: space-between;
   list-style-type: none;
   padding: 0;
+
 }
+
 .product-image--list li {
   margin: 0 5px;
   border: 2px solid #eaeaea;
@@ -614,23 +628,29 @@ footer{
   -webkit-transition: all ease 0.25s;
   transition: all ease 0.25s;
 }
+
 .product-image--list li.item-selected {
   box-shadow: 1px 1px 1px #888888;
   border: 2px solid #12d8fa;
   -webkit-transition: all ease 0.25s;
   transition: all ease 0.25s;
 }
+
 .product-image--item {
   max-width: 40px;
   max-height: 40px;
 }
+
 /*** COODIGO PARA LA CINTA DE DESCUENTO ***/
+
+
 .ribbon {
     width: 150px;
     height: 150px;
     overflow: hidden;
     position: absolute
 }
+
 .ribbon::before,
 .ribbon::after {
     position: absolute;
@@ -639,6 +659,7 @@ footer{
     display: block;
     border: 5px solid #2980b9
 }
+
 .ribbon span {
     position: absolute;
     display: block;
@@ -652,32 +673,39 @@ footer{
     text-transform: uppercase;
     text-align: center
 }
+
 .ribbon-top-right {
     top: -10px;
     right: -10px
 }
+
 .ribbon-top-right::before,
 .ribbon-top-right::after {
     border-top-color: transparent;
     border-right-color: transparent
 }
+
 .ribbon-top-right::before {
     top: 0;
     left: 17px
 }
+
 .ribbon-top-right::after {
     bottom: 17px;
     right: 0
 }
+
 .ribbon-top-right span {
     left: -25px;
     top: 30px;
     transform: rotate(45deg)
 }
+
 /**** CODIGO PARA EL CARD ****/
 .mt-50 {
     margin-top: 50px
 }
+
 .product-card {
     display: block;
     position: relative;
@@ -686,9 +714,11 @@ footer{
     border-radius: 5px;
     background-color: #fff
 }
+
 .mb-30 {
     margin-bottom: 30px !important
 }
+
 .product-badge {
     position: absolute;
     height: 24px;
@@ -703,44 +733,55 @@ footer{
     top: 12px;
     left: 12px
 }
+
 .bg-secondary {
     background-color: #dc3545 !important
 }
+
 .bg-nuevo {
     background-color: #12d8fa !important
 }
+
+
+
 .product-thumb>img {
     display: block;
     width: 100%;
     height: 300px;
     padding: 14px
 }
+
 .product-category {
     width: 100%;
     margin-bottom: 6px;
     font-size: 12px
 }
+
 .product- {
     padding: 18px;
     padding-top: 15px;
     text-align: center
 }
+
 .product-category>a {
     transition: color .2s;
     color: #999;
     text-decoration: none
 }
+
 .product-title {
     margin-bottom: 18px;
     font-size: 16px;
     font-weight: normal
 }
+
 .product-title>a {
     transition: color .3s;
     color: #232323;
     text-decoration: none;
-    color: #3ba9fc;
+    color: #0a2b4e;
 }
+
 .product-price {
     display: inline-block;
     margin-bottom: 10px;
@@ -752,19 +793,23 @@ footer{
     font-weight: normal;
     text-align: center;
 }
+
 .product-button-group {
     display: table;
     width: 100%;
     border-top: 1px solid #e5e5e5;
     table-layout: fixed;
-    background-color: #bff4fe;
+    background-color: #0a2b4e;
 }
+
 .product-button-group a:hover {
-    color: #3ba9fc
+    color: #FFC300;
 }
+
 .product-button:first-child {
     border-bottom-left-radius: 5px
 }
+
 .product-button {
     display: table-cell;
     position: relative;
@@ -780,12 +825,14 @@ footer{
     text-align: center;
     text-decoration: none
 }
+
 .product-button:hover>span {
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
     transform: translateY(0);
     opacity: 1
 }
+
 .product-button>span {
     display: block;
     position: absolute;
@@ -799,18 +846,123 @@ footer{
     white-space: nowrap;
     opacity: 0
 }
+
 .product-button>i,
 .product-button>span {
     transition: all .3s
 }
+
 .product-button>i {
     display: inline-block;
     position: relative;
     margin-top: 5px;
     font-size: 18px
 }
+
 .product-button:hover>i {
     -webkit-transform: translateY(-10px);
     -ms-transform: translateY(-10px);
     transform: translateY(-10px)
+}
+
+.bbb_deals_title {
+    position: absolute;
+    top: 37px;
+    left: 40px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000
+}
+
+
+
+/*****************************/
+/***     AQUI ESTAN LOS ESTILOS DEL PRODUCTO DETALLE  **/
+
+.photo-container-detalle {
+  position: absolute;
+  left: -2.5em;
+  display: grid;
+  grid-template-rows: 1fr;
+  width: 90%;
+  height: 75%;
+  border-radius: 6px;
+  box-shadow: 4px 4px 25px -2px rgba(0, 0, 0, 0.3);
+}
+//.photo-main {
+.photo-main-detalle {
+  border-radius: 10px 10px 0 0;
+  background-color: #9be010;
+  background: radial-gradient(#00B4DB, #0083B0);
+
+  //.controls {
+  .controls-detalle {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    color: #fff;
+
+    i {
+      cursor: pointer;
+    }
+  }
+
+}
+
+.title_prodetalle {
+  h1 {
+    margin-bottom: 0.1em;
+    color: #4c4c4c;
+    font-size: 1.5em;
+    font-weight: 900;
+  }
+
+  span {
+    font-size: 0.7em;
+    color: #a6a6a6;
+  }
+}
+
+.description_prodetalles {
+  margin: 0.5em 0;
+  color: #a6a6a6;
+  h3 {
+    margin-bottom: 1em;
+    font-size: 1em;
+  }
+
+}
+
+
+/*************************************/
+/****** AQUI VA LO RESPONSIVO DEL PRODUCTO DETALLE *******/
+@media screen and (max-width:900px){
+    .photo-container-detalle {
+        position: relative;
+        left: 1em !important;
+    }
+}
+
+@media screen and (max-width:500px){
+
+    .photo-container-detalle {
+        position: relative;
+        left: 1em !important;
+    }
+
+}
+
+
+@media screen and (max-width:767px ){
+    .photo-container-detalle {
+        position: relative;
+        left: 1em !important;
+    }
+}
+
+@media screen and (max-width:575px ){
+    .photo-container-detalle {
+        position: relative;
+        left: 1em !important;
+    }
 }

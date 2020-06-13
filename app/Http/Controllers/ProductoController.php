@@ -118,7 +118,7 @@ class ProductoController extends Controller
          $producto->estado = true;
          $producto->save();
          //La funcion "attach" adjunta un array depalabras en un sola columna
-         $producto->tallas()->attach($request->get('tallas'));
+         $producto->tallas()->sync($request->get('tallas'));
          return redirect('/admin/productos')->with('success', 'Producto creado correctamente!');
     }
     /**
@@ -130,7 +130,7 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         $producto = Producto::where('id',$id)->update(['estado'=>false]);
-        return redirect('admin/productos')->with('success', 'El producto fue dado de Baja');
+        return response()->json(['success'=>'El producto fue dado de baja.']);
     }
     public function deletefotos($id){
         $foto = ProductoFoto::find($id);
@@ -141,5 +141,11 @@ class ProductoController extends Controller
         Storage::delete($rutafoto);
 
         return back()->with('success', "Foto del producto eliminado!");
+    }
+    public function prodetalle($slug)
+    {
+        $producto = Producto::where('slug',$slug)->first();
+        $categoria = Categoria::where('id',$producto->categoria_id)->first();
+        return view('admin.productos.detalle', compact('producto','categoria'));
     }
 }
