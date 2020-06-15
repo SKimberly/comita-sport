@@ -36810,45 +36810,6 @@ footer {
   }
 }
 /*AQUI VAN LOS ESTILOS DE LAS TARJETAS*/
-/**** CODIGO PARA LAS TALLAS ****/
-.tallas-css {
-  text-align: left;
-}
-
-.checkbox-btn {
-  position: relative;
-}
-
-.checkbox-btn input {
-  position: absolute;
-  z-index: -1;
-  opacity: 0;
-}
-
-.checkbox-btn input:checked ~ .btn {
-  border-color: #2193b0;
-  background-color: #12d8fa;
-  color: #fff;
-}
-
-.btn-light-checkbox {
-  display: inline-block;
-  font-weight: 600;
-  color: #343a40;
-  text-align: center;
-  vertical-align: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: #eee;
-  border: 1px solid #eee;
-  padding: 0.2rem 0.65rem;
-  font-size: 8px;
-  line-height: 1.5;
-  border-radius: 0.37rem;
-}
-
 /* CODIGO PARA LAS IMAGENES */
 .product-image--list {
   display: flex;
@@ -36859,20 +36820,35 @@ footer {
 
 .product-image--list li {
   margin: 0 5px;
-  border: 2px solid #eaeaea;
+  border: 2px solid #0a2b4e;
   border-radius: 5px;
   transition: all ease 0.25s;
 }
 
 .product-image--list li.item-selected {
   box-shadow: 1px 1px 1px #888888;
-  border: 2px solid #12d8fa;
+  border: 2px solid cyan;
   transition: all ease 0.25s;
 }
 
 .product-image--item {
   max-width: 40px;
   max-height: 40px;
+}
+
+/* Hasta aqui las imagenes */
+/**** CODIGO PARA EL CARD  DEL HOME****/
+.card-home {
+  display: block;
+  position: relative;
+  width: 100%;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.mb-30 {
+  margin-bottom: 30px !important;
 }
 
 /*** COODIGO PARA LA CINTA DE DESCUENTO ***/
@@ -36899,16 +36875,17 @@ footer {
   padding: 8px 0;
   background-color: #FFC300;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  color: #fff;
+  color: #0a2b4e;
   font: 100 18px/1 "Lato", sans-serif;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   text-transform: uppercase;
   text-align: center;
+  font-size: 18px;
 }
 
 .ribbon-top-right {
-  top: -10px;
-  right: -10px;
+  top: -3px;
+  right: -3px;
 }
 
 .ribbon-top-right::before,
@@ -36933,45 +36910,21 @@ footer {
   transform: rotate(45deg);
 }
 
-/**** CODIGO PARA EL CARD ****/
-.mt-50 {
-  margin-top: 50px;
-}
-
-.product-card {
-  display: block;
-  position: relative;
-  width: 100%;
-  border: 1px solid #e5e5e5;
-  border-radius: 5px;
-  background-color: #fff;
-}
-
-.mb-30 {
-  margin-bottom: 30px !important;
-}
-
-.product-badge {
+/*hasta aqui la cinta de descuento*/
+.car_home_precio {
   position: absolute;
   height: 24px;
   padding: 0 14px;
-  border-radius: 3px;
-  color: #fff !important;
-  font-size: 12px;
+  border-radius: 5px;
+  color: cyan !important;
+  border: 1px solid cyan;
+  font-size: 20px;
   font-weight: 400;
   letter-spacing: 0.025em;
   line-height: 24px;
   white-space: nowrap;
   top: 12px;
   left: 12px;
-}
-
-.bg-secondary {
-  background-color: #dc3545 !important;
-}
-
-.bg-nuevo {
-  background-color: #12d8fa !important;
 }
 
 .product-thumb > img {
@@ -36981,59 +36934,89 @@ footer {
   padding: 14px;
 }
 
-.product-category {
-  width: 100%;
-  margin-bottom: 6px;
-  font-size: 12px;
-}
-
-.product- {
-  padding: 18px;
-  padding-top: 15px;
+.product_card_home {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 18px;
+  padding-right: 18px;
   text-align: center;
 }
 
-.product-category > a {
+.product-nombre {
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.product-nombre > a {
   transition: color 0.2s;
+  color: #0a2b4e;
+  text-decoration: none;
+}
+
+.product-description {
+  margin-bottom: 18px;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.product-description > a {
+  transition: color 0.3s;
   color: #999;
   text-decoration: none;
 }
 
-.product-title {
-  margin-bottom: 18px;
-  font-size: 16px;
-  font-weight: normal;
-}
-
-.product-title > a {
-  transition: color 0.3s;
-  color: #232323;
-  text-decoration: none;
+/**** CODIGO PARA LAS TALLAS ****/
+.product-talla {
+  text-align: left;
   color: #0a2b4e;
 }
 
-.product-price {
-  display: inline-block;
-  margin-bottom: 10px;
-  padding: 3px 3px;
-  border-radius: 4px;
-  background-color: #12d8fa;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: normal;
-  text-align: center;
+.checkbox-btn {
+  position: relative;
 }
 
+.checkbox-btn input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.checkbox-btn input:checked ~ .btn {
+  border-color: #2193b0;
+  background-color: #0a2b4e;
+  color: cyan;
+}
+
+.btn-light-checkbox {
+  display: inline-block;
+  font-weight: 600;
+  color: #0a2b4e;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: #eee;
+  border: 1px solid #0a2b4e;
+  padding: 0.2rem 0.65rem;
+  font-size: 8px;
+  line-height: 1.5;
+  border-radius: 0.37rem;
+}
+
+/*Hasta aqui tallas*/
+/* Aqui estan los estilos del footer de los card home */
 .product-button-group {
   display: table;
   width: 100%;
-  border-top: 1px solid #e5e5e5;
+  border-radius: 5px;
   table-layout: fixed;
   background-color: #0a2b4e;
 }
 
 .product-button-group a:hover {
-  color: #FFC300;
+  color: cyan;
 }
 
 .product-button:first-child {
@@ -37078,6 +37061,11 @@ footer {
   transition: all 0.3s;
 }
 
+.product-button > input,
+.product-button > span {
+  transition: all 0.3s;
+}
+
 .product-button > i {
   display: inline-block;
   position: relative;
@@ -37089,23 +37077,26 @@ footer {
   transform: translateY(-10px);
 }
 
-.bbb_deals_title {
-  position: absolute;
-  top: 37px;
-  left: 40px;
-  font-size: 18px;
-  font-weight: 500;
-  color: #000000;
+.product-button > input {
+  display: inline-block;
+  position: relative;
+  margin-top: 5px;
 }
 
+.product-button:hover > input {
+  transform: translateY(-10px);
+}
+
+/*hast aqui los estilos de footer card home*/
 /*****************************/
 /***     AQUI ESTAN LOS ESTILOS DEL PRODUCTO DETALLE  **/
+/*lado izquierdo */
 .photo-container-detalle {
   position: absolute;
   left: -2.5em;
   display: grid;
   grid-template-rows: 1fr;
-  width: 90%;
+  width: 85%;
   height: 75%;
   border-radius: 6px;
   box-shadow: 4px 4px 25px -2px rgba(0, 0, 0, 0.3);
@@ -37126,26 +37117,131 @@ footer {
   cursor: pointer;
 }
 
+/*Hasta aqui lado izquierdo*/
+/*STYLES PARA LA PARTE DERECHA DE DETALLE*/
 .title_prodetalle h1 {
-  margin-bottom: 0.1em;
-  color: #4c4c4c;
-  font-size: 1.5em;
-  font-weight: 900;
+  margin-bottom: 0em;
+  color: #0a2b4e;
+  font-size: 2em;
+  font-weight: 1000;
 }
 .title_prodetalle span {
-  font-size: 0.7em;
-  color: #a6a6a6;
+  font-size: 0.9em;
 }
 
-.description_prodetalles {
-  margin: 0.5em 0;
-  color: #a6a6a6;
+.precio_prodetalle h2 {
+  margin-bottom: -0.2em;
+  color: cyan;
+  font-size: 4em;
+  font-weight: 900;
+  -webkit-text-stroke: 1px #0a2b4e;
 }
-.description_prodetalles h3 {
-  margin-bottom: 1em;
+.precio_prodetalle span {
+  font-size: 0.9em;
+}
+
+.subti_prodetalle h3 {
+  padding-top: 10px;
+  color: #0a2b4e;
   font-size: 1em;
+  font-weight: 800;
 }
 
+/*hasta aqui los de la derecha detalle*/
+/*prueba button*/
+.number-input {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.number-input.number-input {
+  background-color: cyan;
+  border-radius: 0.25rem;
+}
+
+.number-input button {
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+}
+
+.number-input.number-input input[type=number] {
+  max-width: 2rem;
+  padding: 0.5rem;
+  border: 1px solid cyan;
+  border-width: 0 1px;
+  font-size: 1rem;
+  height: 2rem;
+  color: #495057;
+}
+
+.number-input input[type=number] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.number-input input[type=number]::-webkit-inner-spin-button,
+.number-input input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.number-input input[type=number] {
+  text-align: center;
+}
+
+/*hasta aqui button*/
+/*cinta de security*/
+.cynta_estado {
+  position: absolute;
+  width: 170px;
+  height: 40px;
+  background: #0a2b4e;
+  top: 80px;
+  right: -15px;
+  border-top-right-radius: 5px;
+}
+
+.cynta_estado:before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  right: 0;
+  border-left: 5px solid #14455b;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #14455b;
+  border-bottom: 5px solid transparent;
+}
+
+.cynta_estado:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-left: 25px solid #fff;
+  border-right: 25px solid transparent;
+  border-top: 22px solid transparent;
+  border-bottom: 20px solid transparent;
+  text-align: center;
+}
+
+.cynta_estado span {
+  position: absolute;
+  display: block;
+  width: 180px;
+  padding-top: 7px;
+  font-size: 18px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/*hasta aqui cinta de security*/
 /*************************************/
 /****** AQUI VA LO RESPONSIVO DEL PRODUCTO DETALLE *******/
 @media screen and (max-width: 900px) {
@@ -37172,3 +37268,4 @@ footer {
     left: 1em !important;
   }
 }
+/*Hata aqui lo responsivo de los card detalle*/
