@@ -38,4 +38,8 @@ class Producto extends Model
     public function tallas(){
         return $this->belongsToMany(Talla::class);
     }
+    public function carrito_detalle(){
+        //un producto pertenece a una categoria-->Relacion de muchos a uno
+        return $this->belongsTo(CarritoDetalle::class);
+    }
 }

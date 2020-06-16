@@ -40,8 +40,7 @@
                           <th scope="col">Nombre</th>
                           <th scope="col">Precio</th>
                           <th scope="col">Stock</th>
-                          <th scope="col">Descuento</th>
-                          <th scope="col">Oferta</th>
+                          <th scope="col">Dto./Oferta</th>
                           <th scope="col">Foto</th>
                           <th scope="col">Opciones</th>
                         </tr>
@@ -50,14 +49,34 @@
                          @foreach($productos as $key => $producto)
                             <tr>
                                 <th class="text-center" >{{ ++$key }}</th>
-                                <td>{{ $producto->nombre }}</td>
+                                <td>
+                                  {{ $producto->nombre }} <br/>
+                                   <small class="btn btn-sm bg-secondary "style="border-radius: 20px">{{$producto->categoria->nombre}}
+                                  </small>
+                                </td>
                                 <td class="text-center">{{ $producto->precio }}</td>
                                 <td class="text-center">{{ $producto->stock }}</td>
-                                <td class="text-center">Por cada {{ $producto->cant_descuento }} unidades tienes un descuento del {{ $producto->descuento }} %.</td>
-                                <td class="text-center">{{ $producto->oferta }}</td>
+                                <td class="text-center justify">
+                                  @if($producto->descuento)
+                                  <td class="text-center"><strong>Descuento: </strong>Por cada {{ $producto->cant_descuento }} unidades tienes un descuento del {{ $producto->descuento }} %.
+                                @endif
+                                @if($producto->oferta)
+
+                                <br/> <strong>Oferta: </strong>{{ $producto->oferta }}
+                                @endif
+                              </td>
                                 {{--<td>{{ $producto->categoria->nombre }}</td>--}}
                                 <td class="text-center">
-                                    <img src="{{ asset($producto->detalleimagenurl) }}" class="img-tam" alt="Producto Foto">
+                                  <picture style="position: relative;">
+                                        <div class="car_home_precio">
+                                            @if($producto->estado)
+                                                <span style="color:cyan;"> DISPONIBLE </span>
+                                            @else
+                                                <span style="color:red;"> AGOTADO </span>
+                                            @endif
+                                        </div>
+                                        <img src="{{ asset($producto->detalleimagenurl) }}" class="img-tam"  alt="Producto Foto">
+                                    </picture>
                                 </td>
                                 {{--<td>{{ $producto->created_at->format('d M h:m') }}</td>--}}
                                 <td class="text-center">
@@ -77,7 +96,16 @@
     </div>
 </section>
 @endsection
-
+@push('styles')
+<style>
+.car_home_precio{
+  padding: 0px !important;
+  font-size: 10px !important;
+  top: 0px !important;
+  border: 0px !important;
+  font-weight: bolder !important;
+}
+</style>
 
 @push('scripts')
 <script type="text/javascript">
@@ -118,6 +146,7 @@
         })
     }
 </script>
+
 @endpush
 
 

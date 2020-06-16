@@ -18,7 +18,7 @@ class ProductoController extends Controller
     {
         //dd("estas aqui");
         //Aqui devuelves a un vista
-        $productos = Producto::where('estado', true)->orderBy('id','DESC')->paginate();
+        $productos = Producto::orderBy('id','DESC')->paginate();
         //dd(Producto::paginate(10));
         return view('admin.productos.index', compact('productos'));
     }

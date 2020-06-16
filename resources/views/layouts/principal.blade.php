@@ -1,20 +1,27 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <title>Sport La Comita</title>
         <meta name="description" content="Sistema de información bajo plataforma web para el control de ventas, pedidos y cotizaciones para la fabrica de ropa Sport La Comita de la ciudad de Potosí">
         <meta name="author" content="Ing. Jorge Peralta">
         <meta name="keyword" content="Sistema web Sport La Comita Version 2">
+
         <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <link rel="shortcut icon" href="{{ asset('/img/welcome/sport.png') }}" />
+
         <script src="{{ asset('js/app.js') }}" ></script>
+
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     </head>
     <body>
     <div id="app">
@@ -116,7 +123,7 @@
                             <div class="imagen-port">
                                 <img src="{{ $categoria->urlcate }}" alt="Categoria Foto">
                                 <div class="hover-galeria">
-                                    <a href="{{ route('categoria.productos', $categoria) }}" class="text-center" style="text-decoration: none;">
+                                    <a href="{{ route('categoria.productos', [$categoria->slug]) }}" class="text-center" style="text-decoration: none;">
                                     <img src="{{ asset('/img/icono1.png') }}" alt="">
                                     <p>{{ $categoria->nombre }}</p>
                                     <p class="text-justify" style="padding-left:12px; padding-right: 12px;">{{ $categoria->descripcion }}</p>
@@ -254,8 +261,29 @@
             </div>
             <h2 class="titulo-final">&copy; S. Kimberly Marquina Ch. | UATF Potosí </h2>
         </footer>
+        <!--<div class="flex-center position-ref full-height">
+            @if (Route::has('login'))
+                <div class="top-right links">
+                    @auth
+                        <a href="{{ url('/home') }}">Home</a>
+                    @else
+                        <a href="{{ route('login') }}">Login</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
+
+            <div class="content">
+
+            </div>
+        </div>-->
 
     </div>
     @include('sweetalert::alert')
     </body>
 </html>
+
+

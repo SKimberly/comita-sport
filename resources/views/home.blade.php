@@ -78,7 +78,7 @@
                 </div>
                 <div class="product-button-group">
                     <span class="product-button btn-wishlist input-group-sm" data-abc="true">
-                      <!--<input type="number" class="form-control border-0" min="1" value="1" style="background-color: cyan;">-->
+
                       <div class="number-input">
                           <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" > <i class="fas fa-minus" style="color:#0a2b4e;"></i>
                           </button>

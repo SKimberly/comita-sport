@@ -14,14 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function(){
-    return view('welcome');
-});
 
-//Route::get('/', 'WellcomeController@index');
+Route::get('/', 'WellcomeController@index');
 
 Auth::routes();
-Route::get('categorias/{categoria}/productos','WellcomeController@show')->name('categoria.productos');
+Route::get('categorias/{slug}/productos','WellcomeController@show')->name('categoria.productos');
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::group([
 	'prefix' => 'admin',

@@ -9,3 +9,4 @@ class Material extends Model
 	protected $table = 'materiales';
     protected $fillable = ['id','nombre','slug','descripcion'];
 }
+

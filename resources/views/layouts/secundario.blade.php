@@ -10,6 +10,15 @@
         <script src="{{ asset('js/app.js') }}" ></script>
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <style>
+            .navbar-header{
+                height: 300px !important;
+
+            }
+            .container{
+                max-width: 350px !important;
+            }
+        </style>
     </head>
     <body>
     <div id="app">
@@ -21,7 +30,7 @@
                 <div class="collapse navbar-collapse " id="navbarTogglerDemo01">
                     <div class="logo navbar-brand animate__animated animate__lightSpeedInLeft animate__faster">
                         <a href="/">
-                        <img src="{{ asset('/img/welcome/logo.png') }}" alt="">
+                        <img src="{{ asset('/img/welcome/logo.png') }}" alt="logo" >
                         </a>
                     </div>
                     <ul class="enlaces navbar-nav  ml-auto mt-2 mt-lg-0 animate__animated animate__lightSpeedInRight animate__delay-1s" id="enlaces">
