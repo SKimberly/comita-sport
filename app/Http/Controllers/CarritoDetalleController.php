@@ -15,7 +15,15 @@ class CarritoDetalleController extends Controller
      */
     public function index()
     {
-        //
+        $carrito = auth()->user()->carrito->where('estado', 'Activo')->first();
+        if($carrito){
+            $detalles = CarritoDetalle::where('carrito_id',$carrito->id)->get();
+            //dd($detalles);
+        }else{
+            $detalles = "";
+        }
+        return view('carrito.index',compact('carrito','detalles'));
+
     }
 
     /**
@@ -105,6 +113,7 @@ class CarritoDetalleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        CarritoDetalle::where('id',$id)->delete();
+        return back()->with('success','Producto eliminado de su carrito');
     }
 }

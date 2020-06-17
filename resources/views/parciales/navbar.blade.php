@@ -34,8 +34,14 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item ">
-          <a class="nav-link"  href="">
-            <img src="{{ asset('img/shoppingcard.svg') }}" alt="pedidos" width="35" class="nav-icon">
+          <a class="nav-link"  href="{{ route('carrito.detalle') }}">
+            <img src="{{ asset('img/cart.svg') }}" alt="pedidos" width="35" class="nav-icon">
+
+            @if($nummsj = auth()->user()->carrito->carrito_detalles->count() )
+              <span class="badge badge-warning navbar-badge">
+              {{ $nummsj }}</span>
+            @endif
+
           </a>
         </li>
       <!-- Messages Dropdown Menu -->

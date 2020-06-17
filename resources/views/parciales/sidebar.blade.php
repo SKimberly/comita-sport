@@ -75,10 +75,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="" class="nav-link {{ request()->is('carrito/detalle*') ? 'active' : '' }}">
-              <img src="{{ asset('img/sidebar/carrito.svg') }}" alt="carrito" class="nav-icon">
+            <a href="{{ route('carrito.detalle') }}" class="nav-link {{ request()->is('carrito/detalle*') ? 'active' : '' }}">
+              <img src="{{ asset('img/shoppingcard.svg') }}" alt="carrito" class="nav-icon">
               <p>
                   Carrito
+                  @if($nummsj = auth()->user()->carrito->carrito_detalles->count())
+                      <span class="right badge badge-warning">{{ $nummsj }}</span>
+                  @endif
               </p>
             </a>
           </li>

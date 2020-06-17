@@ -66,6 +66,9 @@ function(){
     Route::get('producto/{slug}/detalle','ProductoController@prodetalle')->name('admin.producto.detalles');
     //*Rutas para insertar productos al carrito*/
     Route::post('producto/{id}/carrito','CarritoDetalleController@show')->name('producto.detalle.carrito');
+    Route::get('carrito/detalle','CarritoDetalleController@index')->name('carrito.detalle');
+    Route::delete('producto/detalle/{id}/eliminar', 'CarritoDetalleController@destroy')->name('producto.carrito.delete');
+
 
     }
 );

@@ -13,7 +13,7 @@ class CarritoDetalle extends Model
     //Esta es la relacion para un carrito_detalle tenga un producto
     public function producto()
     {
-        return $this->hasOne(Producto::class);
+        return $this->belongsTo(Producto::class);
     }
 
     //un carrito detalle
