@@ -13,7 +13,7 @@ class WellcomeController extends Controller
         $categorias = Categoria::orderBy('id','DESC')->get();
     	return view('welcome', compact('categorias'));
     }
-    public function show(Categoria $slug)
+    public function show($slug)
     {
         $categoria = Categoria::where('slug', $slug)->first();
     	//dd($categoria);

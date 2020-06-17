@@ -80,30 +80,22 @@
                           </span>
                       </div>
                       <hr class="mt-0 mb-0">
+                      <form method="POST" action="{{ route('producto.detalle.carrito', $producto->id) }}">
+                          @csrf
                       <div class="subti_prodetalle">
                           <div class="form-group row">
-                            <div class="col-sm-7">
+                            <div class="col-sm-6">
                                 <h3>TALLAS</h3>
                                 <div class="product-talla">
+                                    @foreach($producto->tallas as $talla)
                                     <label class="checkbox-btn">
-                                      <input type="checkbox">
-                                        <span class="btn btn-light-checkbox"> S </span>
+                                      <input type="checkbox" name="tallas[]" value="{{ $talla->id }}" >
+                                        <span class="btn btn-light-checkbox"> {{ $talla->nombre }} </span>
                                     </label>
-                                    <label class="checkbox-btn">
-                                      <input type="checkbox">
-                                        <span class="btn btn-light-checkbox"> M </span>
-                                    </label>
-                                    <label class="checkbox-btn">
-                                      <input type="checkbox">
-                                      <span class="btn btn-light-checkbox"> XXL </span>
-                                    </label>
-                                    <label class="checkbox-btn">
-                                        <input type="checkbox">
-                                          <span class="btn btn-light-checkbox"> XXXL </span>
-                                    </label>
+                                    @endforeach
                                 </div>
                             </div>
-                            <div class="col-sm-5">
+                            <div class="col-sm-6">
                                 <h3>CATEGORÍA</h3>
                                 <div class="product-talla">
                                     <label class="checkbox-btn">
@@ -114,33 +106,43 @@
                           </div>
                       </div>
                       <hr class="mt-0 mb-0">
-                      <div class="subti_prodetalle  ">
-                            <h3>DESCRIPCION</h3>
-                            <p class="text-justify">
-                                {{ $producto->descripcion }}
-                            </p>
-                      </div>
-                      <hr class="mt-0 mb-0">
-                      <div class="subti_prodetalle  ">
-                          <h3>OFERTA</h3>
-                          <p class="text-justify">
-                              {{ $producto->oferta }}
-                          </p>
-                      </div>
-                      <hr class="mt-0 mb-0">
                       <div class="subti_prodetalle">
                           <div class="form-group row">
-                            <div class="col-sm-7">
+                            <div class="col-sm-6">
+                                <h3>DESCRIPCIÓN</h3>
+                                <p class="text-justify">
+                                    {{ $producto->descripcion }}
+                                </p>
+                            </div>
+                            <div class="col-sm-6">
+                                <h3>¿Detallar?</h3>
+                                <textarea class="form-control {{ $errors->has('especificacion') ? ' is-invalid' : 'border-1' }}" rows="1" name="especificacion" id="especificacion"  placeholder="¿Algún detalle de su producto?" >{{ old('especificacion') }}</textarea>
+                            </div>
+                          </div>
+                      </div>
+                      <hr class="mt-0 mb-0">
+                      @if($producto->oferta)
+                        <div class="subti_prodetalle  ">
+                            <h3>OFERTA</h3>
+                            <p class="text-justify">
+                                {{ $producto->oferta }}
+                            </p>
+                        </div>
+                        <hr class="mt-0 mb-0">
+                      @endif
+                      <div class="subti_prodetalle">
+                          <div class="form-group row">
+                            <div class="col-sm-6">
                                 <h3>CANTIDAD</h3>
                                 <div class="number-input">
-                                  <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" > <i class="fas fa-minus" style="color:#0a2b4e;"></i>
+                                  <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" > <i class="fas fa-minus" style="color:#0a2b4e;"></i>
                                   </button>
-                                  <input class="quantity" min="1" name="quantity" value="1" type="number">
-                                  <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"> <i class="fas fa-plus" style="color:#0a2b4e;"></i>
+                                  <input class="quantity" min="1" name="cantidad" value="1" type="number">
+                                  <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"> <i class="fas fa-plus" style="color:#0a2b4e;"></i>
                                   </button>
                                 </div>
                             </div>
-                            <div class="col-sm-5">
+                            <div class="col-sm-6">
                                 <h3>STOCK</h3>
                                 <div class="product-talla">
                                     <label class="checkbox-btn" >
@@ -153,7 +155,7 @@
                       <hr class="mt-0 mb-2">
                       <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-3">
-                          <button class="btn btn-comita text-white btn-lg btn_deta_pro ">
+                          <button type="submit" class="btn btn-comita text-white btn-lg btn_deta_pro ">
                               <span style="color:cyan">
                                   <i class="fas fa-cart-plus fa-lg mr-2"></i>
                                 AÑADIR AL CARRITO
@@ -161,6 +163,7 @@
                           </button>
                         </div>
                       </div>
+                    </form>
                   </div>
               </div>
             </div>
@@ -205,3 +208,6 @@
   });
 </script>
 @endpush
+
+
+

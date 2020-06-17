@@ -3,22 +3,32 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <title>Sport La Comita</title>
         <meta name="description" content="Sistema de información bajo plataforma web para el control de ventas, pedidos y cotizaciones para la fabrica de ropa Sport La Comita de la ciudad de Potosí">
+
+
         <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <link rel="shortcut icon" href="{{ asset('/img/welcome/sport.png') }}" />
+
         <script src="{{ asset('js/app.js') }}" ></script>
+
+
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <style>
-            .navbar-header{
-                height: 300px !important;
 
+        <style>
+            .navbar-header {
+                height: 300px !important;
             }
-            .container{
+            .container {
                 max-width: 350px !important;
             }
         </style>
+
+        @stack('styles')
+
     </head>
     <body>
     <div id="app">
@@ -30,7 +40,7 @@
                 <div class="collapse navbar-collapse " id="navbarTogglerDemo01">
                     <div class="logo navbar-brand animate__animated animate__lightSpeedInLeft animate__faster">
                         <a href="/">
-                        <img src="{{ asset('/img/welcome/logo.png') }}" alt="logo" >
+                        <img src="{{ asset('/img/welcome/logo.png') }}" alt="Logo" >
                         </a>
                     </div>
                     <ul class="enlaces navbar-nav  ml-auto mt-2 mt-lg-0 animate__animated animate__lightSpeedInRight animate__delay-1s" id="enlaces">
@@ -38,6 +48,7 @@
                             <a href="/#producto" class="">PRODUCTOS</a>
                         </li>
                         @guest
+
                         @else
                             <li class="nav-item dropdown">
                                 <a href="/admin" role="button" class="text-white">
@@ -53,6 +64,7 @@
                     </ul>
                 </div>
             </nav>
+
             <section class="caratula" id="inicio">
                 <div class="contenedor">
                     <div class="caratula-cont row">
@@ -69,8 +81,11 @@
             </section>
              <div class="ola sus-clases"  ><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M-2.25,74.50 C256.20,250.16 247.74,-88.31 502.25,74.50 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: #fff;"></path></svg></div>
         </div>
+
         <main>
+
             @yield('productos')
+
         </main>
         <footer>
             <div class="contenedor-footer">
@@ -94,6 +109,8 @@
             <h2 class="titulo-final">&copy; S. Kimberly Marquina Ch. | UATF Potosí </h2>
         </footer>
     </div>
-    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
+    @include('sweetalert::alert')
     </body>
 </html>
+
+

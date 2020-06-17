@@ -50,24 +50,21 @@
                             <tr>
                                 <th class="text-center" >{{ ++$key }}</th>
                                 <td>
-                                  {{ $producto->nombre }} <br/>
-                                   <small class="btn btn-sm bg-secondary "style="border-radius: 20px">{{$producto->categoria->nombre}}
-                                  </small>
+                                    {{ $producto->nombre }} <br/>
+                                    <small class="btn btn-sm bg-secondary" style="border-radius: 20px;">{{ $producto->categoria->nombre }}</small>
                                 </td>
                                 <td class="text-center">{{ $producto->precio }}</td>
                                 <td class="text-center">{{ $producto->stock }}</td>
-                                <td class="text-center justify">
-                                  @if($producto->descuento)
-                                  <td class="text-center"><strong>Descuento: </strong>Por cada {{ $producto->cant_descuento }} unidades tienes un descuento del {{ $producto->descuento }} %.
-                                @endif
-                                @if($producto->oferta)
-
-                                <br/> <strong>Oferta: </strong>{{ $producto->oferta }}
-                                @endif
-                              </td>
-                                {{--<td>{{ $producto->categoria->nombre }}</td>--}}
+                                <td class="">
+                                    @if($producto->descuento)
+                                       <strong>Descuento:</strong> Por cada {{ $producto->cant_descuento }} unidades tienes un descuento del {{ $producto->descuento }} %.
+                                    @endif
+                                    @if($producto->oferta)
+                                      <br/> <strong>Oferta: </strong>{{ $producto->oferta }}
+                                    @endif
+                                </td>
                                 <td class="text-center">
-                                  <picture style="position: relative;">
+                                    <picture style="position: relative;">
                                         <div class="car_home_precio">
                                             @if($producto->estado)
                                                 <span style="color:cyan;"> DISPONIBLE </span>
@@ -96,9 +93,10 @@
     </div>
 </section>
 @endsection
+
 @push('styles')
 <style>
-.car_home_precio{
+.car_home_precio {
   padding: 0px !important;
   font-size: 10px !important;
   top: 0px !important;
@@ -106,6 +104,9 @@
   font-weight: bolder !important;
 }
 </style>
+@endpush
+
+
 
 @push('scripts')
 <script type="text/javascript">
@@ -146,7 +147,6 @@
         })
     }
 </script>
-
 @endpush
 
 

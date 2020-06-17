@@ -13,6 +13,7 @@ $factory->define(Producto::class, function (Faker $faker) {
     return [
         'nombre' => $nombre,
         'slug' => $slug,
+        'codigo' => $faker->text,
     	'descripcion' => $faker->text,
     	'precio' => $faker->randomFloat(0,5,150),
     	'descuento' => $faker->randomFloat(0,2,150),
