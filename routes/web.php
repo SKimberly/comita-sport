@@ -68,6 +68,7 @@ function(){
     Route::post('producto/{id}/carrito','CarritoDetalleController@show')->name('producto.detalle.carrito');
     Route::get('carrito/detalle','CarritoDetalleController@index')->name('carrito.detalle');
     Route::delete('producto/detalle/{id}/eliminar', 'CarritoDetalleController@destroy')->name('producto.carrito.delete');
+    Route::post('carrito/ordenado','CarritoController@update')->name('admin.carrito.update');
 
 
     }

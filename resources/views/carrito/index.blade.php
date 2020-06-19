@@ -24,9 +24,9 @@
 @section('contenido')
 <section class="content">
 	<div class="container-fluid">
-		<div class="card card-info">
-			<div class="card-header" >
-				<strong>Carrito de compras</strong>
+		<div class="card">
+			<div class="card-header text-center btn-comita text-white" >
+				<strong>CARRITO DE COMPRAS</strong>
 			</div>
 			<div class="card-body">
 					<div class="table-responsive">
@@ -44,47 +44,56 @@
 							<tbody>
 								@foreach($detalles as $key => $detalle)
 								<tr>
-									<td class="col-sm-1 col-md-1 text-center">{{ $detalle->id }}</td>
-									<td class="col-md-6">
+									<td class="col-sm-1 col-md-1" style="text-align: center">{{ ++$key }}</td>
+									<td class="col-sm-5 col-md-5">
 										<div class="media">
 				                            <a class="thumbnail pull-left pr-2" href="#">
-				                            	<img class="media-object" src="{{ asset($detalle->producto->detalleimagenurl) }}" style="width: 72px; height: 72px;">
+				                            	<img class="media-object" src="{{ asset($detalle->producto->detalleimagenurl) }}" style="width: 80px; height: 80px; border:2px solid cyan;">
 				                            </a>
 				                            <div class="media-body ">
-				                                <h4 class="media-heading mb-0"><a href="#">{{ $detalle->producto->nombre }}</a></h4>
-				                                <h5 class="media-heading mb-0"> Tallas
-				                                	@foreach($detalle->tallas as $talla)
-														{{ $talla->nombre }}
-				                                	@endforeach
-				                                </h5>
-			                                	<span class="text-info">
-			                                		<form method="post" action="{{ route('producto.carrito.delete', $detalle->id) }}">
-														@method('DELETE') @csrf
-														<span>Precio c/u: </span>
-														<strong class="pr-3">{{ $detalle->producto->precio }} Bs.</strong>
-														<button type="submit" class="btn btn-sm   btn-outline-danger">
-															<i class="far fa-trash-alt"></i>
-								                        </button>
-													</form>
-			                                	</span>
+				                                <div class="title_prodetalle">
+				                                	<h1 style="font-size: 1.5em;" class="mb-0">
+				                                		{{ $detalle->producto->nombre }}
+				                                	</h1>
+				                                </div>
+				                                <div class="product-talla">
+							                        <strong>Tallas:</strong>
+							                        @foreach($detalle->tallas as $talla)
+							                            <label class="checkbox-btn mb-0">
+							                                <span class="btn btn-light-checkbox" style="background-color: cyan;"> {{ $talla->nombre }} </span>
+							                            </label>
+							                        @endforeach
+							                    </div>
+												<div class="product-talla">
+													<span class="text-left">
+														<strong>Precio c/u:</strong>
+							                                <span class="pr-3"> {{ $detalle->producto->precio }} Bs. </span>
+													</span>
+													<button type="button" class="btn btn-sm   btn-outline-danger " data-toggle="tooltip" data-placement="right" title="Eliminar producto." onclick="borrarConfirmation('{{$detalle->id}}')">
+														<i class="far fa-trash-alt"></i>
+							                        </button>
+												</div>
 				                            </div>
 				                        </div>
 									</td>
-									<td class="col-md-1" style="text-align: center">
-			                        	<input type="email" class="form-control" id="exampleInputEmail1" value="{{ $detalle->cantidad }}">
+									<td class="col-sm-1 col-md-1" style="text-align: center">
+			                        	<strong>  {{ $detalle->cantidad }}</strong>
 			                        </td>
-									<td class="col-sm-1 col-md-1 text-center">
+									<td class="col-sm-2 col-md-2 text-center">
 										<strong>Bs. {{ $detalle->producto_precio }}</strong>
 									</td>
 									<td class="col-sm-1 col-md-1 text-center">
 										<strong>Bs. {{ $detalle->descuento_pro }}</strong>
 									</td>
-									<td class="col-sm-1 col-md-1 text-right" style="color: #468847;
-background-color: #dff0d8;
-border: 1pxsolid #468847;">
+									<td class="col-sm-2 col-md-2 text-right btn-comita" style="background-color: #d9edf7;">
 										<strong>Bs. {{ $detalle->subtotal_bs	 }}</strong>
 									</td>
 								</tr>
+									@php
+										if($detalle){
+											$total = $detalle->montototal;
+										}
+									@endphp
 								@endforeach
 							</tbody>
 							<tfoot>
@@ -93,19 +102,14 @@ border: 1pxsolid #468847;">
 			                        <td>   </td>
 			                        <td>   </td>
 			                        <td>   </td>
-			                        <td style="color: #468847;
-background-color: #dff0d8;
-border: 1px solid #d6e9c6;">
-			                        	<h5>Subtotal<br>Estimated shipping</h5>
-			                        	<h3>Total</h3>
+			                        <td class="btn-comita" style="background-color: #d9edf7;border: 1px solid #0a2b4e;">
+			                        	<h5><strong>Total:</strong></h5>
 			                        </td>
-			                        <td class="text-right" style="color: #468847;
-background-color: #dff0d8;
-border: 1px solid #d6e9c6;">
-			                        	<h5><strong>$24.59<br>$6.94</strong></h5>
-			                        	<h3>$31.53</h3>
+			                        <td class="text-right" style="background-color: #d9edf7;border: 1px solid #0a2b4e;">
+			                        	<h4><strong> {{ $total }} Bs:</strong></h4>
 			                        </td>
 			                    </tr>
+
 			                    <tr>
 			                        <td>   </td>
 			                        <td>   </td>
@@ -113,9 +117,12 @@ border: 1px solid #d6e9c6;">
 			                        <td>   </td>
 			                        <td>   </td>
 			                        <td>
-				                        <button type="button" class="btn btn-block btn-comita text-white">
-				                            ENVIAR <i class="fas fa-cart-plus"></i>
-				                        </button>
+				                        <form method="post" action="{{ route('admin.carrito.update') }}">
+											@csrf
+											<button type="submit" class="btn btn-block btn-comita text-white">
+				                            ENVIAR  <i class="fas fa-cart-plus"></i>
+				                        	</button>
+										</form>
 			                    	</td>
 			                    </tr>
 			                </tfoot>
@@ -126,3 +133,88 @@ border: 1px solid #d6e9c6;">
 	</div>
 </section>
 @endsection
+
+
+@push('scripts')
+<script type="text/javascript">
+    function borrarConfirmation(id)
+    {
+        swal.fire({
+          title: '¿Estás seguro?',
+          text: "¿Deseas quitar este producto?",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#0a2b4e',
+          cancelButtonColor: '#d33',
+          showCancelButton: true,
+          confirmButtonText: 'Si, eliminar!',
+          cancelButtonText: 'No, todavía'
+        }).then((e) =>
+        {
+            if (e.value === true) {
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                $.ajax({
+                    type: 'DELETE',
+                    url: "{{ url('/admin/producto/detalle') }}/"+id+"/eliminar",
+                    data: {_token: CSRF_TOKEN },
+                    dataType: 'JSON',
+                    success: function (results) {
+                        setTimeout(function() {
+                             location.reload();
+                        },0);
+                        swal.fire("Excelente!", results.respuesta, "success" );
+                    }
+                });
+
+            } else {
+                e.dismiss;
+            }
+
+        }, function (dismiss) {
+            return false;
+        })
+    }
+</script>
+<!--<script>
+	<input type="text" value="0" id="descuentototal" onkeyup="sumar()">
+	function sumar()
+    {
+    	var datos =  ;
+		var destotal = verificar("descuentototal");
+	    document.getElementById("totalcarrito").value=(parseFloat(datos)+parseFloat(destotal)).toFixed(2);
+	}
+
+	function verificar(id)
+    {
+        var obj=document.getElementById(id);
+        if(obj.value=="")
+            value="0";
+        else
+            value=obj.value;
+        if(validate_importe(value,1))
+        {
+            obj.style.borderColor="#808080";
+            return value;
+        }else{
+            obj.style.borderColor="#f00";
+            return 0;
+        }
+    }
+    function validate_importe(value,decimal)
+    {
+            if(decimal==undefined)
+                decimal=0;
+            if(decimal==1)
+            {
+               var patron=new RegExp("^[0-9]+((,|\.)[0-9]{1,2})?$");
+            }else{
+                var patron=new RegExp("^([0-9])*$")
+            }
+            if(value && value.search(patron)==0)
+            {
+                return true;
+            }
+            return false;
+    }
+</script>-->
+@endpush

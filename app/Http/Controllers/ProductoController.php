@@ -120,7 +120,7 @@ class ProductoController extends Controller
          $producto->save();
          //La funcion "attach" adjunta un array depalabras en un sola columna
          $producto->tallas()->sync($request->get('tallas'));
-         return redirect('/admin/productos')->with('success', 'Producto creado correctamente!');
+         return redirect('/admin/productos')->with('success', 'Producto guardado correctamente!');
     }
     /**
      * Remove the specified resource from storage.
