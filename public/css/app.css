@@ -36926,6 +36926,14 @@ footer {
   left: 12px;
 }
 
+.car_home_img {
+  position: absolute;
+  padding: 0 10px;
+  border-radius: 5px;
+  top: 260px;
+  right: 0px;
+}
+
 .product-thumb > img {
   display: block;
   width: 100%;

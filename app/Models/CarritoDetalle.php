@@ -26,7 +26,4 @@ class CarritoDetalle extends Model
     public function tallas(){
         return $this->belongsToMany(Talla::class);
     }
-     public function getMontototalAttribute(){
-        return $this->sum("subtotal_bs");
-    }
 }

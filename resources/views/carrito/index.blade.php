@@ -90,9 +90,7 @@
 									</td>
 								</tr>
 									@php
-										if($detalle){
-											$total = $detalle->montototal;
-										}
+										$total = $total + $detalle->subtotal_bs;
 									@endphp
 								@endforeach
 							</tbody>
@@ -117,12 +115,14 @@
 			                        <td>   </td>
 			                        <td>   </td>
 			                        <td>
+				                        @if($detalles->count())
 				                        <form method="post" action="{{ route('admin.carrito.update') }}">
 											@csrf
 											<button type="submit" class="btn btn-block btn-comita text-white">
 				                            ENVIAR  <i class="fas fa-cart-plus"></i>
 				                        	</button>
 										</form>
+										@endif
 			                    	</td>
 			                    </tr>
 			                </tfoot>

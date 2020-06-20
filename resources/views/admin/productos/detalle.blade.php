@@ -41,7 +41,7 @@
                                 <i class="fas fa-heart"></i>
                               </div>
                               <div class="product-thumb">
-                                <img id="featured" src="{{ asset($producto->detalleimagenurl) }}" alt="toaster"/>
+                                <img id="featured" src="{{ asset($producto->detalleimagenurl) }}" alt="toaster img-ver-producto"/>
                               </div>
                           </div>
                           <div class="justify-content-center btn-comita pt-3 pl-3 pr-3" style="border-radius: 5px;">
@@ -82,11 +82,11 @@
                       <hr class="mt-0 mb-0">
                       <form method="POST" action="{{ route('producto.detalle.carrito', $producto->id) }}">
                           @csrf
-                      <div class="subti_prodetalle">
-                          <div class="form-group row">
-                            <div class="col-sm-6">
+                      <div class="subti_prodetalle ">
+                          <div class="form-group row ">
+                            <div class="col-sm-6 ">
                                 <h3>TALLAS</h3>
-                                <div class="product-talla">
+                                <div class="product-talla form-control bg-light border-0  @error('tallas') is-invalid @enderror">
                                     @foreach($producto->tallas as $talla)
                                     <label class="checkbox-btn">
                                       <input type="checkbox" name="tallas[]" value="{{ $talla->id }}" >

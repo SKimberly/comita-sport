@@ -70,6 +70,12 @@ function(){
     Route::delete('producto/detalle/{id}/eliminar', 'CarritoDetalleController@destroy')->name('producto.carrito.delete');
     Route::post('carrito/ordenado','CarritoController@update')->name('admin.carrito.update');
 
+    //Ruta para Cotizaciones
+    Route::get('cotizaciones','CotizacionController@index')->name('admin.cotizaciones.index');
+    Route::post('cotizaciones','CotizacionController@store')->name('admin.cotizaciones.store');
+    Route::get('cotizaciones/{slug}/edit','CotizacionController@edit')->name('admin.cotizaciones.edit');
+    Route::put('cotizaciones/{slug}','CotizacionController@update')->name('admin.cotizaciones.update');
+
 
     }
 );

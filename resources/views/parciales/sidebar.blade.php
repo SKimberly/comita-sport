@@ -86,7 +86,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="" class="nav-link {{ request()->is('admin/cotizaciones*') ? 'active' : '' }}">
+            <a href="{{ route('admin.cotizaciones.index') }}" class="nav-link {{ request()->is('admin/cotizaciones*') ? 'active' : '' }}">
               <img src="{{ asset('img/sidebar/cotizacion.svg') }}" alt="pedidos" class="nav-icon">
               <p>
                   Cotizaciones

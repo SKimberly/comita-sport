@@ -48,7 +48,7 @@
                       <tbody>
                          @foreach($productos as $key => $producto)
                             <tr>
-                                <th class="text-center" >{{ ++$key }}</th>
+                                <td class="text-center" >{{ ++$key }}</td>
                                 <td>
                                     {{ $producto->nombre }} <br/>
                                     <small class="btn btn-sm bg-secondary" style="border-radius: 20px;">{{ $producto->categoria->nombre }}</small>
@@ -72,7 +72,7 @@
                                                 <span style="color:red;"> AGOTADO </span>
                                             @endif
                                         </div>
-                                        <img src="{{ asset($producto->detalleimagenurl) }}" class="img-tam"  alt="Producto Foto">
+                                        <img src="{{ asset($producto->detalleimagenurl) }}" class="media-object" style="width: 80px; height: 80px; border:2px solid cyan;" alt="Producto Foto">
                                     </picture>
                                 </td>
                                 {{--<td>{{ $producto->created_at->format('d M h:m') }}</td>--}}
@@ -82,6 +82,10 @@
                                     </a>
 
                                      <button class="btn btn-sm  btn-outline-comita btn-block" onclick="deleteConfirmation('{{$producto->id}}')">Dar Baja</button>
+
+                                     <a href="{{ route('admin.producto.detalles', [$producto->slug]) }}" class="btn btn-sm btn-block btn-comita text-white">
+                                          Ver detalles
+                                    </a>
                                 </td>
                             </tr>
                          @endforeach
