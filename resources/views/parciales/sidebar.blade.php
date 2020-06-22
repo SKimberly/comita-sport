@@ -90,11 +90,14 @@
               <img src="{{ asset('img/sidebar/cotizacion.svg') }}" alt="pedidos" class="nav-icon">
               <p>
                   Cotizaciones
+                  @if(($numco = auth()->user()->cotizaciones->count()))
+                      <span class="right badge badge-warning">{{ $numco }}</span>
+                  @endif
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="" class="nav-link {{ request()->is('admin/pedidos*') ? 'active' : '' }}">
+            <a href="{{ route('admin.pedidos.index') }}" class="nav-link {{ request()->is('admin/pedidos*') ? 'active' : '' }}">
               <img src="{{ asset('img/sidebar/pedidos.svg') }}" alt="pedidos" class="nav-icon">
               <p>
                   Pedidos

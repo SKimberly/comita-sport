@@ -117,14 +117,20 @@
                                     </picture>
                                 </td>
                                 <td>{{ $producto->created_at->format('d M h:m') }}</td>--}}
-                                <td class="text-center col-sm-1 col-md-1">
-                                    <a href="" class="btn btn-sm btn-block btn-comita text-white">
-                                          Editar
-                                    </a>
-                                    <a href="" class="btn btn-sm btn-block btn-outline-comita ">
+
+
+
+                                  <td class="text-center col-sm-1 col-md-1">
+                                    <a href="{{ route('admin.cotizaciones.show', [$cotizacion->slug])}}" class="btn btn-sm btn-block btn-comita text-white">
                                           Ver Detalles
                                     </a>
-                                </td>
+                                       <a href="{{ route('admin.cotizaciones.edit', [$cotizacion->slug])}}" class="btn btn-sm btn-block btn-outline-comita " target="__blanck">
+                                         Editar
+                                    </a>
+                                       <button class="btn btn-block btn-sm  btn-outline-danger" type="button" onclick="deleteConfirmation('{{$cotizacion->id}}')">
+                                          Eliminar
+                                        </button>
+                                      </td>
                             </tr>
                          @endforeach
                       </tbody>
@@ -154,20 +160,20 @@
     function deleteConfirmation(id) {
         swal.fire({
           title: '¿Estás seguro?',
-          text: "¿Deseas dar de baja este producto?",
+          text: "¿Deseas eliminar esta cotizacion?",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#0a2b4e',
           cancelButtonColor: '#d33',
           showCancelButton: true,
-          confirmButtonText: 'Si, dar de baja!',
+          confirmButtonText: 'Si, eliminar!',
           cancelButtonText: 'No, todavía'
         }).then((e) => {
             if (e.value === true) {
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
                     type: 'DELETE',
-                    url: "{{ url('/admin/producto') }}/"+id+"/baja",
+                    url: "{{ url('/admin/cotizacion') }}/"+id+"/eliminar",
                     data: {_token: CSRF_TOKEN },
                     dataType: 'JSON',
                     success: function (results) {

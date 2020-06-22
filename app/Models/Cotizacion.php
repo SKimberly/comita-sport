@@ -3,12 +3,13 @@
 namespace App\Models;
 
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Cotizacion extends Model
 {
     protected $table = 'cotizaciones';
-    protected $fillable = ['nombre','slug','codigo','cantidad','descripcion','descuento','precio', 'estado'];
+    protected $fillable = ['nombre','slug','codigo','cantidad','fecha','descripcion','descuento','precio', 'estado', 'uder_id'];
 
     public function fotos(){
         return $this->hasMany(CotizacionFoto::class);
@@ -32,5 +33,8 @@ class Cotizacion extends Model
         return $this->belongsToMany(Material::class);
     }
 
-
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

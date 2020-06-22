@@ -75,7 +75,12 @@ function(){
     Route::post('cotizaciones','CotizacionController@store')->name('admin.cotizaciones.store');
     Route::get('cotizaciones/{slug}/edit','CotizacionController@edit')->name('admin.cotizaciones.edit');
     Route::put('cotizaciones/{slug}','CotizacionController@update')->name('admin.cotizaciones.update');
-
-
+    Route::post('cotizaciones/{id}/fotos','CotizacionController@storefotos');
+    Route::delete('cotizaciones/foto{id}/eliminar','CotizacionController@deletefotos')->name('cotizacion.foto.delete');
+    Route::get('cotizacion/{slug}/show','CotizacionController@show')->name('admin.cotizaciones.show');
+    Route::delete('cotizacion/{id}/eliminar','CotizacionController@destroy')->name('admin.cotizacion.delete');
+    //Rutas para pedidos
+    Route::get('pedidos', 'PedidoController@index')->name('admin.pedidos.index');
+    Route::get('pedidos/{id}/show', 'PedidoController@show')->name('admin.pedidos.show');
     }
 );

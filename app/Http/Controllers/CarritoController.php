@@ -13,10 +13,10 @@ class CarritoController extends Controller
         $carrito = auth()->user()->carrito;
 
         $detalles = CarritoDetalle::where('carrito_id',$carrito->id)->get();
-        foreach($detalles as $detalle){
-            $montobs = $detalle->montototal;
+        $montobs = 0;
+        foreach($detalles as $detalles){
+            $montobs = $montobs + $detalles->subtotal_bs;
         }
-
         $carrito->codigo = $carrito->id.'/'.date('Y-M-d').'-Carri';
         $carrito->fecha_orden = Carbon::now();
         $carrito->total_bs = $montobs;
