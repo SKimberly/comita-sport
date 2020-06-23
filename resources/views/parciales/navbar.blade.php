@@ -29,6 +29,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="tooltip" data-placement="bottom" title="Mensajes">
+
                     <img src="{{ asset('img/message.svg') }}" alt="pedidos" width="35" class="nav-icon" style="margin-top: -5px;">
                 </a>
             </li>
