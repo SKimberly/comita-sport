@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Carrito;
 use App\Models\CarritoDetalle;
+use App\Models\Cotizacion;
+use App\Models\CotizacionFoto;
 use Illuminate\Http\Request;
 
 class PedidoController extends Controller
@@ -15,8 +17,13 @@ class PedidoController extends Controller
      */
     public function index()
     {
+
         $carritos = Carrito::where('estado','Pendiente')->orderBy('id','DESC')->paginate();
-        return view('pedidos.index', compact('carritos'));
+        $cotizaciones = Cotizacion::where('estado','Pendiente')->orderBy('id','DESC')->paginate();
+
+        return view('pedidos.index', compact('carritos','cotizaciones'));
+
+
     }
 
     /**
@@ -51,7 +58,7 @@ class PedidoController extends Controller
         $carrito = Carrito::where('id',$id)->first();
         $detalles = CarritoDetalle::where('carrito_id',$id)->get();
         $total = 0;
-        return view('pedidos.show', compact('carrito','detalles', 'total'));
+        return view('pedidos.detallecarri',compact('carrito', 'detalles','total'));
     }
 
     /**
@@ -60,9 +67,14 @@ class PedidoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function detallecoti($slug)
     {
-        //
+        $cotizacion = Cotizacion::where('slug',$slug)->first();
+        $fotos = CotizacionFoto::where('cotizacion_id',$cotizacion->id)->get();
+
+
+        return view('pedidos.detallecoti', compact('cotizacion','fotos' ));
+
     }
 
     /**
@@ -72,9 +84,21 @@ class PedidoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function cotianticipo(Request $request)
     {
-        //
+        //dd($request->all());
+        $this->validate($request, [
+            'anticipo' => 'required'
+        ]);
+
+        $cotizacion = Cotizacion::where('id',$request->cotizacion_id)->first();
+        $cotizacion->anticipo = $request['anticipo'];
+        $cotizacion->descuento = $request['descuento'];
+        $cotizacion->estado = 'Procesando';
+        $cotizacion->save();
+
+        return back()->with('success', 'Excelente! La cotización paso a ventas.');
+
     }
 
     /**

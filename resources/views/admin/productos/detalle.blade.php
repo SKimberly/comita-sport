@@ -56,9 +56,6 @@
                       </div>
                   </div>
                   <div class="col-md-7">
-                      <div class="cynta_estado">
-                          <span> <strong> DISPONIBLE </strong> </span>
-                      </div>
                       <div class="title_prodetalle">
                         <h1>{{ $producto->nombre }}</h1>
                         <span class="text-secondary">{{ $producto->codigo }}</span>

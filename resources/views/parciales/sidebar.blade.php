@@ -100,7 +100,17 @@
             <a href="{{ route('admin.pedidos.index') }}" class="nav-link {{ request()->is('admin/pedidos*') ? 'active' : '' }}">
               <img src="{{ asset('img/sidebar/pedidos.svg') }}" alt="pedidos" class="nav-icon">
               <p>
+                @php
+                  use App\Models\Carrito;
+                  use App\Models\Cotizacion;
+                @endphp
+                  @if($nummsj = Carrito::where('estado','Pendiente')->count())
+                      <span class="right badge bg-success mr-4" >{{ $nummsj }}</span>
+                  @endif
                   Pedidos
+                  @if($numco = Cotizacion::where('estado','Pendiente')->count())
+                      <span class="right badge bg-warning">{{ $numco }}</span>
+                  @endif
               </p>
             </a>
           </li>

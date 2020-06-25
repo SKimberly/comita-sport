@@ -11,6 +11,8 @@ class Cotizacion extends Model
     protected $table = 'cotizaciones';
     protected $fillable = ['nombre','slug','codigo','cantidad','fecha','descripcion','anticipo','descuento','precio', 'estado', 'uder_id'];
 
+    protected $dates = ['fecha'];
+
     public function fotos(){
         return $this->hasMany(CotizacionFoto::class);
     }

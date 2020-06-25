@@ -40,14 +40,14 @@
                           <th scope="col">Cotización</th>
                           <th scope="col">Tallas</th>
                           <th scope="col">Materiales</th>
-                          <th scope="col">Respuesta</th>
+                          <th scope="col">Precio</th>
                           <th scope="col">Opciones</th>
                         </tr>
                       </thead>
                       <tbody>
                          @foreach($cotizaciones as $key => $cotizacion)
                             <tr>
-                                <td class="text-center col-sm-1 col-md-1" >{{ ++$key }}</td>
+                                <td class="text-center" >{{ ++$key }}</td>
                                 <td class="col-sm-5 col-md-5">
                                     <div class="media">
                                         <a class="thumbnail pull-left pr-2" href="{{ route('admin.cotizaciones.show',[$cotizacion->slug]) }}" target="__blanck">
@@ -86,7 +86,7 @@
                                         </label>
                                     @endforeach
                                 </td>
-                                <td class="col-sm-3 col-md-3">
+                                <td class="col-sm-2 col-md-2">
                                     @foreach($cotizacion->materiales as $material)
                                         <label class="checkbox-btn mb-0">
                                             <span class="btn btn-light-checkbox bg-light "> {{ $material->nombre }} </span>
@@ -94,7 +94,16 @@
                                     @endforeach
                                 </td>
                                 <td class="text-center col-sm-2 col-md-2">
-
+                                    @if($cotizacion->precio)
+                                         <strong>{{ $cotizacion->precio }} Bs:</strong>
+                                         <a href="{{ route('admin.cotizaciones.pedido',$cotizacion->id) }}" class="btn btn-sm btn-block btn-outline-success" target="__blanck">
+                                            ENVIAR A PEDIDOS
+                                        </a>
+                                    @else
+                                        <a href="{{ route('admin.cotizaciones.show',[$cotizacion->slug]) }}" class="btn btn-sm btn-block btn-outline-secondary" target="__blanck">
+                                            DENIFIR
+                                        </a>
+                                    @endif
                                 </td>
                                 {{--<td class="text-center col-sm-1 col-md-1">
                                     {{ $cotizacion->precio }}

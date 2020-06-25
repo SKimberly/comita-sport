@@ -7,7 +7,7 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1 class="m-0 text-dark"><strong>Lista de pedidos</strong></h1>
+				<h1 class="m-0 text-dark"><strong>PEDIDOS</strong></h1>
 			</div>
 			<div class="col-sm-6">
 				<ol class="breadcrumb float-sm-right">
@@ -41,7 +41,7 @@
 					     <a class="nav-link active text-white" id="carritos-tab" data-toggle="tab" href="#carritos" role="tab" aria-controls="carritos" aria-selected="true">CARRITO DE COMPRAS</a>
 					  </li>
 					  <li class="nav-item col-md-6 text-center" role="presentation">
-					    <a class="nav-link text-white" id="cotizaciones-tab" data-toggle="tab" href="#cotizaciones" role="tab" aria-controls="cotizaciones" aria-selected="false">COTIZACIONES DE PRODUCTOS</a>
+					    <a class="nav-link text-white" id="cotizaciones-tab" data-toggle="tab" href="#cotizaciones" role="tab" aria-controls="cotizaciones" aria-selected="false">COTIZACIONES</a>
 					  </li>
 					</ul>
 					<div class="tab-content" id="myTabContent">
@@ -116,7 +116,71 @@
 							</div>
 						</div>
 						<div class="tab-pane fade" id="cotizaciones" role="tabpanel" aria-labelledby="cotizaciones-tab">
-										coti
+							<div class="p-2 text-center">
+								<strong>Lista de las cotizaciones</strong>
+							</div>
+							<div class="table-responsive bg-light" >
+								<table class="table" id="tabla-tallas">
+									<thead style="background-color:#0a2b4e; color: cyan; ">
+										<tr class="text-center">
+											<th scope="col">#</th>
+											<th scope="col">Nombre/Código</th>
+											<th scope="col">Estado</th>
+											<th scope="col">Total</th>
+											<th scope="col">Acciones</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach($cotizaciones as $key => $cotizacion)
+										<tr>
+											<td class="" style="text-align: center">{{ ++$key }}</td>
+											<td class="col-sm-6 col-md-6">
+												<div class="media">
+						                            <a class="thumbnail pull-left pr-2" href=" " target="_blanck">
+						                            	<img class="media-object" src="{{ asset($cotizacion->fotoimagen) }}" style="width: 70px; height: 70px; border:2px solid cyan;">
+						                            </a>
+						                            <div class="media-body">
+						                                <div class="title_prodetalle">
+						                                	<h1 style="font-size: 1em;" class="pb-0 mb-0">
+						                                		{{ $cotizacion->user->fullname }}
+						                                    </h1>
+						                                </div>
+						                                <div class="product-talla pt-0 mt-0">
+									                    	<strong>Entrega:</strong>
+									                        <label class="checkbox-btn pt-0 mt-0 pb-0 mb-0">
+									                            <span class="btn btn-light-checkbox" > {{ $cotizacion->updated_at->format('d M') }} </span>
+									                        </label>
+									                    </div>
+														<small class="text-sm-left text-muted pb-0 mb-0 ">
+		                                                  {{ $cotizacion->codigo }}
+		                                                </small>
+														<a href="{{ route('admin.pedidos.detallecoti',[$cotizacion->slug]) }}" class="btn btn-sm   btn-outline-success " data-toggle="tooltip" data-placement="right" title="Ver cotización." target="__blanck"  >
+															<i class="far fa-eye"></i>
+								                        </a>
+						                            </div>
+						                        </div>
+											</td>
+											<td class="col-sm-1 col-md-1 text-center">
+												<label class="checkbox-btn" >
+                                                    <span class="btn btn-light-checkbox" style="background-color: cyan; font-size: 15px;"> {{ $cotizacion->estado }} </span>
+                                                </label>
+											</td>
+											<td class="col-sm-2 col-md-2 text-center">
+												<strong>Bs. {{ $cotizacion->precio }}</strong>
+												<a href="{{ route('admin.pedidos.detallecoti',[$cotizacion->slug]) }}" class="btn btn-sm btn-outline-secondary" target="__blanck">
+		                                            ¿ANTICIPO?
+		                                        </a>
+											</td>
+											<td class="col-sm-1 col-md-1 text-white " >
+											  	<a href="{{ route('admin.pedidos.detallecoti',[$cotizacion->slug]) }}" class="btn btn-sm btn-block btn-comita" target="_blanck">
+				                                    <span class="text-white">Ver Cotización</span>
+				                                </a>
+											</td>
+										</tr>
+										@endforeach
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
                 </div>
@@ -149,6 +213,11 @@
 .nav-tabs {
     border-bottom: 1px solid cyan;
 }
+.btn-light-checkbox {
+	font-size: 12px;
+	padding: 0.0rem 0.3rem;
+}
+
 </style>
 @endpush
 

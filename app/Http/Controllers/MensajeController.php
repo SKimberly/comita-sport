@@ -39,7 +39,7 @@ class MensajeController extends Controller
     {
         //dd($request->all());
         $this->validate($request, [
-            'contenido' => 'required'
+            'mensaje' => 'required'
         ]);
 
 
@@ -51,14 +51,14 @@ class MensajeController extends Controller
             Mensaje::create([
                 'envia' =>  $admin,
                 'recibe' =>  $clicoti,
-                'contenido' => $request['contenido'],
+                'contenido' => $request['mensaje'],
                 'cotizacion_id' => $request['cotizacion_id']
             ]);
         }else{
             Mensaje::create([
                 'envia' =>  $clicoti,
                 'recibe' =>  $admin,
-                'contenido' => $request['contenido'],
+                'contenido' => $request['mensaje'],
                 'cotizacion_id' => $request['cotizacion_id']
             ]);
         }

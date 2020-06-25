@@ -20,7 +20,12 @@ class CotizacionController extends Controller
     {
 
         Cotizacion::where('codigo',null)->delete();
-        $cotizaciones = Cotizacion::orderBy('id','DESC')->paginate();
+        if(auth()->user()->tipo === 'Administrador'){
+            $cotizaciones = Cotizacion::where('estado','Activo')->orderBy('id','DESC')->paginate();
+        }else{
+            $cotizaciones = Cotizacion::where('user_id',auth()->user()->id)->where('estado','Activo')->orderBy('id','DESC')->paginate();
+        }
+
         return view('cotizaciones.index', compact('cotizaciones'));
     }
 
@@ -58,8 +63,8 @@ class CotizacionController extends Controller
         //dd($request->all());
         $this->validate($request, [
             'cantidad' => 'required|min:1',
-            'materiales' => 'required',
             'tallas' => 'required',
+            'descripcion' => 'required',
         ]);
 
          $cotizacion = Cotizacion::where('slug',$slug)->first();
@@ -109,7 +114,7 @@ class CotizacionController extends Controller
         $cotizacion = Cotizacion::where('slug',$slug)->first();
         $fotos = CotizacionFoto::where('cotizacion_id',$cotizacion->id)->get();
 
-        $mensajes = Mensaje::where('cotizacion_id',$cotizacion->id)->orderBy('id','ASC')->paginate();
+        $mensajes = Mensaje::where('cotizacion_id',$cotizacion->id)->orderBy('id','ASC')->get();
 
         return view('cotizaciones.show', compact('cotizacion','fotos','mensajes' ));
     }
@@ -128,13 +133,25 @@ class CotizacionController extends Controller
     public function moneycoti(Request $request)
     {
         //dd($request->all());
+        $this->validate($request, [
+            'precio' => 'required',
+            'fecha' => 'required'
+        ]);
+
         $cotizacion = Cotizacion::where('id',$request['cotizacion_id'])->first();
         $cotizacion->precio = $request['precio'];
-        $cotizacion->estado = "Pendiente";
+        $cotizacion->fecha = $request['fecha'];
         $cotizacion->save();
 
-        return back()->with('success', 'Se le asigno nuevo precio a la cotización');
+        return redirect('/admin/cotizaciones')->with('success', 'Precio asignado. Ahora la cotización paso a pedidos');
 
+    }
+
+    public function cotiapedido($id)
+    {
+        Cotizacion::where('id',$id)->update(['estado' => 'Pendiente']);
+
+        return redirect('/admin/pedidos')->with('success', 'La cotización paso a pedidos.');
     }
 
 }
