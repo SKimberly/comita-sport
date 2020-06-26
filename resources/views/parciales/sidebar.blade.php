@@ -115,10 +115,16 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="" class="nav-link {{ request()->is('admin/ventas*') ? 'active' : '' }}">
+            <a href="{{ route('admin.ventas.index') }}" class="nav-link {{ request()->is('admin/ventas*') ? 'active' : '' }}">
               <img src="{{ asset('img/sidebar/ventas.svg') }}" alt="categorias" class="nav-icon">
               <p>
+                  @if($nummsj = Carrito::where('estado','Procesando')->count())
+                      <span class="right badge bg-info mr-4" >{{ $nummsj }}</span>
+                  @endif
                   Ventas
+                  @if($numco = Cotizacion::where('estado','Procesando')->count())
+                      <span class="right badge bg-primary">{{ $numco }}</span>
+                  @endif
               </p>
             </a>
           </li>

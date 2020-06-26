@@ -97,7 +97,7 @@ class PedidoController extends Controller
         $cotizacion->estado = 'Procesando';
         $cotizacion->save();
 
-        return back()->with('success', 'Excelente! La cotización paso a ventas.');
+        return redirect('/admin/ventas')->with('success', 'Excelente! La cotización paso a ventas.');
 
     }
 
@@ -107,8 +107,18 @@ class PedidoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+     public function carriaventa(Request $request)
     {
-        //
+        $this->validate($request, [
+            'fecha_entrega' => 'required'
+        ]);
+        //dd($request->all());
+        Carrito::where('id',$request->carrito_id)->update([
+            'estado' => 'Procesando',
+            'fecha_entrega'=>$request->fecha_entrega,
+            'anticipo'=>$request->anticipo
+        ]);
+
+        return redirect('/admin/ventas')->with('success','Excelente! El carrito de compras paso a ventas.');
     }
 }

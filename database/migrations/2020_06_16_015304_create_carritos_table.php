@@ -18,7 +18,7 @@ class CreateCarritosTable extends Migration
             $table->string('codigo')->unique()->nullable();
             $table->timestamp('fecha_orden')->nullable();
             $table->timestamp('fecha_entrega')->nullable();
-            $table->unsignedDecimal('descuento_to', 9, 2)->nullable();
+            $table->unsignedInteger('anticipo')->nullable();
             $table->unsignedDecimal('total_bs', 9, 2)->nullable();
             $table->string('estado');
 
