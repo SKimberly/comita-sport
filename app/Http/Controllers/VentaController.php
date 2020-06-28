@@ -17,8 +17,8 @@ class VentaController extends Controller
     {
 
 
-            $carritos = Carrito::where('estado','Procesando')->orWhere('estado','Finalizado')->get();
-            $cotizaciones = Cotizacion::where('estado','Procesando')->orWhere('estado','Finalizado')->get();
+        $carritos = Carrito::where('estado','Procesando')->orWhere('estado','Finalizado')->orderBy('id','DESC')->get();
+        $cotizaciones = Cotizacion::where('estado','Procesando')->orWhere('estado','Finalizado')->orderBy('id','DESC')->get();
 
 
         return view('ventas.index', compact('carritos','cotizaciones'));
@@ -69,48 +69,33 @@ class VentaController extends Controller
         return back()->with('success','Excelente! El pago fue registrado.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function cotipago(Request $request)
     {
-        //
+        //dd($request->all());
+        $this->validate($request, [
+            'pago' => 'required'
+        ]);
+
+        $cotizacion = Cotizacion::where('id',$request->cotizacion_id)->first();
+
+        $pago = $request->pago;
+
+        if(($cotizacion->anticipo+$pago) > $cotizacion->precio){
+            return back()->with('errors','El pago excede al monto total.');
+        }
+
+        if(($pago+$cotizacion->anticipo) == $cotizacion->precio){
+            Cotizacion::where('id',$request->cotizacion_id)->update([
+                'anticipo'=> $cotizacion->anticipo+$pago,
+                'estado' => 'Finalizado'
+            ]);
+        }else{
+            Cotizacion::where('id',$request->cotizacion_id)->update([
+                'anticipo'=> $cotizacion->anticipo+$pago
+            ]);
+        }
+        return back()->with('success','Excelente! El pago de la cotización fue registrado.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

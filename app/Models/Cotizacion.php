@@ -43,4 +43,8 @@ class Cotizacion extends Model
     {
         return $this->hasMany(Mensaje::class);
     }
+    public function pagoimgcoti()
+    {
+        return $this->hasOne(CotiPago::class);
+    }
 }

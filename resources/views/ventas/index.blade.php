@@ -22,6 +22,7 @@
 
 @section('contenido')
 @include('ventas.pagocarri')
+@include('ventas.pagocoti')
 <section class="content">
 	<div class="container-fluid">
 		<div class="col-12 col-sm-12 col-lg-12 mx-auto">
@@ -150,6 +151,7 @@
 											<th scope="col">#</th>
 											<th scope="col">Nombre/Código</th>
 											<th scope="col">Estado</th>
+											<th scope="col">Anticipo</th>
 											<th scope="col">Total</th>
 											<th scope="col">Acciones</th>
 										</tr>
@@ -158,7 +160,7 @@
 										@foreach($cotizaciones as $key => $cotizacion)
 										<tr>
 											<td class="" style="text-align: center">{{ ++$key }}</td>
-											<td class="col-sm-6 col-md-6">
+											<td class="col-sm-5 col-md-5">
 												<div class="media">
 						                            <a class="thumbnail pull-left pr-2" href=" " target="_blanck">
 						                            	<img class="media-object" src="{{ asset($cotizacion->fotoimagen) }}" style="width: 70px; height: 70px; border:2px solid cyan;">
@@ -175,30 +177,50 @@
 									                            <span class="btn btn-light-checkbox" > {{ $cotizacion->fecha->format('d M') }} </span>
 									                        </label>
 									                    </div>
-														<small class="text-sm-left text-muted pb-0 mb-0 ">
-		                                                  {{ $cotizacion->codigo }}
-		                                                </small>
-														<a href="{{ route('admin.pedidos.detallecoti',[$cotizacion->slug]) }}" class="btn btn-sm   btn-outline-success " data-toggle="tooltip" data-placement="right" title="Ver cotización." target="__blanck"  >
-															<i class="far fa-eye"></i>
-								                        </a>
+									                    <div class="product-talla">
+				                                            <strong>Cantidad:</strong>
+															<label class="checkbox-btn mb-0">
+									                            <span class="btn btn-light-checkbox" > {{ $cotizacion->cantidad }} </span>
+									                        </label>
+							                        	</div>
 						                            </div>
 						                        </div>
 											</td>
-											<td class="col-sm-1 col-md-1 text-center">
-												<label class="checkbox-btn" >
+											<td class="col-sm-2 col-md-2 text-center">
+												<label class="checkbox-btn mb-0" >
                                                     <span class="btn btn-light-checkbox" style="background-color: cyan; font-size: 15px;"> {{ $cotizacion->estado }} </span>
                                                 </label>
+                                                <div class="product-talla mt-0">
+							                    	<strong>Codigo:</strong>
+							                    	<small class="text-justify text-sm-left text-muted">
+		                                                {{ $cotizacion->codigo }}
+		                                            </small>
+		                                        </div>
+											</td>
+											<td class="col-sm-1 col-md-1 text-center">
+												@if($cotizacion->anticipo)
+													<strong>Bs. {{ $cotizacion->anticipo }}</strong>
+												@else
+													<strong style="color:red;">Ninguno</strong>
+												@endif
 											</td>
 											<td class="col-sm-2 col-md-2 text-center">
 												<strong>Bs. {{ $cotizacion->precio }}</strong>
-												<a href="{{ route('admin.pedidos.detallecoti',[$cotizacion->slug]) }}" class="btn btn-sm btn-outline-secondary" target="__blanck">
-		                                            ¿ANTICIPO?
-		                                        </a>
+												@if($cotizacion->anticipo < $cotizacion->precio)
+												<button type="button" class="btn btn-sm btn-outline-secondary" data-cotizacionid="{{ $cotizacion->id }}" data-toggle="modal" data-target="#pagarDecoti">
+									                Deuda: {{ $cotizacion->precio - $cotizacion->anticipo }} Bs.
+									            </button>
+									            @endif
 											</td>
 											<td class="col-sm-1 col-md-1 text-white " >
-											  	<a href="{{ route('admin.pedidos.detallecoti',[$cotizacion->slug]) }}" class="btn btn-sm btn-block btn-comita" target="_blanck">
+											  	<a href="{{ route('admin.pedidos.detallecoti',[$cotizacion->slug]) }}" class="btn btn-sm btn-block btn-comita " target="_blanck">
 				                                    <span class="text-white">Ver Cotización</span>
 				                                </a>
+				                                @if($cotizacion->anticipo < $cotizacion->precio)
+					                                <button type="button" class="btn btn-sm btn-outline-comita btn-block" data-cotizacionid="{{ $cotizacion->id }}" data-toggle="modal" data-target="#pagarDecoti">
+									                Pagar
+									            	</button>
+										        @endif
 											</td>
 										</tr>
 										@endforeach
@@ -254,6 +276,13 @@ $('#pagarDeuda').on('show.bs.modal', function (event) {
 	  var ca_id = button.data('carritoid')
 	  var modal = $(this)
 	  modal.find('.modal-body #carrito_id').val(ca_id);
+})
+$('#pagarDecoti').on('show.bs.modal', function (event) {
+
+	  var button = $(event.relatedTarget)
+	  var co_id = button.data('cotizacionid')
+	  var modal = $(this)
+	  modal.find('.modal-body #cotizacion_id').val(co_id);
 })
 </script>
 @endpush

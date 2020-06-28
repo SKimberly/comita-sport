@@ -69,7 +69,7 @@ class CotizacionController extends Controller
 
          $cotizacion = Cotizacion::where('slug',$slug)->first();
          $cotizacion->nombre = $request['nombre'];
-         $cotizacion->codigo = $cotizacion->id.'/'.date('Y-M-d h:m').'/'.auth()->user()->id;
+         $cotizacion->codigo = $cotizacion->id.'/'.date('Y-M-d').'/'.date('h:m').'/'.auth()->user()->id;
          $cotizacion->descripcion = $request['descripcion'];
          $cotizacion->cantidad = $request['cantidad'];
          $cotizacion->estado = 'Activo';

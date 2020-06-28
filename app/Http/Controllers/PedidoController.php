@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Carrito;
 use App\Models\CarritoDetalle;
+use App\Models\CarritoPago;
+use App\Models\CotiPago;
 use App\Models\Cotizacion;
 use App\Models\CotizacionFoto;
+use App\Models\Pago;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PedidoController extends Controller
 {
@@ -21,7 +26,8 @@ class PedidoController extends Controller
         $carritos = Carrito::where('estado','Pendiente')->orderBy('id','DESC')->paginate();
         $cotizaciones = Cotizacion::where('estado','Pendiente')->orderBy('id','DESC')->paginate();
 
-        return view('pedidos.index', compact('carritos','cotizaciones'));
+
+        return view('pedidos.index', compact('carritos','cotizaciones' ));
 
 
     }
@@ -101,13 +107,7 @@ class PedidoController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-     public function carriaventa(Request $request)
+    public function carriaventa(Request $request)
     {
         $this->validate($request, [
             'fecha_entrega' => 'required'
@@ -121,4 +121,42 @@ class PedidoController extends Controller
 
         return redirect('/admin/ventas')->with('success','Excelente! El carrito de compras paso a ventas.');
     }
+
+    public function pedidopago(Request $request)
+    {
+        //dd($request->all());
+        $this->validate($request, [
+            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+            'monto' => 'required',
+        ]);
+
+        $foto = request()->file('imagen')->store('pagos');
+
+        if($request['pedido_tipo']==='carrito'){
+            CarritoPago::create([
+                'usuario' => auth()->user()->id,
+                'monto' => $request['monto'],
+                'fecha' => Carbon::now(),
+                'descripcion' => $request['descripcion'],
+                'imagen' => Storage::url($foto),
+                'carrito_id' => $request['pedido_id']
+            ]);
+        }else{
+            CotiPago::create([
+                'usuario' => auth()->user()->id,
+                'monto' => $request['monto'],
+                'fecha' => Carbon::now(),
+                'descripcion' => $request['descripcion'],
+                'imagen' => Storage::url($foto),
+                'cotizacion_id' => $request['pedido_id']
+            ]);
+        }
+
+
+        return back()->with('success',"La imagen del depósito se envio correctamente!");
+
+
+    }
+
+
 }

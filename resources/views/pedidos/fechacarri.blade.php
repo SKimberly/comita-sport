@@ -3,9 +3,10 @@
     <div class="modal-content">
       <div class="modal-header btn-comita text-white">
         <h5 class="modal-title" id="exampleModalLabel">
-            <strong>FECHA DE ENTREGA</strong>
             <ul style="color: cyan;">
-              <li>1) Registre la fecha de entregade la venta.</li>
+              <li>1) El anticipo del carrito de compras es opcional.</li>
+              <li>2) Registre la fecha de entrega de la venta.</li>
+              <li>2) La fecha de entrega es obligatorio.</li>
             </ul>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -17,6 +18,7 @@
 
           <div class="modal-body bg-light">
             <input type="hidden" name="carrito_id" id="carrito_id">
+
               <div class="form-group row">
                   <label for="fecha" class="col-sm-6 col-form-label text-md-right"><strong>{{ __('Fecha de entrega:') }}</strong></label>
                   <div class="col-sm-6">
@@ -30,7 +32,25 @@
                       </div>
                   </div>
               </div>
-        	</div>
+              <hr class="mt-0 mb-3">
+              <div class="form-group row">
+                  <label for="anticipo" class="col-sm-6 col-form-label text-md-right"><strong>{{ __('Anticipo del carrito de compras:') }}</strong></label>
+                  <div class="col-sm-6">
+                      <div class="input-group">
+                       <input type="number" class="form-control bg-light   @error('anticipo') is-invalid @enderror" name="anticipo" value="{{ old('anticipo') }}" min="0"  >
+                        <div class="input-group-prepend">
+                              <span class="input-group-text">Bs.</span>
+                        </div>
+                      @error('anticipo')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
+                      </div>
+                  </div>
+              </div>
+
+          </div>
           <div class="modal-footer">
               <button class="btn btn-comita text-white " type="submit" >
                 ENVIAR A VENTAS

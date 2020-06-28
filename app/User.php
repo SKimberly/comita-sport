@@ -66,7 +66,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Cotizacion::class);
     }
-    public function getCotizacionAttribute(){
+    /*public function getCotizacionAttribute(){
         $cotizacion = $this->cotizaciones()->where('estado', 'Pendiente')->first();
         if($cotizacion){
             return $cotizacion;
@@ -75,6 +75,8 @@ class User extends Authenticatable
         $cotizacion = $this->cotizaciones()->where('estado', 'Activo')->first();
         return $cotizacion;
         }
+    }*/
+    public function getCotizacionAttribute(){
+        $cotizacion = $this->cotizaciones()->where('estado', 'Pendiente')->first();
     }
-
 }

@@ -163,11 +163,13 @@
                           </div>
                       </div>
                   </div>
+                  @if($cotizacion->estado === 'Pendiente')
                   <div class="row justify-content-center p-2">
                     <button type="button" class="btn btn-comita text-white" data-toggle="modal" data-target="#crearAnt">
                         <i class="fas fa-hand-holding-usd"></i> DEFINIR ANTICIPO
                     </button>
                   </div>
+                  @endif
               </div>
           </div>
         </div>
