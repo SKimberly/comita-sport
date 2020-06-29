@@ -20,7 +20,8 @@ class CreateCarritoPagosTable extends Migration
             $table->unsignedInteger('monto');
             $table->timestamp('fecha');
             $table->text('descripcion')->nullable();
-            $table->boolean('estado')->default(false);
+            $table->string('estado')->nullable();
+            $table->string('respuesta')->nullable();
             $table->unsignedBigInteger('carrito_id');
             $table->foreign('carrito_id')->references('id')->on('carritos');
             $table->timestamps();

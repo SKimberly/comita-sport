@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CarritoPago extends Model
 {
     protected $table = 'carrito_pagos';
-    protected $fillable = ['usuario','imagen','monto','fecha','descripcion','estado','carrito_id'];
+    protected $fillable = ['usuario','imagen','monto','fecha','descripcion','estado','respuesta','carrito_id'];
     protected $dates = ['fecha'];
 
 

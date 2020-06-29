@@ -130,7 +130,7 @@ class PedidoController extends Controller
             'monto' => 'required',
         ]);
 
-        $foto = request()->file('imagen')->store('pagos');
+        $foto = request()->file('imagen')->store('public/pagos');
 
         if($request['pedido_tipo']==='carrito'){
             CarritoPago::create([
@@ -139,6 +139,7 @@ class PedidoController extends Controller
                 'fecha' => Carbon::now(),
                 'descripcion' => $request['descripcion'],
                 'imagen' => Storage::url($foto),
+                'estado' => 'Esperando',
                 'carrito_id' => $request['pedido_id']
             ]);
         }else{
@@ -148,6 +149,7 @@ class PedidoController extends Controller
                 'fecha' => Carbon::now(),
                 'descripcion' => $request['descripcion'],
                 'imagen' => Storage::url($foto),
+                'estado' => 'Esperando',
                 'cotizacion_id' => $request['pedido_id']
             ]);
         }
@@ -155,6 +157,86 @@ class PedidoController extends Controller
 
         return back()->with('success',"La imagen del depósito se envio correctamente!");
 
+
+    }
+
+    public function verify(Request $request, $id)
+    {
+        //dd($request);
+        $tipo_pedido = $request['pedido'];
+
+        if($tipo_pedido === 'carrito'){
+            $pedido = Carrito::find($id);
+            $verifypago = CarritoPago::where('carrito_id',$id)->first();
+            $tipo = "carrito";
+        }else{
+            $pedido = Cotizacion::find($id);
+            $verifypago = CotiPago::where('cotizacion_id', $id)->first();
+            $tipo = "cotizacion";
+        }
+
+         return view('pagos.index', compact('pedido','verifypago','tipo'));
+    }
+
+    public function resverify(Request $request)
+    {
+        //dd($request->all());
+
+        $tipo = $request['tipo'];
+        $btnres = $request['btnrespuesta'];
+
+        $carrito = Carrito::where('id',$request['tipo_id'])->first();
+        $carritopago = CarritoPago::where('carrito_id',$request['tipo_id'])->first();
+
+        $cotizacion = Cotizacion::where('id',$request['tipo_id'])->first();
+        $cotipago = CotiPago::where('cotizacion_id',$request['tipo_id'])->first();
+
+        if($btnres === 'Aceptado'){
+            if($tipo === 'carrito'){
+                if($carrito->total_bs == ($carrito->anticipo+$carritopago->monto)){
+                    Carrito::where('id',$request['tipo_id'])->update([
+                        'anticipo' => $carrito->anticipo+$carritopago->monto,
+                        'fecha_entrega' => $request['fecha'],
+                        'estado' => 'Finalizado'
+                    ]);
+                }else{
+                    Carrito::where('id',$request['tipo_id'])->update([
+                        'anticipo' => $carrito->anticipo+$carritopago->monto,
+                        'fecha_entrega' => $request['fecha'],
+                        'estado' => 'Procesando'
+                    ]);
+                }
+            }else{
+                if($cotizacion->precio == ($cotizacion->anticipo+$cotipago->monto)){
+                    Cotizacion::where('id',$request['tipo_id'])->update([
+                        'anticipo' => $cotizacion->anticipo+$cotipago->monto,
+                        'estado' => 'Finalizado'
+                    ]);
+                }else{
+                    Cotizacion::where('id',$request['tipo_id'])->update([
+                        'anticipo' => $cotizacion->anticipo+$cotipago->monto,
+                        'estado' => 'Procesando'
+                    ]);
+                }
+            }
+        }
+
+        if($tipo === 'carrito'){
+            CarritoPago::where('carrito_id',$request['tipo_id'])->update([
+                'respuesta' => $request['respuesta'],
+                'estado' => $btnres
+            ]);
+        }else{
+            CotiPago::where('cotizacion_id',$request['tipo_id'])->update([
+                'respuesta' => $request['respuesta'],
+                'estado' => $btnres
+            ]);
+        }
+
+        if($btnres === 'Rechazado')
+            return redirect('admin/pedidos')->with('info','La imagen del pago fue rechazado.');
+        else
+            return redirect('admin/pedidos')->with('success','La imagen del pago fue aceptado.');
 
     }
 

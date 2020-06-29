@@ -108,5 +108,8 @@ function(){
 
     /*Ruta para imagen de deposito de pago*/
     Route::post('pedido/pagos','PedidoController@pedidopago')->name('admin.pedidos.pagar');
+
+    Route::post('pedido/{id}/verify','PedidoController@verify')->name('admin.pago.verify');
+    Route::post('pedido/pagos/resverify','PedidoController@resverify')->name('admin.pagos.resverify');
     }
 );

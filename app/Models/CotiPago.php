@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CotiPago extends Model
 {
     protected $table = 'coti_pagos';
-    protected $fillable = ['usuario','imagen','monto','fecha','descripcion','estado','cotizacion_id'];
+    protected $fillable = ['usuario','imagen','monto','fecha','descripcion','estado','respuesta','cotizacion_id'];
     protected $dates = ['fecha'];
 
     public function cotizacion()

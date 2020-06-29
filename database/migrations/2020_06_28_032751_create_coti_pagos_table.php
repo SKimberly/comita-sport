@@ -20,7 +20,8 @@ class CreateCotiPagosTable extends Migration
             $table->unsignedInteger('monto');
             $table->timestamp('fecha');
             $table->text('descripcion')->nullable();
-            $table->boolean('estado')->default(false);
+            $table->string('estado')->nullable();
+            $table->string('respuesta')->nullable();
             $table->unsignedBigInteger('cotizacion_id');
             $table->foreign('cotizacion_id')->references('id')->on('cotizaciones');
             $table->timestamps();

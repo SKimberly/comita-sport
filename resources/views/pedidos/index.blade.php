@@ -22,6 +22,7 @@
 @section('contenido')
 @include('pedidos.fechacarri')
 @include('pedidos.pagopedi')
+@include('pagos.respuesta')
 <section class="content">
 	<div class="container-fluid">
 		<div class="col-12 col-sm-12 col-lg-12 mx-auto">
@@ -115,14 +116,32 @@
 				                                </a>
 				                                @if($carrito->pagoimgcarri)
 													@if(auth()->user()->tipo === 'Administrador')
-														<a href="" class="btn btn-sm btn-block btn-success" target="_blanck">
-						                                    <span class="text-white">Validar Pago</span>
-						                                </a>
-													@else
-														@if($carrito->pagoimgcarri->estado)
-														<strong style="color:green;" class="btn btn-sm btn-block">Pago Aceptado</strong>
+														@if($carrito->pagoimgcarri->estado === 'Esperando')
+															<form action="{{ route('admin.pago.verify', $carrito->id) }}" method="POST">
+																@csrf
+																<input type="hidden" name="pedido" value="carrito">
+																<button type="submit" class="btn btn-sm btn-block btn-outline-success" target="_blanck">
+							                                     Validar Pago
+							                                	</button>
+															</form>
 														@else
-														<strong style="color:red;" class="btn btn-sm btn-block">Validando Pago</strong>
+															<span  class="btn btn-sm btn-block btn-info" data-respu="{{ $carrito->pagoimgcarri->respuesta }}" data-toggle="modal" data-target="#resPago" >
+																<strong>Pago {{ $carrito->pagoimgcarri->estado }}</strong>
+															</span>
+														@endif
+													@else
+														@if($carrito->pagoimgcarri->estado === 'Esperando')
+															<span  class="btn btn-sm btn-block btn-warning" >
+																<strong>Validando Pago</strong>
+															</span>
+														@elseif($carrito->pagoimgcarri->estado === 'Aceptado')
+															<span class="btn btn-sm btn-block btn-success" data-respu="{{ $carrito->pagoimgcarri->respuesta }}" data-toggle="modal" data-target="#resPago">
+																<strong >Pago Aceptado</strong>
+															</span>
+														@else
+															<span class="btn btn-sm btn-block btn-danger" data-respu="{{ $carrito->pagoimgcarri->respuesta }}" data-toggle="modal" data-target="#resPago">
+																<strong >Pago Rechazado</strong>
+															</span>
 				                                		@endif
 				                                	@endif
 				                                @else
@@ -199,14 +218,32 @@
 				                                </a>
 				                                @if($cotizacion->pagoimgcoti)
 													@if(auth()->user()->tipo === 'Administrador')
-														<a href="" class="btn btn-sm btn-block btn-success" target="_blanck">
-						                                    <span class="text-white">Validar Pago</span>
-						                                </a>
-													@else
-														@if($cotizacion->pagoimgcoti->estado)
-														<strong style="color:green;" class="btn btn-sm btn-block">Pago Aceptado</strong>
+														@if($cotizacion->pagoimgcoti->estado === 'Esperando')
+															<form action="{{ route('admin.pago.verify', $cotizacion->id) }}" method="POST">
+																@csrf
+																<input type="hidden" name="pedido" value="cotizacion">
+																<button type="submit" class="btn btn-sm btn-block btn-outline-success" target="_blanck">
+							                                     Validar Pago
+							                                	</button>
+															</form>
 														@else
-														<strong style="color:red;" class="btn btn-sm btn-block">Validando Pago</strong>
+															<span  class="btn btn-sm btn-block btn-primary" data-respu="{{ $cotizacion->pagoimgcoti->respuesta }}" data-toggle="modal" data-target="#resPago" >
+																<strong>Pago {{ $cotizacion->pagoimgcoti->estado }}</strong>
+															</span>
+														@endif
+													@else
+														@if($cotizacion->pagoimgcoti->estado === 'Esperando')
+															<span  class="btn btn-sm btn-block btn-warning" >
+																<strong>Validando Pago</strong>
+															</span>
+														@elseif($cotizacion->pagoimgcoti->estado === 'Aceptado')
+															<span class="btn btn-sm btn-block btn-success" data-respu="{{ $cotizacion->pagoimgcoti->respuesta }}" data-toggle="modal" data-target="#resPago">
+																<strong >Pago Aceptado</strong>
+															</span>
+														@else
+															<span class="btn btn-sm btn-block btn-danger" data-respu="{{ $cotizacion->pagoimgcoti->respuesta }}" data-toggle="modal" data-target="#resPago">
+																<strong >Pago Rechazado</strong>
+															</span>
 				                                		@endif
 				                                	@endif
 				                                @else
@@ -290,4 +327,15 @@ $custom-file-text: (
   es: "Elegir"
 );
 </script>
+
+<script>
+$('#resPago').on('show.bs.modal', function (event) {
+
+	  var button = $(event.relatedTarget)
+	  var respuesta = button.data('respu')
+	  var modal = $(this)
+	  modal.find('.modal-body #respuesta_id').val(respuesta);
+})
+</script>
 @endpush
+
