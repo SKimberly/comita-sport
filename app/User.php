@@ -3,7 +3,9 @@
 namespace App;
 
 use App\Models\Carrito;
+use App\Models\CarritoPago;
 use App\Models\Cotizacion;
+use App\Models\Pago;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -62,21 +64,25 @@ class User extends Authenticatable
             return $carrito;
         }
     }
+
     public function cotizaciones()
     {
         return $this->hasMany(Cotizacion::class);
     }
-    /*public function getCotizacionAttribute(){
-        $cotizacion = $this->cotizaciones()->where('estado', 'Pendiente')->first();
-        if($cotizacion){
-            return $cotizacion;
-        }
-        else{
-        $cotizacion = $this->cotizaciones()->where('estado', 'Activo')->first();
-        return $cotizacion;
-        }
-    }*/
-    public function getCotizacionAttribute(){
+
+    public function getCotizacionAttribute()
+    {
         $cotizacion = $this->cotizaciones()->where('estado', 'Pendiente')->first();
     }
+
+    public function capago()
+    {
+        return $this->hasMany(CarritoPago::class);
+    }
+
+    public function copago()
+    {
+        return $this->hasMany(CotiPago::class);
+    }
+
 }

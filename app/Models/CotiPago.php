@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class CotiPago extends Model
@@ -13,5 +14,10 @@ class CotiPago extends Model
     public function cotizacion()
     {
         return $this->belongsTo(Cotizacion::class);
+    }
+
+    public function user()
+    {
+    	return $this->belongsTo(User::class, 'usuario');
     }
 }

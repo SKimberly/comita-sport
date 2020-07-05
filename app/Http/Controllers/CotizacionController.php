@@ -141,17 +141,12 @@ class CotizacionController extends Controller
         $cotizacion = Cotizacion::where('id',$request['cotizacion_id'])->first();
         $cotizacion->precio = $request['precio'];
         $cotizacion->fecha = $request['fecha'];
+        $cotizacion->estado = 'Pendiente';
         $cotizacion->save();
 
-        return redirect('/admin/cotizaciones')->with('success', 'Precio asignado. Ahora la cotización paso a pedidos');
+        return redirect('/admin/pedidos')->with('success', 'La cotización paso a pedidos para su aprobación.');
 
     }
 
-    public function cotiapedido($id)
-    {
-        Cotizacion::where('id',$id)->update(['estado' => 'Pendiente']);
-
-        return redirect('/admin/pedidos')->with('success', 'La cotización paso a pedidos.');
-    }
 
 }

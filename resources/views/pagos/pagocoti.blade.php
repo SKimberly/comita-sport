@@ -11,7 +11,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form method="POST" action="{{ route('admin.ventas.cotipago','#paco') }}" class="was-validated" enctype="multipart/form-data" >
+      <form method="POST" action="{{ route('admin.pagos.cotipago','#paco') }}" class="was-validated" enctype="multipart/form-data" >
           @csrf
 
           <div class="modal-body bg-light">

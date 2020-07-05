@@ -90,7 +90,7 @@ function(){
     Route::get('pedidos','PedidoController@index')->name('admin.pedidos.index');
     Route::get('pedidos/{id}/show','PedidoController@show')->name('admin.pedidos.show');
     Route::get('pedidos/{slug}/cotizacion','PedidoController@detallecoti')->name('admin.pedidos.detallecoti');
-    Route::post('pedido/cotizacion/venta','PedidoController@cotianticipo')->name('admin.pedidos.anticipo');
+
 
 
     /*Rutas para los mensajes*/
@@ -99,17 +99,52 @@ function(){
     Route::post('cotizacion/money','CotizacionController@moneycoti')->name('admin.cotizacion.money');
     Route::get('cotizacion/{id}/pedido','CotizacionController@cotiapedido')->name('admin.cotizaciones.pedido');
 
-    Route::post('pedido/carrito/ventas','PedidoController@carriaventa')->name('admin.pedidos.carrifecha');
+
+
 
     Route::get('ventas','VentaController@index')->name('admin.ventas.index');
 
-    Route::post('venta/carrito/pago','VentaController@carripago')->name('admin.ventas.carripago');
-    Route::post('venta/cotizacion/pago','VentaController@cotipago')->name('admin.ventas.cotipago');
+
+
 
     /*Ruta para imagen de deposito de pago*/
-    Route::post('pedido/pagos','PedidoController@pedidopago')->name('admin.pedidos.pagar');
 
-    Route::post('pedido/{id}/verify','PedidoController@verify')->name('admin.pago.verify');
-    Route::post('pedido/pagos/resverify','PedidoController@resverify')->name('admin.pagos.resverify');
+
+
+
+
+    /*Pedidos aprobados*/
+    Route::get('aprobados','AprobadoController@index')->name('admin.aprobados');
+    Route::get('aprobados/{id}/aprobado','AprobadoController@aprobado')->name('admin.aprobados.carriapro');
+    Route::delete('carrito/{id}/rechazado','AprobadoController@rechazado')->name('admin.aprobados.carrirepro');
+    Route::get('aprobados/{id}/cotiapro','AprobadoController@cotiaprobado')->name('admin.aprobados.cotiapro');
+    Route::delete('cotizacion/{id}/rechazado','AprobadoController@cotirechazado')->name('admin.aprobados.cotirepro');
+
+    Route::get('rechazados','AprobadoController@indexview')->name('admin.rechazados');
+
+
+    Route::get('pagos','PagoController@index')->name('admin.pagos.index');
+
+    Route::get('pagos/{id}/verifycarri','PagoController@verifycarri')->name('pago.verify.carrito');
+    Route::get('pagos/{id}/verifycoti','PagoController@verifycoti')->name('pago.verify.cotizacion');
+
+    Route::put('pagos/{id}/resverify','PagoController@resverify')->name('admin.pagos.resverify');
+
+    Route::post('pago/carrito/pago','PagoController@carripago')->name('admin.ventas.carripago');
+    Route::post('pago/cotizacion/pago','PagoController@cotipago')->name('admin.pagos.cotipago');
+
+
+    Route::get('pago/img/{id}/carrito','PagoController@imgpagocarri')->name('aprobados.pagar.carrito');
+    Route::get('pago/img/{slug}/cotizacion','PagoController@imgpagocoti')->name('aprobados.pagar.cotizacion');
+
+    Route::post('pagos/img','PagoController@store')->name('admin.pagos.store');
+
+
+
+
     }
 );
+
+
+
+

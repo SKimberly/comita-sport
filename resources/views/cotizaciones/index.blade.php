@@ -71,7 +71,7 @@
                                                 <small class=" text-sm-left text-muted  d-inline-block text-truncate" style="max-width: 150px;">
                                                   {{ $cotizacion->descripcion }}
                                                 </small>
-                                                <a href="{{ route('admin.cotizaciones.show',[$cotizacion->slug]) }}" class="btn btn-sm   btn-outline-secondary " data-toggle="tooltip" data-placement="right" title="Ver detalles."  target="__blanck">
+                                                <a href="{{ route('admin.cotizaciones.show',[$cotizacion->slug]) }}" class="btn btn-sm   btn-outline-success " data-toggle="tooltip" data-placement="right" title="Ver detalles."  target="__blanck">
                                                     <i class="far fa-eye"></i>
                                                 </a>
                                             </div>
@@ -94,50 +94,10 @@
                                     @endforeach
                                 </td>
                                 <td class="text-center col-sm-2 col-md-2">
-                                    @if($cotizacion->precio)
-                                         <strong>{{ $cotizacion->precio }} Bs:</strong>
-                                         <a href="{{ route('admin.cotizaciones.pedido',$cotizacion->id) }}" class="btn btn-sm btn-block btn-outline-success" target="__blanck">
-                                            ENVIAR A PEDIDOS
-                                        </a>
-                                    @else
-                                        <a href="{{ route('admin.cotizaciones.show',[$cotizacion->slug]) }}" class="btn btn-sm btn-block btn-outline-secondary" target="__blanck">
-                                            DENIFIR
-                                        </a>
-                                    @endif
+                                    <a href="{{ route('admin.cotizaciones.show',[$cotizacion->slug]) }}" class="btn btn-sm btn-block btn-outline-secondary" target="__blanck">
+                                        DENIFIR
+                                    </a>
                                 </td>
-                                {{--<td class="text-center col-sm-1 col-md-1">
-                                    {{ $cotizacion->precio }}
-                                    @if($cotizacion->descuento)
-                                    <div class="product-talla">
-                                        <strong>Descuento:</strong>
-                                        <label class="checkbox-btn mb-0">
-                                            <span class="btn btn-light-checkbox text-white" style="background-color: #0a2b4e;"> {{ $cotizacion->descuento }}</span>
-                                        </label>
-                                    </div>
-                                    @endif
-                                </td>
-                                <td class="text-center">
-                                    <picture style="position: relative;">
-                                        <div class="car_home_precio">
-                                          @if($cotizacion->estado ===  "ACTIVO")
-                                            <span style="color:green;"> ACTIVO </span>
-                                          @endif
-                                          @if($cotizacion->estado ===  "PENDIENTE")
-                                            <span style="color:yellow;"> PENDIENTE </span>
-                                          @endif
-                                          @if($cotizacion->estado ==  'PROCESANDO')
-                                            <span style="color:blue;"> PROCESANDO </span>
-                                          @endif
-                                          @if($cotizacion->estado ==  'FINALIZADO')
-                                            <span style="color:cyan;"> FINALIZADO </span>
-                                          @endif
-                                          @if($cotizacion->estado ==  'RECHAZADO')
-                                            <span style="color:red;"> RECHAZADO </span>
-                                          @endif
-                                        </div>
-                                    </picture>
-                                </td>
-                                <td>{{ $producto->created_at->format('d M h:m') }}</td>--}}
                                 <td class="text-center col-sm-1 col-md-1">
                                     <a href="{{ route('admin.cotizaciones.show',[$cotizacion->slug]) }}" class="btn btn-sm btn-block btn-comita text-white" target="__blanck">
                                         <i class="far fa-eye"></i>

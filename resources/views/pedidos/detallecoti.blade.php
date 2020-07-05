@@ -22,7 +22,7 @@
 @endsection
 
 @section('contenido')
-@include('pedidos.anticipo')
+@include('pagos.pagocoti')
 <section class="content">
   <div class="container-fluid">
     <div class="row justify-content-center">
@@ -163,13 +163,23 @@
                           </div>
                       </div>
                   </div>
-                  @if($cotizacion->estado === 'Pendiente')
                   <div class="row justify-content-center p-2">
-                    <button type="button" class="btn btn-comita text-white" data-toggle="modal" data-target="#crearAnt">
-                        <i class="fas fa-hand-holding-usd"></i> DEFINIR ANTICIPO
-                    </button>
-                  </div>
+                  @if($cotizacion->estado === 'Procesando')
+
+                      <button type="button" class="btn btn-success" data-cotizacionid="{{ $cotizacion->id }}" data-toggle="modal" data-target="#pagarDecoti">
+                          <i class="far fa-money-bill-alt"> </i> ¿PAGAR?
+                      </button>
+
+                  @else
+                      <a href="{{ route('admin.aprobados.cotiapro', [$cotizacion->id]) }}" class="btn btn-sm   btn-outline-success mr-3" target="_blanck" >
+                         <i class="far fa-thumbs-up"></i> APROBAR
+                      </a>
+
+                      <a href="{{ route('admin.aprobados.cotirepro', [$cotizacion->id]) }}" class="btn btn-sm   btn-outline-danger" target="_blanck">
+                          <i class="far fa-thumbs-down"></i> RECHAZAR
+                      </a>
                   @endif
+                  </div>
               </div>
           </div>
         </div>
@@ -198,3 +208,14 @@
 </style>
 @endpush
 
+@push('scripts')
+<script>
+$('#pagarDecoti').on('show.bs.modal', function (event) {
+
+    var button = $(event.relatedTarget)
+    var co_id = button.data('cotizacionid')
+    var modal = $(this)
+    modal.find('.modal-body #cotizacion_id').val(co_id);
+})
+</script>
+@endpush

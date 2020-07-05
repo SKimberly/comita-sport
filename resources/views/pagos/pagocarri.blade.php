@@ -27,6 +27,23 @@
                       </div>
                   </div>
               </div>
+              <div class="form-group row">
+                  <label for="fecha" class="col-sm-6 col-form-label text-md-right"><strong>{{ __('Fecha de entrega:') }}</strong></label>
+                  <div class="col-sm-6">
+                      <div class="input-group">
+                       <input type="text" class="form-control bg-light border-0" name="fecha" id="fecha" readonly>
+                      </div>
+                  </div>
+              </div>
+              <div class="form-group row">
+                    <label for="fecha_entrega" class="col-sm-6 col-form-label text-md-right"><strong>{{ __('¿Cambiar fecha de entrega?') }}</strong></label>
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                         <input type="date" class="form-control bg-light" name="fecha_entrega">
+                        </div>
+                    </div>
+              </div>
+
           </div>
           <div class="modal-footer">
               <button class="btn btn-comita text-white " type="submit" >

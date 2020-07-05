@@ -8,15 +8,18 @@ use Illuminate\Http\Request;
 
 class CarritoController extends Controller
 {
+
     public function update()
     {
         $carrito = auth()->user()->carrito;
 
         $detalles = CarritoDetalle::where('carrito_id',$carrito->id)->get();
+
         $montobs = 0;
-        foreach($detalles as $detalles){
-            $montobs = $montobs + $detalles->subtotal_bs;
+        foreach($detalles as $detalle){
+            $montobs = $montobs + $detalle->subtotal_bs;
         }
+
         $carrito->codigo = $carrito->id.'/'.date('Y-M-d').'-Carri';
         $carrito->fecha_orden = Carbon::now();
         $carrito->total_bs = $montobs;
@@ -27,4 +30,5 @@ class CarritoController extends Controller
 
 
     }
+
 }

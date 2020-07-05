@@ -21,19 +21,18 @@
 @endsection
 
 @section('contenido')
-@include('ventas.pagocarri')
-@include('ventas.pagocoti')
+
 <section class="content">
 	<div class="container-fluid">
 		<div class="col-12 col-sm-12 col-lg-12 mx-auto">
 			<div class="card card-widget widget-user">
               	<div class="widget-user-header text-white"
-                   	style="background: url('/img/welcome/potosi.jpg') center center;">
+                   	style="background: url('/img/welcome/potosi2.jpg') center center;">
                 	<h3 class="widget-user-username text-right">Nombre</h3>
                 	<h5 class="widget-user-desc text-right">Administrador</h5>
               	</div>
               <div class="widget-user-image">
-                <img class="img-circle" src="{{ asset('img/sidebar/userdefault.svg') }}" alt="User Avatar">
+                <img style="border:none;" src="{{ asset('img/welcome/ventas.svg') }}" alt="User Avatar">
               </div>
                 <div class="card-body bg-light pt-0" >
               		<div class="text-center p-2">

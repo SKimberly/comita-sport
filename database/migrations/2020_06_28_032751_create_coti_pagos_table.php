@@ -16,9 +16,9 @@ class CreateCotiPagosTable extends Migration
         Schema::create('coti_pagos', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('usuario');
-            $table->string('imagen');
-            $table->unsignedInteger('monto');
-            $table->timestamp('fecha');
+            $table->string('imagen')->nullable();
+            $table->unsignedInteger('monto')->nullable();
+            $table->timestamp('fecha')->nullable();
             $table->text('descripcion')->nullable();
             $table->string('estado')->nullable();
             $table->string('respuesta')->nullable();
