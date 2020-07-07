@@ -104,6 +104,12 @@
                                   <label class="checkbox-btn mb-0">
                                       <span class="btn btn-light-checkbox" style="background-color: cyan;"> {{ $cotizacion->codigo }} </span>
                                   </label>
+                                  @if($cotizacion->anticipo)
+                                      <strong>Deuda:</strong>
+                                      <label class="checkbox-btn mb-0">
+                                          <span class="btn btn-light-checkbox" style="background-color: cyan;"> {{ $cotizacion->precio - $cotizacion->anticipo }} Bs. </span>
+                                      </label>
+                                  @endif
                               </div>
                           </div>
                       </div>

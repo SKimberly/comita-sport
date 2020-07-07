@@ -139,8 +139,8 @@ function(){
 
     Route::post('pagos/img','PagoController@store')->name('admin.pagos.store');
 
-
-
+    //Calendario
+    Route::get('/calendario/view','AprobadoController@calendario')->name('admin.calendario.index');
 
     }
 );

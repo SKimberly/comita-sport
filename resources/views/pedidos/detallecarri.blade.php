@@ -39,6 +39,12 @@
 					<label class="checkbox-btn mb-0" >
                         <span class="btn btn-light-checkbox" style="font-size: 15px; background-color: cyan;">{{ $carrito->estado }}</span>
                     </label>
+                    @if($carrito->anticipo)
+						Deuda:
+						<label class="checkbox-btn mb-0" >
+	                        <span class="btn btn-light-checkbox" style="font-size: 15px; background-color: cyan;">{{ $carrito->total_bs - $carrito->anticipo }} Bs.</span>
+	                    </label>
+                    @endif
 				</div>
 			</div>
 			<div class="card-body">

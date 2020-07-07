@@ -178,6 +178,19 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.calendario.index') }}" class="nav-link {{ request()->is('admin/calendario/view') ? 'active' : '' }}">
+              <img src="{{ asset('img/sidebar/calendario.svg') }}" alt="categorias" class="nav-icon">
+              <p>
+                  Calendario
+                  @php
+                    $numca = Carrito::where('estado','Procesando')->count();
+                    $numco = Cotizacion::where('estado','Procesando')->count();
+                  @endphp
+                  <span class="right badge bg-danger">{{ $numca+$numco }}</span>
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

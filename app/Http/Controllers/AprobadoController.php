@@ -55,6 +55,14 @@ class AprobadoController extends Controller
         Cotizacion::where('id',$id)->update(['estado'=>'Rechazado']);
         return response()->json(['success'=>'La cotización fue rechazada.']);
     }
+    public function calendario()
+    {
+        $carritos = Carrito::where('estado','Procesando')->get();
+        $cotizaciones = Cotizacion::where('estado','Procesando')->get();
+
+        return view('calendario.index',compact('carritos','cotizaciones'));
+
+    }
 
 
 }
