@@ -28,9 +28,14 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="tooltip" data-placement="bottom" title="Mensajes">
+                <a class="nav-link" href="{{ route('admin.aprobados') }}" data-toggle="tooltip" data-placement="bottom" title="Cotizaciones">
+                    @if($numco = auth()->user()->cotizaciones->where('estado','Procesando')->count() )
+                        <span class="badge btn-comita text-white navbar-badge" style="margin-top: -4px;" >
+                        {{ $numco }}
+                        </span>
+                    @endif
+                    <img src="{{ asset('img/cotizacion.svg') }}" alt="pedidos" width="35" class="nav-icon" style="margin-top: -5px;">
 
-                    <img src="{{ asset('img/message.svg') }}" alt="pedidos" width="35" class="nav-icon" style="margin-top: -5px;">
                 </a>
             </li>
             <li class="nav-item">

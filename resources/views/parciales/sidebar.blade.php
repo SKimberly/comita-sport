@@ -79,7 +79,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('carrito.detalle') }}" class="nav-link {{ request()->is('carrito/detalle*') ? 'active' : '' }}">
+            <a href="{{ route('carrito.detalle') }}" class="nav-link {{ request()->is('admin/carrito/detalle*') ? 'active' : '' }}">
               <img src="{{ asset('img/shoppingcard.svg') }}" alt="carrito" class="nav-icon">
               <p>
                   Carrito
@@ -188,6 +188,14 @@
                     $numco = Cotizacion::where('estado','Procesando')->count();
                   @endphp
                   <span class="right badge bg-danger">{{ $numca+$numco }}</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.reportes.index') }}" class="nav-link {{ request()->is('admin/reportes*') ? 'active' : '' }}">
+              <img src="{{ asset('img/sidebar/reportes.svg') }}" alt="reportes" class="nav-icon">
+              <p>
+                  Reportes
               </p>
             </a>
           </li>

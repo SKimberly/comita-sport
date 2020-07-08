@@ -142,6 +142,10 @@ function(){
     //Calendario
     Route::get('/calendario/view','AprobadoController@calendario')->name('admin.calendario.index');
 
+    //Reportes
+    Route::get('/reportes/view','ReporteController@index')->name('admin.reportes.index');
+
+    Route::post('/reportes/tipo/view','ReporteController@vertipo')->name('reporte.tipo.view');
     }
 );
 

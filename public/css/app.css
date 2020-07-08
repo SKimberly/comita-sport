@@ -36339,8 +36339,9 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
 }
 
 [class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active, [class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active:hover, [class*=sidebar-dark-] .nav-treeview > .nav-item > .nav-link.active:focus {
-  background-color: #024d5a;
-  color: #fff;
+  background-color: #0a2b4e !important;
+  color: cyan !important;
+  border: 2px solid cyan !important;
 }
 
 body {
