@@ -146,6 +146,8 @@ function(){
     Route::get('/reportes/view','ReporteController@index')->name('admin.reportes.index');
 
     Route::post('/reportes/tipo/view','ReporteController@vertipo')->name('reporte.tipo.view');
+    Route::post('/reportes/coti/view','ReporteController@vercoti')->name('reporte.coti.view');
+    Route::post('/reportes/prenda/view','ReporteController@verprenda')->name('reporte.prenda.view');
     }
 );
 

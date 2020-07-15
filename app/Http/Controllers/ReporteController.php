@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carrito;
+use App\Models\CarritoDetalle;
 use App\Models\Categoria;
 use App\Models\Cotizacion;
+use App\Models\Producto;
 use App\Models\Reportetipo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,7 +21,8 @@ class ReporteController extends Controller
     public function index()
     {
         $categorias = Categoria::get();
-        return view('reportes.index',compact('categorias'));
+        $productos = Producto::get();
+        return view('reportes.index',compact('categorias','productos'));
     }
 
     /**
@@ -77,38 +80,65 @@ class ReporteController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function vercoti(Request $request)
     {
-        //
+        //dd($request['categoria']);
+        $desde = $request->inicio;
+        $hasta = $request->final;
+
+        $cotizaciones = Cotizacion::where('estado','Finalizado')->whereBetween('fecha', [$desde, $hasta])->get();
+
+        $fecha = Carbon::now();
+        $user = auth()->user()->fullname;
+        //dd($fecha->format('d M'));
+        //dd($pedidos);
+        $view =  \View::make('reportes.cotiventas', compact('cotizaciones','fecha','desde','hasta','user'))->render();
+        $pdf  = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view)->setPaper('carta', 'portrait');
+        return $pdf->stream('Reporte-Ventas/'.$fecha->format('d/m/Y').'.pdf');
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function verprenda(Request $request)
     {
-        //
-    }
+        //dd($request->all());
+        Reportetipo::where('nombre','!=',$request['producto'])->delete();
+        //dd($request['producto']
+        $desde = $request->inicio;
+        $hasta = $request->final;
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        $cadetalles = CarritoDetalle::where('producto_id',$request['producto'])->get();
+
+        foreach($cadetalles as $cadetalle){
+            $carrito = Carrito::where('id',$cadetalle->carrito_id)->whereBetween('fecha_entrega', [$desde, $hasta])->first();
+            if($carrito){
+                if($carrito->estado === 'Finalizado'){
+                    $prenda = new Reportetipo();
+                    $prenda->nombre = $cadetalle->producto->nombre;
+                    $prenda->precio = $cadetalle->producto->precio;
+                    $prenda->descuento = $cadetalle->producto->descuento;
+                    $prenda->cant_descuento = $cadetalle->producto->cant_descuento;
+                    $prenda->producto_precio = $cadetalle->producto_precio;
+                    $prenda->cantidad = $cadetalle->cantidad;
+                    $prenda->subtotal_bs = $cadetalle->subtotal_bs;
+                    $prenda->categoria_id = $cadetalle->carrito_id;
+                    $prenda->save();
+                }
+            }
+
+        }
+        $reportes = Reportetipo::get();
+        //dd($reportes);
+
+        $fecha = Carbon::now();
+        $user = auth()->user()->fullname;
+        //dd($fecha->format('d M'));
+        //dd($pedidos);
+        $view =  \View::make('reportes.prendaventas', compact('reportes','fecha','desde','hasta','user'))->render();
+        $pdf  = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view)->setPaper('carta', 'portrait');
+        return $pdf->stream('Reporte-Ventas-Prenda/'.$fecha->format('d/m/Y').'.pdf');
+
     }
 
     /**
