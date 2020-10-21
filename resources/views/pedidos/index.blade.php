@@ -105,6 +105,7 @@
 				                                </a>
 											</td>
 											<td class="col-sm-1 col-md-1  " >
+												@can('viewAny', auth::user())
 				                                <a href="{{ route('admin.aprobados.carriapro', [$carrito->id]) }}" class="btn btn-sm btn-block btn-outline-success" >
 				                                    <i class="far fa-thumbs-up"></i> APROBAR
 				                                </a>
@@ -112,6 +113,7 @@
 				                                <button class="btn btn-sm btn-block btn-outline-danger"  onclick="rechazoCarrito('{{$carrito->id}}')" type="button">
 				                                    <i class="far fa-thumbs-down"></i> RECHAZAR
 				                                </button>
+				                                @endcan
 											</td>
 										</tr>
 										@endforeach
@@ -176,12 +178,14 @@
 				                                </a>
 											</td>
 											<td class="col-sm-2 col-md-2 text-white " >
+												@can('viewAny', auth::user())
 												<a href="{{ route('admin.aprobados.cotiapro', [$cotizacion->id]) }}" class="btn btn-sm btn-block btn-outline-success">
 				                                    <i class="far fa-thumbs-up"></i> APROBAR
 				                                </a>
 				                                <button type="button" onclick="rechazoCoti('{{$cotizacion->id}}')" class="btn btn-sm btn-block btn-outline-danger" >
 				                                    <i class="far fa-thumbs-down"></i> RECHAZAR
 				                                </button>
+				                                @endcan
 											</td>
 										</tr>
 										@endforeach

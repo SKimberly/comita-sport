@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carrito;
+use App\Models\Categoria;
 use App\Models\Cotizacion;
 use Illuminate\Http\Request;
 
@@ -57,6 +58,7 @@ class AprobadoController extends Controller
     }
     public function calendario()
     {
+        $this->authorize('viewAny', Categoria::class);
         $carritos = Carrito::where('estado','Procesando')->get();
         $cotizaciones = Cotizacion::where('estado','Procesando')->get();
 

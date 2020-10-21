@@ -127,6 +127,9 @@
 											  	<a href="{{ route('admin.pedidos.show', [$carrito->id]) }}" class="btn btn-sm btn-block btn-comita" target="_blanck">
 				                                    <span class="text-white">Detalles</span>
 				                                </a>
+				                                 <a href="{{ route('aprobados.recibo',$carrito->id) }}" class="btn btn-sm btn-block btn-outline-success mt-1">
+								            		<i class="far fa-file-pdf"></i> Recibo
+								            	</a>
 				                                @if($carrito->anticipo < $carrito->total_bs)
 					                                <button type="button" class="btn btn-sm  btn-block btn-outline-comita" data-carritoid="{{ $carrito->id }}" data-toggle="modal" data-target="#pagarDeuda">
 										                Pagar

@@ -1,12 +1,16 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\Categoria;
 use App\Models\Producto;
 use App\Models\ProductoFoto;
 use App\Models\Talla;
+use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+
 class ProductoController extends Controller
 {
     /**
@@ -23,6 +27,7 @@ class ProductoController extends Controller
         //dd(Producto::paginate(10));
         return view('admin.productos.index', compact('productos'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -30,7 +35,9 @@ class ProductoController extends Controller
      */
     public function create()
     {
+
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -40,28 +47,34 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nombre' => 'required|min:5|max:100'
+            'nombre' => 'required|min:5|max:100|unique:productos,nombre'
         ]);
         $producto = new Producto;
         $producto->nombre = $request['nombre'];
         $producto->slug = Str::of($request['nombre'])->slug('-');
         $producto->save();
+
         return redirect()->route('admin.productos.edit', $producto->slug);
         /*dd($request->all());
         */
+
          /*El descuento nos llega en % y aqui lo vovemos en BS. entre el precui unitario por la cantidad
          $des_bs = number_format(($request->precio*$request->cant_descuento)*$request->descuento/100 ,2);*/
+
     }
+
     public function storefotos(Request $request, $id)
     {
         //dd($request->all());
         //aqui se guarda en la aplicacion carpeta storage y en la carpteta public con un simbolink link a la carpeta public del proyecto
         $foto = request()->file('foto')->store('public');
+
         //Aqui se guarda a la base de datos con el metodo Storage propio de laravel
         ProductoFoto::create([
             'imagen' => Storage::url($foto),
             'producto_id' => $id
         ]);
+
     }
     /**
      * Display the specified resource.
@@ -73,6 +86,7 @@ class ProductoController extends Controller
     {
         //
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -81,16 +95,21 @@ class ProductoController extends Controller
      */
     public function edit($slug)
     {
+        $this->authorize('update', \Auth::user());
+
         //dd($slug);
         $producto = Producto::where('slug',$slug)->first();
         //Aqui devuelves a la vista donde esta el formulario de registro de productos
         $categorias = Categoria::orderBy('id','DESC')->get();
         //Le mandamos tambien las tallas
         $tallas = Talla::all();
-        $fotos = ProductoFoto::where('producto_id', $producto->id)->get();
         //Con compact enviamos datos
+        $fotos = ProductoFoto::where('producto_id',$producto->id)->get();
+
         return view('admin.productos.edit', compact('producto','categorias','tallas','fotos'));
+
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -106,6 +125,7 @@ class ProductoController extends Controller
             'categoria' => 'required',
             'tallas' => 'required',
         ]);
+
          $producto = Producto::where('slug',$slug)->first();
          $producto->nombre = $request['nombre'];
          $producto->codigo = $producto->id.'/'.date('Y-M-d h:m').'/'.auth()->user()->id;
@@ -118,35 +138,44 @@ class ProductoController extends Controller
          $producto->oferta = $request['oferta'];
          $producto->estado = true;
          $producto->save();
-         //La funcion "attach" adjunta un array depalabras en un sola columna
+
          $producto->tallas()->sync($request->get('tallas'));
-         return redirect('/admin/productos')->with('success', 'Producto guardado correctamente!');
+
+         return redirect('/admin/productos')->with('success', 'Producto creado correctamente!');
+
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+
+    public function deletefotos($id)
     {
-        $producto = Producto::where('id',$id)->update(['estado'=>false]);
-        return response()->json(['success'=>'El producto fue dado de baja.']);
-    }
-    public function deletefotos($id){
         $foto = ProductoFoto::find($id);
         //Aqui eliminamos la foto de la base de datos
         $foto->delete();
+
         //Aqui eliminamos la foto de nuestra carpeta del sitio Web de la carpeta "STORAGE"
         $rutafoto = str_replace('storage', 'public', $foto->imagen);
         Storage::delete($rutafoto);
 
         return back()->with('success', "Foto del producto eliminado!");
     }
+
+    public function destroy($id)
+    {
+        //var_dump($id);
+        $producto = Producto::where('id',$id)->update(['estado'=>false]);
+
+        //return redirect('admin/productos');
+        // check data deleted or not
+         return response()->json(['success'=>'El producto fue dado de baja.']);
+
+    }
+
     public function prodetalle($slug)
     {
         $producto = Producto::where('slug',$slug)->first();
         $categoria = Categoria::where('id',$producto->categoria_id)->first();
+        //$des_bs = number_format(($producto->precio*$producto->cant_descuento)*$producto->descuento/100 ,2);
         return view('admin.productos.detalle', compact('producto','categoria'));
+
     }
+
 }

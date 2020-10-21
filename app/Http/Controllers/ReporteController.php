@@ -6,8 +6,11 @@ use App\Models\Carrito;
 use App\Models\CarritoDetalle;
 use App\Models\Categoria;
 use App\Models\Cotizacion;
+use App\Models\Itemven;
 use App\Models\Producto;
 use App\Models\Reportetipo;
+use App\Policies\viewAny;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -20,6 +23,7 @@ class ReporteController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', User::class);
         $categorias = Categoria::get();
         $productos = Producto::get();
         return view('reportes.index',compact('categorias','productos'));
@@ -72,8 +76,9 @@ class ReporteController extends Controller
         $fecha = Carbon::now();
         $user = auth()->user()->fullname;
         //dd($fecha->format('d M'));
+        $cate = Categoria::where('id',$request['categoria'])->first();
         //dd($pedidos);
-        $view =  \View::make('reportes.tipoventas', compact('reportes','fecha','desde','hasta','user'))->render();
+        $view =  \View::make('reportes.tipoventas', compact('reportes','fecha','desde','hasta','user','cate'))->render();
         $pdf  = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view)->setPaper('carta', 'portrait');
         return $pdf->stream('Reporte-Ventas/'.$fecha->format('d/m/Y').'.pdf');
@@ -151,4 +156,48 @@ class ReporteController extends Controller
     {
         //
     }
+    public function estadisticas()
+    {
+        $this->authorize('viewAny', User::class);
+
+        //\DB::table('itemvens')->delete();
+        Itemven::where('cantidad','!=',2500)->delete();
+        $carritos = Carrito::where('estado','Finalizado')->get();
+        foreach($carritos as $carrito)
+        {
+            foreach($carrito->carrito_detalles as $cade)
+            {
+                $pronom = Producto::find($cade->producto_id);
+                $item = new Itemven;
+                $item->producto = $pronom->nombre;
+                $item->cantidad = $cade->cantidad;
+                $item->save();
+            }
+        }
+        $items = Itemven::get();
+        //dd($items);
+        $itemvalores = \DB::table('itemvens')
+        ->select('producto', \DB::raw('SUM(cantidad) as cantidad'))
+        ->groupBy('producto')
+        ->orderBy('cantidad','DESC')
+        ->limit(5)
+        ->get();
+
+        //dd($itemvalores[0]->producto);
+
+        $nom1  = $itemvalores[0]->producto;
+        $cant1 = $itemvalores[0]->cantidad;
+        $nom2  = $itemvalores[1]->producto;
+        $cant2 = $itemvalores[1]->cantidad;
+        $nom3  = $itemvalores[2]->producto;
+        $cant3 = $itemvalores[2]->cantidad;
+        $nom4  = $itemvalores[3]->producto;
+        $cant4 = $itemvalores[3]->cantidad;
+        $nom5  = $itemvalores[4]->producto;
+        $cant5 = $itemvalores[4]->cantidad;
+
+        return view('estadistica.index', compact('nom1','cant1','nom2','cant2','nom3','cant3','nom4','cant4','nom5','cant5'));
+    }
+
 }
+

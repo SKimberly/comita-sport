@@ -137,12 +137,16 @@
 				</div>
 			</div>
 			@if($carrito->estado === 'Procesando')
+			@can('viewAny', auth::user())
 			<div class="card-footer row justify-content-center">
 				<button type="button" class="btn  btn-success" data-carritoid="{{ $carrito->id }}" data-carritofecha="{{ $carrito->fecha_entrega ? $carrito->fecha_entrega->format('d M Y') : '' }}" data-toggle="modal" data-target="#pagarDeuda">
 	                <i class="far fa-money-bill-alt"> </i> ¿Pagar?
 	            </button>
 	        </div>
+	        @endcan
 			@else
+			@if($carrito->estado !== 'Finalizado')
+			@can('viewAny', auth::user())
 			<div class="card-footer row justify-content-center">
 				<a href="{{ route('admin.aprobados.carriapro', [$carrito->id]) }}" class="btn btn-outline-success"  >
                     APROBAR
@@ -153,6 +157,8 @@
                     RECHAZAR
                 </a>
 			</div>
+			@endcan
+			@endif
 			@endif
 		</div>
 	</div>

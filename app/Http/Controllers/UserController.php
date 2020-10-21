@@ -17,18 +17,19 @@ class UserController extends Controller
      */
     public function index()
     {
+
+        $this->authorize('viewAny', User::class);
+
         if( auth()->user()->tipo === 'Super-Admin' ){
-            $users = User::where('id','!=',auth()->user()->id)->where('activo', true)->orderBy('id', 'DESC')->paginate();
+            $users = User::where('id','!=',auth()->user()->id)->where('activo',true)->orderBy('id', 'DESC')->paginate();
         }
         if( auth()->user()->tipo === 'Administrador'){
-            $users = User::where('id','!=',auth()->user()->id)->where('tipo','!=','Super-Admin')->where('activo', true)->orderBy('id', 'DESC')->paginate();
+            $users = User::where('id','!=',auth()->user()->id)->where('activo',true)->where('tipo','!=','Super-Admin')->orderBy('id', 'DESC')->paginate();
         }
-        if( auth()->user()->tipo === 'Ventas'){
-            $users = User::where('id','!=',auth()->user()->id)->where('tipo','!=','Administrador')->where('tipo','!=','Super-Admin')->where('activo', true)->orderBy('id', 'DESC')->paginate();
+        if( auth()->user()->tipo === 'Ventas' ){
+            $users = User::where('id','!=',auth()->user()->id)->where('activo',true)->where('tipo','!=','Administrador')->where('tipo','!=','Super-Admin')->orderBy('id', 'DESC')->paginate();
         }
-
-        //dd(User::paginate(10));
-
+        //dd($users);
 
         return view('admin.users.index', compact('users'));
     }
@@ -40,11 +41,12 @@ class UserController extends Controller
      */
     public function create(Request $request, $slug)
     {
+        //dd($request->all());
         $this->validate($request, [
             'telefono' => 'required|min:5|max:12'
         ]);
 
-        $user = User::where('slug',$slug)->first();
+        $user = User::where('slug', $slug)->first();
         $user->email = $request['email'];
         $user->telefono = $request['telefono'];
 
@@ -55,11 +57,10 @@ class UserController extends Controller
             ]);
             $user->password = bcrypt($request['password']);
         }
-
         $user->save();
+
         Alert::success('¡Excelente!', 'Actualizaste tu perfil');
         return back();
-
     }
 
     /**
@@ -71,11 +72,16 @@ class UserController extends Controller
     public function store(UserCrearRequest $request)
     {
         //Estoy validando con el archi UserGuardarRequest
+        $this->validate($request, [
+            'fullname' => 'unique:users,fullname'
+        ]);
+
         if(!empty($request['email'])){
             $this->validate($request, [
                 'email' => 'unique:users,email',
             ]);
         }
+
         $user = new User;
         $user->fullname = $request['fullname'];
         $user->slug = Str::of($request['fullname'])->slug('-');
@@ -85,8 +91,12 @@ class UserController extends Controller
         $user->password = bcrypt($request['password']);
         $user->tipo = $request->rol;
         $user->save();
+
         return redirect('/admin/users#')->with('success', 'Usuario registrado correctamente');
+
+
     }
+
     /**
      * Display the specified resource.
      *
@@ -109,8 +119,9 @@ class UserController extends Controller
      */
     public function edit($slug)
     {
-        //dd($slug);
-        $user = User::where('slug', $slug)->first();
+        $this->authorize('update', \Auth::user());
+
+        $user = User::where('slug',$slug)->first();
         return view('admin.users.edit', compact('user'));
     }
 
@@ -123,8 +134,7 @@ class UserController extends Controller
      */
     public function update(UserCrearRequest $request, $slug)
     {
-        //dd($slug);
-        $user = User::where('slug', $slug)->first();
+        $user = User::where('slug',$slug)->first();
         $user->fullname = $request['fullname'];
         $user->cedula = $request['cedula'];
         $user->telefono = $request['telefono'];
@@ -147,7 +157,8 @@ class UserController extends Controller
      */
     public function destroy($slug)
     {
-        $user = User::where('slug', $slug)->update(['activo'=>false]);
-        return redirect('admin/users')->with('success', 'El Usuario fue dado de baja');
+        $user = User::where('slug',$slug)->update(['activo'=>false]);
+
+        return redirect('admin/users')->with('success', 'El usuario fue dado de Baja');
     }
 }

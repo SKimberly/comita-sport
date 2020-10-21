@@ -109,6 +109,7 @@
 												<label class="checkbox-btn mb-0 " >
                                                     <span class="btn btn-light-checkbox bg-success" style="font-size: 15px;"> {{ $carrito->estado }} </span>
                                                 </label>
+
 											</td>
 											<td class="col-sm-2 col-md-2 text-center">
 												@if($carrito->anticipo)
@@ -116,16 +117,21 @@
 												@else
 													<span style="color:red;"> <strong>Sin pago</strong> </span>
 												@endif
+												Deuda: {{ $carrito->total_bs - $carrito->anticipo }} Bs.
+												@can('viewAny', auth::user())
 												<button type="button" class="btn btn-sm btn-outline-success" data-carritoid="{{ $carrito->id }}" data-carritofecha="{{ $carrito->fecha_entrega ? $carrito->fecha_entrega->format('d M Y') : '' }}" data-toggle="modal" data-target="#pagarDeuda">
 									                <i class="far fa-money-bill-alt"> </i> ¿Pagar?
 									            </button>
+									            @endcan
 											</td>
 											<td class="col-sm-2 col-md-2 text-center">
 												<strong>Bs. {{ $carrito->total_bs }}</strong>
 												@if($carrito->anticipo < $carrito->total_bs)
+													@can('viewAny', auth::user())
 													<button type="button" class="btn btn-sm btn-outline-secondary" data-carritoid="{{ $carrito->id }}" data-carritofecha="{{ $carrito->fecha_entrega ? $carrito->fecha_entrega->format('d M Y') : '' }}" data-toggle="modal" data-target="#pagarDeuda">
 										                Deuda: {{ $carrito->total_bs - $carrito->anticipo }} Bs.
 										            </button>
+										            @endcan
 									            @endif
 											</td>
 											<td class="col-sm-1 col-md-1 text-center  " >
@@ -214,17 +220,22 @@
 													<strong>Bs. {{ $cotizacion->anticipo }}</strong>
 												@else
 													<span style="color:red;"> <strong>Sin pago</strong> </span>
+													Deuda: {{ $cotizacion->precio - $cotizacion->anticipo }} Bs.
 												@endif
+												@can('viewAny', auth::user())
 		                                        <button type="button" class="btn btn-sm btn-block  btn-outline-success" data-cotizacionid="{{ $cotizacion->id }}" data-toggle="modal" data-target="#pagarDecoti">
 									                <i class="far fa-money-bill-alt"> </i> ¿PAGAR?
 									            </button>
+									            @endcan
 		                                    </td>
 											<td class="col-sm-2 col-md-2 text-center">
 												<strong>Bs. {{ $cotizacion->precio }}</strong>
 												@if($cotizacion->anticipo < $cotizacion->precio)
+													@can('viewAny', auth::user())
 													<button type="button" class="btn btn-sm btn-outline-secondary" data-cotizacionid="{{ $cotizacion->id }}" data-toggle="modal" data-target="#pagarDecoti">
 										                Deuda: {{ $cotizacion->precio - $cotizacion->anticipo }} Bs.
 										            </button>
+										            @endcan
 									            @endif
 											</td>
 											<td class="col-sm-1 col-md-1 text-white " >

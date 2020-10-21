@@ -34,9 +34,15 @@ class CotizacionController extends Controller
         $this->validate($request, [
             'nombre' => 'required|min:5|max:100'
         ]);
+
+        $sl = Str::of($request['nombre'])->slug('-');
+        $uid = Cotizacion::orderBy('id','DESC')->first();
+
+        $s=$uid->id+1;
+
         $cotizacion = new Cotizacion;
         $cotizacion->nombre = $request['nombre'];
-        $cotizacion->slug = Str::of($request['nombre'])->slug('-');
+        $cotizacion->slug = $sl.$s;
         $cotizacion->user_id = auth()->user()->id;
         $cotizacion->save();
 

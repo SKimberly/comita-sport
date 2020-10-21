@@ -26,9 +26,11 @@
     <div class="container-fluid">
       <div class="card card-info">
           <div class="card-header ">
+              @can('viewAny', auth::user())
               <button type="button" class="btn btn-xl btn-comita text-white pull-rigth" data-toggle="modal" data-target="#crearPro">
                   <i class="fas fa-plus-circle"></i> Nuevo producto
               </button>
+              @endcan
               <p class="text-center">NUESTROS PRODUCTOS</p>
           </div>
             <div class="card-body">
@@ -77,14 +79,15 @@
                                 </td>
                                 {{--<td>{{ $producto->created_at->format('d M h:m') }}</td>--}}
                                 <td class="text-center">
+                                    @can('viewAny', auth::user())
                                     <a href="{{ route('admin.productos.edit', [$producto->slug]) }}" class="btn btn-sm btn-block btn-comita text-white">
                                           Editar
                                     </a>
 
                                      <button class="btn btn-sm  btn-outline-comita btn-block" onclick="deleteConfirmation('{{$producto->id}}')">Dar Baja</button>
-
+                                     @endcan
                                      <a href="{{ route('admin.producto.detalles', [$producto->slug]) }}" class="btn btn-sm btn-block btn-comita text-white">
-                                          Ver detalles
+                                          Ver Detalles
                                     </a>
                                 </td>
                             </tr>
@@ -154,3 +157,23 @@
 @endpush
 
 
+@push('scripts')
+@unless(request()->is('admin/productos/*'))
+<script>
+    if(window.location.hash === '#pro')
+    {
+        $('#crearPro').modal('show');
+    }
+    $('#crearPro').on('hide.bs.modal', function(){
+      //console.log('El modal se cierra');
+      window.location.hash = '#';
+    });
+    $('#crearPro').on('shown.bs.modal', function(){
+       $('#fullname').focus();
+       window.location.hash = '#pro';
+    });
+
+
+</script>
+@endunless
+@endpush

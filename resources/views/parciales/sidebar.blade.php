@@ -1,3 +1,7 @@
+@php
+
+
+@endphp
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ url('/') }}" class="brand-link text-center">
@@ -33,6 +37,7 @@
               </p>
             </a>
           </li>
+          @can('viewAny', auth::user())
           <li class="nav-item">
               <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->is('admin/users*') ? 'active' : '' }}">
                 <img src="{{ asset('img/sidebar/users.svg') }}" alt="usuarios" class="nav-icon">
@@ -41,7 +46,9 @@
                 </p>
               </a>
           </li>
-          <li class="nav-item has-treeview {{ request()->is('admin/categorias*') || request()->is('admin/tallas*') || request()->is('admin/materiales*') ? 'menu-open' : '' }}">
+          @endcan
+          @can('create', auth::user())
+            <li class="nav-item has-treeview {{ request()->is('admin/categorias*') || request()->is('admin/tallas*') || request()->is('admin/materiales*') ? 'menu-open' : '' }}">
               <a href="#" class="nav-link {{ request()->is('admin/categorias*') || request()->is('admin/tallas*') || request()->is('admin/materiales*') ? 'active' : '' }}">
                 <img src="{{ asset('img/sidebar/otros.svg') }}" alt="complementos" class="nav-icon">
                 <p>
@@ -70,6 +77,7 @@
                 </li>
               </ul>
             </li>
+            @endcan
           <li class="nav-item">
             <a href="{{ route('admin.productos.index') }}" class="nav-link {{ request()->is('admin/productos*') ? 'active' : '' }}">
               <img src="{{ asset('img/sidebar/producto.svg') }}" alt="" class="nav-icon">
@@ -100,14 +108,15 @@
               </p>
             </a>
           </li>
+          @php
+            use App\Models\CarritoPago;
+            use App\Models\CotiPago;
+          @endphp
+          @can('viewAny', auth::user())
           <li class="nav-item">
             <a href="{{ route('admin.pagos.index') }}" class="nav-link {{ request()->is('admin/pagos*') ? 'active' : '' }}">
               <img src="{{ asset('img/sidebar/imgpago.svg') }}" alt="pedidos" class="nav-icon">
               <p>
-                @php
-                  use App\Models\CarritoPago;
-                  use App\Models\CotiPago;
-                @endphp
                   @if($numimg = CarritoPago::where('estado','Pendiente')->where('usuario',auth()->user()->id)->count())
                       <span class="right badge bg-success mr-4" >{{ $numimg }}</span>
                   @endif
@@ -118,6 +127,7 @@
               </p>
             </a>
           </li>
+          @endcan
           <li class="nav-item">
             <a href="{{ route('admin.pedidos.index') }}" class="nav-link {{ request()->is('admin/pedidos*') ? 'active' : '' }}">
               <img src="{{ asset('img/sidebar/pedidos.svg') }}" alt="pedidos" class="nav-icon">
@@ -169,15 +179,16 @@
               <img src="{{ asset('img/sidebar/ventas.svg') }}" alt="categorias" class="nav-icon">
               <p>
                   @if($nummsj = Carrito::where('estado','Finalizado')->count())
-                      <span class="right badge bg-info mr-4" >{{ $nummsj }}</span>
+                      <span class="right badge bg-success mr-4" >{{ $nummsj }}</span>
                   @endif
                   Ventas
                   @if($numco = Cotizacion::where('estado','Finalizado')->count())
-                      <span class="right badge bg-primary">{{ $numco }}</span>
+                      <span class="right badge bg-warning">{{ $numco }}</span>
                   @endif
               </p>
             </a>
           </li>
+          @can('create', auth::user())
           <li class="nav-item">
             <a href="{{ route('admin.calendario.index') }}" class="nav-link {{ request()->is('admin/calendario/view') ? 'active' : '' }}">
               <img src="{{ asset('img/sidebar/calendario.svg') }}" alt="categorias" class="nav-icon">
@@ -191,6 +202,7 @@
               </p>
             </a>
           </li>
+          @can('viewAny', auth::user())
           <li class="nav-item">
             <a href="{{ route('admin.reportes.index') }}" class="nav-link {{ request()->is('admin/reportes*') ? 'active' : '' }}">
               <img src="{{ asset('img/sidebar/reportes.svg') }}" alt="reportes" class="nav-icon">
@@ -199,6 +211,16 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.estadisticas.index') }}" class="nav-link {{ request()->is('admin/estadisticas*') ? 'active' : '' }}">
+              <img src="{{ asset('img/sidebar/resultados.svg') }}" alt="reportes" class="nav-icon">
+              <p>
+                  Estadísticas
+              </p>
+            </a>
+          </li>
+          @endcan
+          @endcan
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

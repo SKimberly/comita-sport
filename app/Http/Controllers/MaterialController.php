@@ -1,8 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
+
+use App\Models\Categoria;
 use App\Models\Material;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+
 class MaterialController extends Controller
 {
     /**
@@ -12,9 +16,12 @@ class MaterialController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Categoria::class);
+
         $materiales = Material::orderBy('id', 'DESC')->paginate();
         return view('admin.materiales.index', compact('materiales'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -24,6 +31,7 @@ class MaterialController extends Controller
     {
         //
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -33,7 +41,7 @@ class MaterialController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nombre' => 'required'
+            'nombre' => 'required|unique:materiales,nombre'
         ]);
         //dd($request->all());
         $material = new Material();
@@ -41,8 +49,10 @@ class MaterialController extends Controller
         $material->slug = Str::of($request['nombre'])->slug('-');
         $material->descripcion = $request['descripcion'];
         $material->save();
+
         return redirect('admin/materiales#')->with('success', 'Nuevo material creado correctamente');
     }
+
     /**
      * Display the specified resource.
      *
@@ -53,16 +63,18 @@ class MaterialController extends Controller
     {
         //
     }
+
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($slug)
+    public function edit($id)
     {
 
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -78,6 +90,7 @@ class MaterialController extends Controller
         $material->save();
         return redirect('admin/materiales')->with('success', 'Material actualizado correctamente');
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -87,6 +100,7 @@ class MaterialController extends Controller
     public function destroy($slug)
     {
         $material = Material::where('slug',$slug)->update(['estado'=>false]);
+
         return redirect('admin/materiales')->with('success', 'El material fue dada de Baja');
     }
 }

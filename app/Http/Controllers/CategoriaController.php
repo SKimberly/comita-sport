@@ -1,9 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use File;
+
 class CategoriaController extends Controller
 {
     /**
@@ -13,9 +16,13 @@ class CategoriaController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Categoria::class);
+
         $categorias = Categoria::orderBy('id','DESC')->paginate();
         return view('admin.categorias.index', compact('categorias'));
+
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -25,6 +32,7 @@ class CategoriaController extends Controller
     {
         //
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -53,6 +61,7 @@ class CategoriaController extends Controller
         }
         return redirect('/admin/categorias#')->with('success', 'Categoria creada correctamente!');
     }
+
     /**
      * Display the specified resource.
      *
@@ -63,6 +72,7 @@ class CategoriaController extends Controller
     {
         //
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -71,9 +81,11 @@ class CategoriaController extends Controller
      */
     public function edit($slug)
     {
+        $this->authorize('viewAny', Categoria::class);
         $categoria = Categoria::where('slug',$slug)->first();
         return view('admin.categorias.edit', compact('categoria'));
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -86,6 +98,7 @@ class CategoriaController extends Controller
         $this->validate($request, [
             'imagen' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024'
         ]);
+
         //Primero eliminaremos la imagen del proyecto
         $categoriaFoto = Categoria::where('slug',$slug)->first();
         if(!empty($request['imagen']))//Si el campo imagen no esta vacio => entonces esta enviando una nueva foto
@@ -107,12 +120,15 @@ class CategoriaController extends Controller
             if($moved){
                 $categoriaFoto->imagen = $fileName;
             }
+
         }
         $categoriaFoto->nombre = $request['nombre'];
         $categoriaFoto->descripcion = $request['descripcion'];
         $categoriaFoto->save();
+
         return redirect('admin/categorias')->with('success', 'Categoria actualizada correctamente!');
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -122,6 +138,7 @@ class CategoriaController extends Controller
     public function destroy($slug)
     {
         $categoria = Categoria::where('slug',$slug)->update(['estado'=>false]);
+
         return redirect('admin/categorias')->with('success', 'La tallas fue dada de Baja');
     }
 }

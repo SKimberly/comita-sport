@@ -62,6 +62,11 @@ class CarritoDetalleController extends Controller
         ]);
         $producto = Producto::where('id',$id)->first();
 
+        if($request['cantidad'] > $producto->stock)
+        {
+            return back()->with('errors','Cantidad excedida al stock!');
+        }
+
         $proprecio = ($producto->precio * $request['cantidad']);
 
         if($producto->descuento && $producto->cant_descuento){

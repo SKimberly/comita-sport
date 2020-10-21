@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Invoice - #123</title>
+    <title>Reporte</title>
 
     <style type="text/css">
         @page {
@@ -50,29 +50,25 @@
     <table width="100%">
         <tr>
             <td align="left" style="width: 40%;">
-                <h3>John Doe</h3>
+                <h3>POTOSI- SPORT LA COMITA</h3>
                 <pre>
-                Street 15
-                123456 City
-                United Kingdom
-                <br /><br />
-                Date: 2018-01-01
-                Identifier: #uniquehash
-                Status: Paid
+                Celular: 70462939<br />
+                Email: <a href="">sport.lacomita19@gmail.com</a>
+                <br />
+                Rango de fechas: {{ $desde }} hasta {{ $hasta }}
+                <br />
+                Fecha actual: {{ $fecha }}
                 </pre>
             </td>
             <td align="center">
-                <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.itmplatform.com%2Fes%2Fblog%2Ftodo-lo-que-debes-incluir-en-un-reporte-de-estado-de-proyecto%2F&psig=AOvVaw2ADnlvPxjDviduHRtHaNFn&ust=1594276797513000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCe74SGveoCFQAAAAAdAAAAABAD" alt="Logo" width="64" class="logo"/>
+                <img src="pdf/logo1.png" alt="Logo" width="64" class="logo"/>
             </td>
             <td align="right" style="width: 40%;">
 
-                <h3>CompanyName</h3>
+                <h3>REPORTE DE VENTAS POR COTIZACIONES</h3>
                 <pre>
-                    https://company.com
-
-                    Street 26
-                    123456 City
-                    United Kingdom
+                    Tienda: Calle Oruro Nro. 184
+                    Fábrica: Calle América esq. San Alberto
                 </pre>
             </td>
         </tr>
@@ -84,7 +80,7 @@
 <br/>
 
 <div class="invoice">
-    <h3>Invoice specification #123</h3>
+    <h3>DESCRIPCIÓN GENERAL:</h3>
     <table width="100%">
         <thead>
         <tr>
@@ -131,10 +127,10 @@
     <table width="100%">
         <tr>
             <td align="left" style="width: 50%;">
-                &copy; {{ date('Y') }} {{ config('app.url') }} - All rights reserved.
+                &copy; {{ date('Y') }} {{ config('app.url') }} - Derechos reservados.
             </td>
             <td align="right" style="width: 50%;">
-                Company Slogan
+                SPORT LA COMITA
             </td>
         </tr>
 
@@ -142,114 +138,3 @@
 </div>
 </body>
 </html>
-
-<!--
-
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Aloha!</title>
-
-<style type="text/css">
-    * {
-        font-family: Verdana, Arial, sans-serif;
-    }
-    table{
-        font-size: x-small;
-    }
-    tfoot tr td{
-        font-weight: bold;
-        font-size: x-small;
-    }
-    .gray {
-        background-color: lightgray
-    }
-</style>
-
-</head>
-<body>
-
-  <table width="100%">
-    <tr>
-        <td valign="top"><img src="{{asset('images/meteor-logo.png')}}" alt="" width="150"/></td>
-        <td align="right">
-            <h3>Shinra Electric power company</h3>
-            <pre>
-                Company representative name
-                Company address
-                Tax ID
-                phone
-                fax
-            </pre>
-        </td>
-    </tr>
-
-  </table>
-
-  <table width="100%">
-    <tr>
-        <td><strong>From:</strong> Linblum - Barrio teatral</td>
-        <td><strong>To:</strong> Linblum - Barrio Comercial</td>
-    </tr>
-
-  </table>
-
-  <br/>
-
-  <table width="100%">
-    <thead style="background-color: lightgray;">
-      <tr>
-        <th>#</th>
-        <th>Description</th>
-        <th>Quantity</th>
-        <th>Unit Price $</th>
-        <th>Total $</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Playstation IV - Black</td>
-        <td align="right">1</td>
-        <td align="right">1400.00</td>
-        <td align="right">1400.00</td>
-      </tr>
-      <tr>
-          <th scope="row">1</th>
-          <td>Metal Gear Solid - Phantom</td>
-          <td align="right">1</td>
-          <td align="right">105.00</td>
-          <td align="right">105.00</td>
-      </tr>
-      <tr>
-          <th scope="row">1</th>
-          <td>Final Fantasy XV - Game</td>
-          <td align="right">1</td>
-          <td align="right">130.00</td>
-          <td align="right">130.00</td>
-      </tr>
-    </tbody>
-
-    <tfoot>
-        <tr>
-            <td colspan="3"></td>
-            <td align="right">Subtotal $</td>
-            <td align="right">1635.00</td>
-        </tr>
-        <tr>
-            <td colspan="3"></td>
-            <td align="right">Tax $</td>
-            <td align="right">294.3</td>
-        </tr>
-        <tr>
-            <td colspan="3"></td>
-            <td align="right">Total $</td>
-            <td align="right" class="gray">$ 1929.3</td>
-        </tr>
-    </tfoot>
-  </table>
-
-</body>
-</html>
-  -->

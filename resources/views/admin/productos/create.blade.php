@@ -13,7 +13,7 @@
               <div class="form-group row">
                   <label for="email" class="col-sm-5 col-form-label text-md-right"><strong></strong>{{ __('Nombre del producto:') }}</strong></label>
                   <div class="col-sm-7">
-                      <input type="text" class="form-control bg-light   @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre') }}"  autocomplete="nombre" autofocus placeholder="Nombre del nuevo producto">
+                      <input type="text" class="form-control bg-light {{ $errors->has('nombre') ? ' is-invalid' : 'border-0' }}" name="nombre" value="{{ old('nombre') }}"  autocomplete="nombre" autofocus placeholder="Nombre del nuevo producto">
                       @error('nombre')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>

@@ -111,6 +111,7 @@
                                       </label>
                                   @endif
                               </div>
+
                           </div>
                       </div>
                   </div>
@@ -171,12 +172,14 @@
                   </div>
                   <div class="row justify-content-center p-2">
                   @if($cotizacion->estado === 'Procesando')
-
+                  @can('viewAny', auth::user())
                       <button type="button" class="btn btn-success" data-cotizacionid="{{ $cotizacion->id }}" data-toggle="modal" data-target="#pagarDecoti">
                           <i class="far fa-money-bill-alt"> </i> ¿PAGAR?
                       </button>
-
+                  @endcan
                   @else
+                  @if($cotizacion->estado !== 'Finalizado')
+                  @can('viewAny', auth::user())
                       <a href="{{ route('admin.aprobados.cotiapro', [$cotizacion->id]) }}" class="btn btn-sm   btn-outline-success mr-3" target="_blanck" >
                          <i class="far fa-thumbs-up"></i> APROBAR
                       </a>
@@ -184,6 +187,8 @@
                       <a href="{{ route('admin.aprobados.cotirepro', [$cotizacion->id]) }}" class="btn btn-sm   btn-outline-danger" target="_blanck">
                           <i class="far fa-thumbs-down"></i> RECHAZAR
                       </a>
+                  @endcan
+                  @endif
                   @endif
                   </div>
               </div>

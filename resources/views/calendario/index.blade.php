@@ -115,7 +115,7 @@
         day  : 'DÍA',
         list : 'LISTA'
       },
-      initialDate: '2020-06-12',
+      //initialDate: '2020-06-12', es para mostrar un dia en especifico
       navLinks: true, // can click day/week names to navigate views
       businessHours: true, // display business hours
       editable: false,

@@ -164,11 +164,13 @@
                       </div>
                   </div>
               </div>
+              @can('viewAny', auth::user())
               <div class="row justify-content-center p-2">
                   <button type="button" class="btn btn-comita text-white" data-toggle="modal" data-target="#crearMe">
                       <i class="fas fa-hand-holding-usd"></i> DEFINIR  PRECIO
                   </button>
               </div>
+              @endcan
           </div>
         </div>
         <div class="col-md-6">

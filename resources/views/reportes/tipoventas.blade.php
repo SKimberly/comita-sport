@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Invoice - #123</title>
+    <title>Reporte</title>
 
     <style type="text/css">
         @page {
@@ -50,29 +50,27 @@
     <table width="100%">
         <tr>
             <td align="left" style="width: 40%;">
-                <h3>John Doe</h3>
+                <h3>POTOSI- SPORT LA COMITA</h3>
                 <pre>
-                Street 15
-                123456 City
-                United Kingdom
-                <br /><br />
-                Date: 2018-01-01
-                Identifier: #uniquehash
-                Status: Paid
+                Celular: 70462939<br />
+                Email: <a href="">sport.lacomita19@gmail.com</a>
+                <br />
+                Rango de fechas: {{ $desde }} hasta {{ $hasta }}
+                <br />
+                Categoría: {{ $cate->nombre }}
+                <br />
+                Fecha: {{ $fecha }}
                 </pre>
             </td>
             <td align="center">
-                <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.itmplatform.com%2Fes%2Fblog%2Ftodo-lo-que-debes-incluir-en-un-reporte-de-estado-de-proyecto%2F&psig=AOvVaw2ADnlvPxjDviduHRtHaNFn&ust=1594276797513000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCe74SGveoCFQAAAAAdAAAAABAD" alt="Logo" width="64" class="logo"/>
+                <img src="pdf/logo1.png" alt="Logo" width="90" class="logo"/>
             </td>
             <td align="right" style="width: 40%;">
 
-                <h3>CompanyName</h3>
+                <h3>REPORTE POR CATEGORIA DE PRENDA</h3>
                 <pre>
-                    https://company.com
-
-                    Street 26
-                    123456 City
-                    United Kingdom
+                    Tienda: Calle Oruro Nro. 184
+                    Fábrica: Calle América esq. San Alberto
                 </pre>
             </td>
         </tr>
@@ -84,7 +82,7 @@
 <br/>
 
 <div class="invoice">
-    <h3>Invoice specification #123</h3>
+    <h3>DESCRIPCIÓN GENERAL:</h3>
     <table width="100%">
         <thead>
         <tr>
@@ -133,10 +131,10 @@
     <table width="100%">
         <tr>
             <td align="left" style="width: 50%;">
-                &copy; {{ date('Y') }} {{ config('app.url') }} - All rights reserved.
+                &copy; {{ date('Y') }} {{ config('app.url') }} - Derechos reservados.
             </td>
             <td align="right" style="width: 50%;">
-                Company Slogan
+                SPORT LA COMITA
             </td>
         </tr>
 
@@ -144,6 +142,7 @@
 </div>
 </body>
 </html>
+
 
 <!--
 

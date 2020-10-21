@@ -58,7 +58,7 @@
                             </div>
                             @guest
                             @else
-                            <div class="product-talla form-control bg-light border-0  @error('tallas') is-invalid @enderror">
+                            <div class="product-talla form-control bg-light border-0">
                                 <strong>Tallas:</strong>
                                 @foreach($producto->tallas as $talla)
                                     <label class="checkbox-btn">
