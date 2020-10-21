@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'WellcomeController@index');
 
+Route::resource('smscontactos','AdminController');
 
 Auth::routes();
 

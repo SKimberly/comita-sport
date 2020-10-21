@@ -181,7 +181,7 @@
                         <div class="col-12 col-lg-6" >
                             <form class="bg-white shadow rounded py-3 px-4 was-validated"
                                 method="POST"
-                                action="/">
+                                action="{{ route('smscontactos.store') }}">
                                  @csrf
                                  <div class="form-group">
                                     <label for="nombre">Nombre:</label>
@@ -212,7 +212,7 @@
                                     <input class="form-control bg-light shadow-sm {{ $errors->has('email') ? ' is-invalid' : 'border-0' }}" id="email"
                                         type="email"
                                         name="email"
-                                        placeholder="Ingrese su correo eléctronico" value="{{ old('email') }}" required >
+                                        placeholder="Ingrese su correo eléctronico" value="{{ old('email') }}"  >
                                     @if ($errors->has('email'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('email') }}</strong>
