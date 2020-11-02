@@ -21,87 +21,6 @@
 @endsection
 
 @section('contenido')
-<section class="content">
-    <div class="container-fluid">
-        <div class="col-12 col-sm-12 col-lg-12 mx-auto">
-            <div class="card card-widget widget-user">
-                <div class="widget-user-header text-white"
-                    style="background: url('/img/welcome/potosi2.jpg') center center;">
-                    <h3 class="widget-user-username text-right">Nombre</h3>
-                    <h5 class="widget-user-desc text-right">Administrador</h5>
-                </div>
-                <div class="widget-user-image">
-                    <img style="border:none;" src="{{ asset('img/sidebar/resultados.svg') }}" alt="reportes">
-                </div>
-                <div class="card-body pt-0" >
-                    <div class="text-center p-2">
-                        <a class="nav-link active text-white"> <strong> GRÁFICAS DE LAS VENTAS </strong></a>
-                    </div>
-                  <div class="row justify-content-center">
-                      <div class="col-md-10 shadow">
-                          <canvas id="generalVentas" width="400" height="400"></canvas>
-                      </div>
-                  </div>
-                  <hr>
-
-                  <hr>
-                  <div class="row justify-content-center">
-                      <div class="col-md-10 shadow">
-                          <canvas id="graficaVentaBs" width="400" height="400"></canvas>
-                      </div>
-                  </div>
-
-                  <hr>
-                  <div class="row justify-content-center">
-                      <div class="col-md-10 shadow">
-                          <canvas id="itemventa" width="400" height="400"></canvas>
-                      </div>
-                  </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-@endsection
-
-
-@push('styles')
-<style>
-.widget-user-header{
-    background-position: center center !important;
-    background-size: cover !important;
-    height: 200px !important;
-}
-
-.widget-user .widget-user-image {
-    /*position: absolute;*/
-    top: 100px !important;
-    /*left: 50%;
-    margin-left: -45px;*/
-}
-.nav-link.active{
-    background-color: #0a2b4e !important;
-    color: cyan !important;
-    border: 2px solid cyan !important;
-}
-.nav-tabs {
-    border-bottom: 1px solid cyan;
-}
-.btn-light-checkbox {
-    font-size: 12px;
-    padding: 0.0rem 0.3rem;
-}
-
-
-</style>
-
-@endpush
-
-
-@push('scripts')
-<script src="{{ asset('fonts/utils.js') }}" ></script>
-
-<script>
 <?php
 
 use App\Models\Carrito;
@@ -112,6 +31,7 @@ function getUltimoDiaMes($elAnio,$elMes) {
 }
 // Aqui obtenemos el año
 $año = intval(date("Y"));
+$diac = date("Y-m-d");
 
 // Obtener el año actual para cualquier mes primer dia del mes
 $dia1 = $año."-01-01";
@@ -126,6 +46,96 @@ $dia9 = $año."-09-01";
 $dia10 = $año."-10-01";
 $dia11 = $año."-11-01";
 $dia12 = $año."-12-01"; // ---> 2020-01-01
+
+//Año pasado
+$añopa = intval(date('Y', strtotime('-1 year')));
+$dia1pa = $añopa."-01-01";
+$dia2pa = $añopa."-02-01";
+$dia3pa = $añopa."-03-01";
+$dia4pa = $añopa."-04-01";
+$dia5pa = $añopa."-05-01";
+$dia6pa = $añopa."-06-01";
+$dia7pa = $añopa."-07-01";
+$dia8pa = $añopa."-08-01";
+$dia9pa = $añopa."-09-01";
+$dia10pa = $añopa."-10-01";
+$dia11pa = $añopa."-11-01";
+$dia12pa = $añopa."-12-01";
+
+$ultimoDiapa = getUltimoDiaMes($añopa,1);
+$fecha1pa = $añopa."-01-".$ultimoDiapa; //2020-01-31
+$ultimoDiapa = getUltimoDiaMes($añopa,2);
+$fecha2pa = $añopa."-02-".$ultimoDiapa;
+$ultimoDiapa = getUltimoDiaMes($añopa,3);
+$fecha3pa = $añopa."-03-".$ultimoDiapa;
+$ultimoDiapa = getUltimoDiaMes($añopa,4);
+$fecha4pa = $añopa."-04-".$ultimoDiapa;
+$ultimoDiapa = getUltimoDiaMes($añopa,5);
+$fecha5pa = $añopa."-05-".$ultimoDiapa;
+$ultimoDiapa = getUltimoDiaMes($añopa,6);
+$fecha6pa = $añopa."-06-".$ultimoDiapa;
+$ultimoDiapa = getUltimoDiaMes($añopa,7);
+$fecha7pa = $añopa."-07-".$ultimoDiapa;
+$ultimoDiapa = getUltimoDiaMes($añopa,8);
+$fecha8pa = $añopa."-08-".$ultimoDiapa;
+$ultimoDiapa = getUltimoDiaMes($añopa,9);
+$fecha9pa = $añopa."-09-".$ultimoDiapa;
+$ultimoDiapa = getUltimoDiaMes($añopa,10);
+$fecha10pa = $añopa."-10-".$ultimoDiapa;
+$ultimoDiapa = getUltimoDiaMes($añopa,11);
+$fecha11pa = $añopa."-11-".$ultimoDiapa;
+$ultimoDiapa = getUltimoDiaMes($añopa,12);
+$fecha12pa = $añopa."-12-".$ultimoDiapa;
+
+$gvca1pa = Carrito::where('estado','Finalizado')->whereBetween('fecha_entrega', [$dia1pa, $fecha1pa])->sum('total_bs');
+$gvco1pa = Cotizacion::where('estado','Finalizado')->whereBetween('fecha', [$dia1pa, $fecha1pa])->sum('precio');
+$eneropa = $gvca1pa+$gvco1pa; // 350
+
+$gvca2pa = Carrito::where('estado','Finalizado')->whereBetween('fecha_entrega', [$dia2pa, $fecha2pa])->sum('total_bs');
+$gvco2pa = Cotizacion::where('estado','Finalizado')->whereBetween('fecha', [$dia2pa, $fecha2pa])->sum('precio');
+$febrepa = $gvca2pa+$gvco2pa; // 70
+
+$gvca3pa = Carrito::where('estado','Finalizado')->whereBetween('fecha_entrega', [$dia3pa, $fecha3pa])->sum('total_bs');
+$gvco3pa = Cotizacion::where('estado','Finalizado')->whereBetween('fecha', [$dia3pa, $fecha3pa])->sum('precio');
+$marzopa = $gvca3pa+$gvco3pa;
+
+$gvca4pa = Carrito::where('estado','Finalizado')->whereBetween('fecha_entrega', [$dia4pa, $fecha4pa])->sum('total_bs');
+$gvco4pa = Cotizacion::where('estado','Finalizado')->whereBetween('fecha', [$dia4pa, $fecha4pa])->sum('precio');
+$abrilpa = $gvca4pa+$gvco4pa;
+
+$gvca5pa = Carrito::where('estado','Finalizado')->whereBetween('fecha_entrega', [$dia5pa, $fecha5pa])->sum('total_bs');
+$gvco5pa = Cotizacion::where('estado','Finalizado')->whereBetween('fecha', [$dia5pa, $fecha5pa])->sum('precio');
+$mayospa = $gvca5pa+$gvco5pa;
+
+$gvca6pa = Carrito::where('estado','Finalizado')->whereBetween('fecha_entrega', [$dia6pa, $fecha6pa])->sum('total_bs');
+$gvco6pa = Cotizacion::where('estado','Finalizado')->whereBetween('fecha', [$dia6pa, $fecha6pa])->sum('precio');
+$juniopa = $gvca6pa+$gvco6pa;
+
+$gvca7pa = Carrito::where('estado','Finalizado')->whereBetween('fecha_entrega', [$dia7pa, $fecha7pa])->sum('total_bs');
+$gvco7pa = Cotizacion::where('estado','Finalizado')->whereBetween('fecha', [$dia7pa, $fecha7pa])->sum('precio');
+$juliopa = $gvca7pa+$gvco7pa;
+
+$gvca8pa = Carrito::where('estado','Finalizado')->whereBetween('fecha_entrega', [$dia8pa, $fecha8pa])->sum('total_bs');
+$gvco8pa = Cotizacion::where('estado','Finalizado')->whereBetween('fecha', [$dia8pa, $fecha8pa])->sum('precio');
+$agostpa = $gvca8pa+$gvco8pa;
+
+$gvca9pa = Carrito::where('estado','Finalizado')->whereBetween('fecha_entrega', [$dia9pa, $fecha9pa])->sum('total_bs');
+$gvco9pa = Cotizacion::where('estado','Finalizado')->whereBetween('fecha', [$dia9pa, $fecha9pa])->sum('precio');
+$septipa = $gvca9pa+$gvco9pa;
+
+$gvca10pa = Carrito::where('estado','Finalizado')->whereBetween('fecha_entrega', [$dia10pa, $fecha10pa])->sum('total_bs');
+$gvco10pa = Cotizacion::where('estado','Finalizado')->whereBetween('fecha', [$dia10pa, $fecha10pa])->sum('precio');
+$octubpa = $gvca10pa+$gvco10pa;
+
+$gvca11pa = Carrito::where('estado','Finalizado')->whereBetween('fecha_entrega', [$dia11pa, $fecha11pa])->sum('total_bs');
+$gvco11pa = Cotizacion::where('estado','Finalizado')->whereBetween('fecha', [$dia11pa, $fecha11pa])->sum('precio');
+$noviepa = $gvca11pa+$gvco11pa;
+
+$gvca12pa = Carrito::where('estado','Finalizado')->whereBetween('fecha_entrega', [$dia12pa, $fecha12pa])->sum('total_bs');
+$gvco12pa = Cotizacion::where('estado','Finalizado')->whereBetween('fecha', [$dia12pa, $fecha12pa])->sum('precio');
+$diciepa = $gvca12pa+$gvco12pa;
+//
+
 
 // Esto es para obtener el año con el mes y el ultimo dia
 $ultimoDia = getUltimoDiaMes($año,1);
@@ -204,6 +214,81 @@ $fecha12 = $año."-12-".$ultimoDia;
 
 ?>
 
+<section class="content">
+    <div class="container-fluid">
+        <div class="col-12 col-sm-12 col-lg-12 mx-auto">
+            <div class="card card-widget widget-user">
+                <div class="widget-user-header text-white"
+                    style="background: url('/img/welcome/potosi2.jpg') center center;">
+                    <h3 class="widget-user-username text-right">Gráficas</h3>
+                    <h5 class="widget-user-desc text-right">Sport La Comita</h5>
+                </div>
+                <div class="widget-user-image">
+                    <img style="border:none;" src="{{ asset('img/sidebar/resultados.svg') }}" alt="reportes">
+                </div>
+                <div class="card-body pt-0" >
+                    <div class="text-center p-2">
+                        <a class="nav-link active text-white"> <strong> GRÁFICAS DE LAS VENTAS </strong></a>
+                    </div>
+                    <div class="row justify-content-center">
+                        <canvas id="generalVentas" width="400" height="400"></canvas>
+                    </div>
+                    <hr>
+                    <a class="nav-link active text-center">REPORTE GENERAL DE VENTAS EN BS.</a>
+                    <div class="row justify-content-center">
+                        <canvas id="graficaVentaBs" width="400" height="400"></canvas>
+                    </div>
+                    <hr>
+                    <a class="nav-link active text-center">REPORTE DE LOS 5 ITEMS MÁS VENDIDOS DEL {{ $dia1 }} AL {{ $diac }} </a>
+                    <div class="row justify-content-center">
+                        <canvas id="itemventa" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@endsection
+
+
+@push('styles')
+<style>
+.widget-user-header{
+    background-position: center center !important;
+    background-size: cover !important;
+    height: 200px !important;
+}
+
+.widget-user .widget-user-image {
+    /*position: absolute;*/
+    top: 100px !important;
+    /*left: 50%;
+    margin-left: -45px;*/
+}
+.nav-link.active{
+    background-color: #0a2b4e !important;
+    color: cyan !important;
+    border: 2px solid cyan !important;
+}
+.nav-tabs {
+    border-bottom: 1px solid cyan;
+}
+.btn-light-checkbox {
+    font-size: 12px;
+    padding: 0.0rem 0.3rem;
+}
+
+
+</style>
+
+@endpush
+
+
+@push('scripts')
+<script src="{{ asset('fonts/utils.js') }}" ></script>
+
+<script>
+
     var enero = parseInt('<?php echo $enero; ?>');
     var febrero = parseInt('<?php echo $febre; ?>');
     var marzo = parseInt('<?php echo $marzo; ?>');
@@ -216,7 +301,21 @@ $fecha12 = $año."-12-".$ultimoDia;
     var octubre = parseInt('<?php echo $octub; ?>');
     var noviembre = parseInt('<?php echo $novie; ?>');
     var diciembre = parseInt('<?php echo $dicie; ?>');
-    var date = '<?php echo $año; ?>'
+    var date = '<?php echo $año; ?>';
+
+    var diact = '<?php echo $diac; ?>';
+    var eneropa = parseInt('<?php echo $eneropa; ?>');
+    var febreropa = parseInt('<?php echo $febrepa; ?>');
+    var marzopa = parseInt('<?php echo $marzopa; ?>');
+    var abrilpa = parseInt('<?php echo $abrilpa; ?>');
+    var mayopa = parseInt('<?php echo $mayospa; ?>');
+    var juniopa = parseInt('<?php echo $juniopa; ?>');
+    var juliopa = parseInt('<?php echo $juliopa; ?>');
+    var agostopa = parseInt('<?php echo $agostpa; ?>');
+    var septiembrepa = parseInt('<?php echo $septipa; ?>');
+    var octubrepapa = parseInt('<?php echo $octubpa; ?>');
+    var noviembrepa = parseInt('<?php echo $noviepa; ?>');
+    var diciembrepa = parseInt('<?php echo $diciepa; ?>');
     //alert(enero);
 var ctx = document.getElementById('generalVentas');
 var myChart = new Chart(ctx, {
@@ -260,8 +359,10 @@ var myChart = new Chart(ctx, {
     options: {
         scales: {
             yAxes: [{
-                ticks: {
-                    beginAtZero: true
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'CANTIDAD (Bs.)'
                 }
             }]
         }
@@ -280,22 +381,18 @@ var myChart = new Chart(ctx, {
                 label: 'Año anterior 2018',
                 backgroundColor: window.chartColors.red,
                 borderColor: window.chartColors.red,
-                data: [104,256,255,366,258,369,544,536,250,710,250,350],
+                data: [eneropa,febreropa,marzopa,abrilpa,mayopa,juniopa,juliopa,agostopa,septiembrepa,octubrepapa,noviembrepa,diciembrepa],
                 fill: false,
             }, {
-                label: 'Año actual 2019',
+                label: 'Año actual '+date,
                 fill: false,
                 backgroundColor: window.chartColors.blue,
                 borderColor: window.chartColors.blue,
-                data: [204,256,255,365,458,469,644,506,350,660,456,450],
+                data: [enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre],
             }]
         },
         options: {
             responsive: true,
-            title: {
-                display: true,
-                text: 'REPORTE GENERAL DE VENTAS EN Bs.'
-            },
             tooltips: {
                 mode: 'index',
                 intersect: false,
@@ -363,7 +460,7 @@ var myChart = new Chart(ctx, {
     data: {
         labels: [quinom, cuanom, ternom, senom, prinom],
         datasets: [{
-            label: 'REPORTE DE LOS 5 ITEMS MAS VENDIDOS',
+            label: 'El producto más vendido' ,
             data: [ quinto,cuarto,tercero,segundo,primaro],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -397,10 +494,24 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
+        responsive: true,
+        title: {
+            display: true,
+            text: 'El producto más vendido hasta el '+diact+' es '+prinom+' con '+primaro+' unidades.',
+        },
         scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'PRODUCTOS'
+                }
+            }],
             yAxes: [{
-                ticks: {
-                    beginAtZero: true
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'CANTIDAD (Unid.)'
                 }
             }]
         }

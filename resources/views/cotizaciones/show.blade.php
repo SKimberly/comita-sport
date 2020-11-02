@@ -80,7 +80,10 @@
                           @if($cotizacion->precio)
                             <span style="color:cyan;"> <strong> Bs. {{ $cotizacion->precio }} </strong> </span>
                           @else
-                            <span style="color:red;" data-toggle="modal" data-target="#crearMe"> <strong> ¿PRECIO? </strong> </span>
+                            <span style="color:red;"> <strong> ¿PRECIO? </strong> </span>
+                            @can('viewAny', auth::user())
+                              <span style="color:red;" data-toggle="modal" data-target="#crearMe"> <strong> ¿PRECIO? </strong> </span>
+                            @endcan
                           @endif
                       </div>
                       <div class="media">
