@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\WebsocketDemoEvent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,12 @@ Route::group([
     'middleware' => 'auth'],
 function(){
     Route::get('/', 'AdminController@index')->name('admin');
+
+    /*Route::get('/', function () {
+        broadcast(new WebsocketDemoEvent('some data'));
+        return  redirect()->action('AdminController@index');
+    })->name('admin');*/
+
     Route::get('users/{slug}','UserController@show')->name('admin.users.show');
     Route::put('users/{slug}','UserController@create')->name('admin.users.create');
 
@@ -95,7 +102,10 @@ function(){
 
 
     /*Rutas para los mensajes*/
+    Route::get('/cotizaciones/{id}/mensajesapi','MensajeController@fetchMessage');
     Route::post('mensajes/cotizacion','MensajeController@store')->name('admin.mensajes.store');
+
+
 
     Route::post('cotizacion/money','CotizacionController@moneycoti')->name('admin.cotizacion.money');
     Route::get('cotizacion/{id}/pedido','CotizacionController@cotiapedido')->name('admin.cotizaciones.pedido');
@@ -149,9 +159,12 @@ function(){
     Route::post('/reportes/tipo/view','ReporteController@vertipo')->name('reporte.tipo.view');
     Route::post('/reportes/coti/view','ReporteController@vercoti')->name('reporte.coti.view');
     Route::post('/reportes/prenda/view','ReporteController@verprenda')->name('reporte.prenda.view');
+
+
     Route::get('/estadisticas/view','ReporteController@estadisticas')->name('admin.estadisticas.index');
 
     Route::get('/recibo/{id}/aprobado','ReporteController@aproreciboca')->name('aprobados.recibo');
+
     }
 );
 

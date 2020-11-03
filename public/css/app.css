@@ -1716,11 +1716,6 @@ pre code {
   opacity: 1;
 }
 
-.form-control::-ms-input-placeholder {
-  color: #6c757d;
-  opacity: 1;
-}
-
 .form-control::placeholder {
   color: #6c757d;
   opacity: 1;
@@ -8760,10 +8755,6 @@ body,
   color: rgba(255, 255, 255, 0.6);
 }
 
-.navbar-dark .form-control-navbar::-ms-input-placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
-
 .navbar-dark .form-control-navbar::placeholder,
 .navbar-dark .form-control-navbar + .input-group-append > .btn-navbar {
   color: rgba(255, 255, 255, 0.6);
@@ -8799,10 +8790,6 @@ body,
 }
 
 .navbar-light .form-control-navbar:-ms-input-placeholder {
-  color: rgba(0, 0, 0, 0.6);
-}
-
-.navbar-light .form-control-navbar::-ms-input-placeholder {
   color: rgba(0, 0, 0, 0.6);
 }
 
@@ -13903,7 +13890,6 @@ Build date: 2019-12-19 16:51:02
         border-radius: 3px; }
     .dropzone .dz-preview:hover .dz-image img {
       transform: scale(1.05, 1.05);
-      -webkit-filter: blur(8px);
       filter: blur(8px); }
     .dropzone .dz-preview .dz-image {
       border-radius: 20px;
@@ -20101,10 +20087,6 @@ pre code {
   opacity: 1;
 }
 .form-control:-ms-input-placeholder {
-  color: #6c757d;
-  opacity: 1;
-}
-.form-control::-ms-input-placeholder {
   color: #6c757d;
   opacity: 1;
 }
@@ -28252,8 +28234,7 @@ h3 {
 :root .fa-flip-horizontal,
 :root .fa-flip-vertical,
 :root .fa-flip-both {
-  -webkit-filter: none;
-          filter: none;
+  filter: none;
 }
 
 .fa-stack {
@@ -35398,9 +35379,6 @@ readers do not read off random characters that represent icons */
   color: #cccccc;
 }
 .swal2-input:-ms-input-placeholder, .swal2-file:-ms-input-placeholder, .swal2-textarea:-ms-input-placeholder {
-  color: #cccccc;
-}
-.swal2-input::-ms-input-placeholder, .swal2-file::-ms-input-placeholder, .swal2-textarea::-ms-input-placeholder {
   color: #cccccc;
 }
 .swal2-input::placeholder,

@@ -20,7 +20,7 @@
   @stack('styles')
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
+<div class="wrapper" id="app">
 <!-- Navbar -->
       @include('parciales.navbar')
   <!-- /.navbar -->

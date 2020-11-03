@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
+use App\Models\Cotizacion;
 use App\Models\Mensaje;
 use App\Notifications\MensajeSent;
 use App\User;
@@ -9,6 +11,10 @@ use Illuminate\Http\Request;
 
 class MensajeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -29,12 +35,14 @@ class MensajeController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function fetchMessage($id)
+    {
+        //dd($slug);
+        $cotizacion = Cotizacion::where('id',$id)->first();
+        $mensajes = Mensaje::where('cotizacion_id',$cotizacion->id)->get();
+        return $mensajes;
+    }
+
     public function store(Request $request)
     {
         //dd($request->all());
@@ -42,28 +50,33 @@ class MensajeController extends Controller
             'mensaje' => 'required'
         ]);
 
+        $cotizacion = Cotizacion::where('id',$request['idcoti'])->first();
 
-        $clicoti = $request['cotiuser_id'];
         $admin = User::where('tipo','Administrador')->pluck('id')->first();
 
-        if(auth()->user()->id == $admin)
+        if($request['userauth'] == $admin)
         {
-            Mensaje::create([
+            $mensaje = Mensaje::create([
                 'envia' =>  $admin,
-                'recibe' =>  $clicoti,
+                'recibe' =>  $cotizacion->user_id,
                 'contenido' => $request['mensaje'],
-                'cotizacion_id' => $request['cotizacion_id']
+                'cotizacion_id' => $request['idcoti']
             ]);
+
+            broadcast(new MessageSent($mensaje))->toOthers();
         }else{
-            Mensaje::create([
-                'envia' =>  $clicoti,
+            $mensaje = Mensaje::create([
+                'envia' =>  $cotizacion->user_id,
                 'recibe' =>  $admin,
                 'contenido' => $request['mensaje'],
-                'cotizacion_id' => $request['cotizacion_id']
+                'cotizacion_id' => $request['idcoti']
             ]);
+
+            broadcast(new MessageSent($mensaje))->toOthers();
         }
 
-        return back()->with('success', 'Tu mensaje fue enviado con exito');
+
+        return ['status'=>'success'];
 
     }
 
@@ -75,7 +88,7 @@ class MensajeController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -98,7 +111,7 @@ class MensajeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $id;
     }
 
     /**

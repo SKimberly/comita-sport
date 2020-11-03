@@ -14,13 +14,12 @@
         "bootstrap": "^4.3.1",
         "cross-env": "^7.0",
         "jquery": "^3.2",
-        "laravel-mix": "^5.0.1",
-        "lodash": "^4.17.13",
+        "laravel-mix": "^5.0.7",
+        "lodash": "^4.17.20",
         "popper.js": "^1.12",
-        "resolve-url-loader": "^3.1.0",
+        "resolve-url-loader": "^3.1.2",
         "sass": "^1.15.2",
-        "sass-loader": "^8.0.0",
-        "vue-template-compiler": "^2.6.11"
+        "sass-loader": "^8.0.0"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.13.0",
@@ -30,8 +29,15 @@
         "chart.js": "^2.9.3",
         "dropzone": "^5.7.1",
         "ion-rangeslider": "^2.3.1",
+        "laravel-echo": "^1.9.0",
+        "moment": "^2.29.1",
         "owl.carousel": "^2.3.4",
+        "pusher-js": "^7.0.1",
         "select2": "^4.0.13",
-        "sweetalert2": "^9.14.4"
+        "sweetalert2": "^9.14.4",
+        "vue": "^2.5.17",
+        "vue-chat-scroll": "^1.4.0",
+        "vue-router": "^3.4.8",
+        "vue-template-compiler": "^2.6.12"
     }
 }

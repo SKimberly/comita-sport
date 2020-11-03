@@ -177,7 +177,7 @@
           </div>
         </div>
         <div class="col-md-6">
-            <div class="card direct-chat direct-chat-warning shadow">
+            <!--<div class="card direct-chat direct-chat-warning shadow">
                 <div class="card-header btn-comita text-white">
                     <h3 class="card-title text-center">Mensajes</h3>
                     <div class="card-tools">
@@ -230,7 +230,8 @@
                         </div>
                     </form>
                 </div>
-            </div>
+            </div>-->
+            <chat-vue :title="{{ $cotizacion->id }}" :userauth="{{ auth()->user()->id}}" :cotiuser="{{ $cotizacion->user_id }}"></chat-vue>
         </div>
     </div>
   </div>
