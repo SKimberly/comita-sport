@@ -88,7 +88,8 @@ class MensajeController extends Controller
      */
     public function show($id)
     {
-
+        $nombre = User::where('id',$id)->pluck('fullname');
+        return response()->json($nombre);
     }
 
     /**

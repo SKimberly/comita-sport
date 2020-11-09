@@ -1986,7 +1986,9 @@ __webpack_require__.r(__webpack_exports__);
       ruta: this.title,
       auth: this.userauth,
       usercoti: this.cotiuser,
-      newMensaje: ''
+      newMensaje: '',
+      namee: '',
+      namer: ''
     };
   },
   props: ['title', 'userauth', 'cotiuser'],
@@ -1999,11 +2001,29 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    fetchMessages: function fetchMessages() {
+    nameEnvia: function nameEnvia(id) {
       var _this2 = this;
 
+      axios.get('/admin/cotizaciones/name/' + id).then(function (res) {
+        // this.users = response.data.users
+        //console.log(res);
+        _this2.namee = res.data; //console.log(this.nomu[0])
+      });
+      return this.namee[0];
+    },
+    nameRecibe: function nameRecibe(id) {
+      var _this3 = this;
+
+      axios.get('/admin/cotizaciones/name/' + id).then(function (res) {
+        _this3.namer = res.data;
+      });
+      return this.namer[0];
+    },
+    fetchMessages: function fetchMessages() {
+      var _this4 = this;
+
       axios.get('/admin/cotizaciones/' + this.ruta + '/mensajesapi').then(function (res) {
-        _this2.mensajes = res.data;
+        _this4.mensajes = res.data;
       });
     },
     sendMensaje: function sendMensaje() {
@@ -94091,7 +94111,7 @@ var render = function() {
                       _c(
                         "span",
                         { staticClass: "direct-chat-name float-right" },
-                        [_vm._v(_vm._s(message.envia))]
+                        [_vm._v(_vm._s(_vm.nameEnvia(message.envia)))]
                       ),
                       _vm._v(" "),
                       _c(
@@ -94126,7 +94146,7 @@ var render = function() {
                       _c(
                         "span",
                         { staticClass: "direct-chat-name float-left" },
-                        [_vm._v(_vm._s(message.envia))]
+                        [_vm._v(_vm._s(_vm.nameRecibe(message.envia)))]
                       ),
                       _vm._v(" "),
                       _c(

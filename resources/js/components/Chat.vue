@@ -13,7 +13,7 @@
 
                         <div class="direct-chat-msg right bg-light" v-if="message.envia==auth" >
                             <div class="direct-chat-infos clearfix">
-                                <span class="direct-chat-name float-right">{{ message.envia }}</span>
+                                <span class="direct-chat-name float-right">{{ nameEnvia(message.envia) }}</span>
                                 <span class="direct-chat-timestamp float-left">{{ message.created_at | dateHuman }}</span>
                             </div>
                             <img class="direct-chat-img" src="/img/sidebar/userdefault.svg" alt="message user image">
@@ -24,7 +24,7 @@
 
                         <div class="direct-chat-msg left" v-else >
                             <div class="direct-chat-infos clearfix ">
-                                <span class="direct-chat-name float-left">{{ message.envia }}</span>
+                                <span class="direct-chat-name float-left">{{ nameRecibe(message.envia) }}</span>
                                 <span class="direct-chat-timestamp float-right">{{ message.created_at | dateHuman }}</span>
                             </div>
                             <img class="direct-chat-img" src="/img/sidebar/userdefault.svg" alt="message user image">
@@ -60,7 +60,9 @@
                 ruta:this.title,
                 auth:this.userauth,
                 usercoti:this.cotiuser,
-                newMensaje: ''
+                newMensaje: '',
+                namee:'',
+                namer:''
             }
         },
         props: ['title','userauth','cotiuser'],
@@ -73,6 +75,23 @@
                 });
         },
         methods:{
+        	nameEnvia(id){
+        		axios.get('/admin/cotizaciones/name/'+id)
+                 .then((res)=>{
+                  	// this.users = response.data.users
+                 	//console.log(res);
+                 	this.namee =  res.data
+                 	//console.log(this.nomu[0])
+                 })
+                 return this.namee[0]
+        	},
+        	nameRecibe(id){
+        		axios.get('/admin/cotizaciones/name/'+id)
+                 .then((res)=>{
+                 	this.namer =  res.data
+                 })
+                 return this.namer[0]
+        	},
             fetchMessages(){
                 axios.get('/admin/cotizaciones/'+this.ruta+'/mensajesapi'
                     ).then(res => {
