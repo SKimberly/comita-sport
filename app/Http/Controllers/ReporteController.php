@@ -9,7 +9,6 @@ use App\Models\Cotizacion;
 use App\Models\Itemven;
 use App\Models\Producto;
 use App\Models\Reportetipo;
-use App\Policies\viewAny;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -24,31 +23,17 @@ class ReporteController extends Controller
     public function index()
     {
         $this->authorize('viewAny', User::class);
+
         $categorias = Categoria::get();
         $productos = Producto::get();
         return view('reportes.index',compact('categorias','productos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function vertipo(Request $request)
     {
         Reportetipo::where('nombre','!=',$request['categoria'])->delete();
-        //dd($request['categoria']);
+        dd($request['categoria']);
         $desde = $request->inicio;
         $hasta = $request->final;
 
@@ -152,12 +137,14 @@ class ReporteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
     public function estadisticas()
     {
+        //$gvca1 =  Carrito::where('estado','Finalizado')->whereBetween('fecha_entrega', ['2020-07-01', '2020-07-14'])->sum('total_bs');
+        //$gvco1 =  Cotizacion::where('estado','Finalizado')->whereBetween('fecha', ['2020-07-15', '2020-07-22'])->sum('precio');
+
+       // $gv1 = $gvca1+$gvco1;
+
+        //return view('estadistica.index', compact('gv1'));
         $this->authorize('viewAny', User::class);
 
         //\DB::table('itemvens')->delete();
@@ -199,5 +186,17 @@ class ReporteController extends Controller
         return view('estadistica.index', compact('nom1','cant1','nom2','cant2','nom3','cant3','nom4','cant4','nom5','cant5'));
     }
 
-}
+    public function aproreciboca($id)
+    {
+        $carrito = Carrito::find($id);
+        $cade = CarritoDetalle::where('carrito_id',$carrito->id)->get();
+        $fecha = Carbon::now();
 
+        $view =  \View::make('recibos.aprobadoca', compact('carrito','cade','fecha'))->render();
+        $pdf  = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view)->setPaper('carta', 'portrait');
+        return $pdf->stream('Recibo/'.$fecha->format('d/m/Y').'.pdf');
+
+    }
+
+}

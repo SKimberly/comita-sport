@@ -178,7 +178,7 @@
         </div>
         <div class="col-md-6">
 
-            <chat-vue :title="{{ $cotizacion->id }}" :userauth="{{ auth()->user()->id }}" cotiuser="{{ $cotizacion->user->fullname }}" adminuser="{{ $adminuser }}"></chat-vue>
+            <chat-vue :title="{{ $cotizacion->id }}" :userauth="{{ auth()->user()->id }}" cotiuser="{{ $cotizacion->user->fullname }}" adminuser="{{ $adminuser }}" ></chat-vue>
         </div>
     </div>
   </div>

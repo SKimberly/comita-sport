@@ -3,8 +3,7 @@
         <div class="card-header btn-comita text-white">
             <h3 class="card-title text-center">Mensajes</h3>
             <div class="card-tools">
-              <span data-toggle="tooltip" title="3 New Messages" class="badge badge-warning"> Cantidad de mensajes:  </span>
-              </button>
+
             </div>
         </div>
         <div class="card-body">
