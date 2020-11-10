@@ -52,13 +52,16 @@ class MensajeController extends Controller
 
         $cotizacion = Cotizacion::where('id',$request['idcoti'])->first();
 
-        $admin = User::where('tipo','Administrador')->pluck('id')->first();
+        $admin = User::where('tipo','Administrador')->pluck('fullname')->first();
+        $adminid = User::where('tipo','Administrador')->pluck('id')->first();
+        $cliente = User::where('id',$cotizacion->user_id)->pluck('fullname')->first();
 
-        if($request['userauth'] == $admin)
+        if($request['userauth'] == $adminid)
         {
             $mensaje = Mensaje::create([
+                'user_id' => $request['userauth'],
                 'envia' =>  $admin,
-                'recibe' =>  $cotizacion->user_id,
+                'recibe' =>  $cliente,
                 'contenido' => $request['mensaje'],
                 'cotizacion_id' => $request['idcoti']
             ]);
@@ -66,7 +69,8 @@ class MensajeController extends Controller
             broadcast(new MessageSent($mensaje))->toOthers();
         }else{
             $mensaje = Mensaje::create([
-                'envia' =>  $cotizacion->user_id,
+                'user_id' => $request['userauth'],
+                'envia' =>  $cliente,
                 'recibe' =>  $admin,
                 'contenido' => $request['mensaje'],
                 'cotizacion_id' => $request['idcoti']
@@ -88,8 +92,8 @@ class MensajeController extends Controller
      */
     public function show($id)
     {
-        $nombre = User::where('id',$id)->pluck('fullname');
-        return response()->json($nombre);
+        //$nombre = User::where('id',$id)->pluck('fullname');
+        //return response()->json($nombre);
     }
 
     /**

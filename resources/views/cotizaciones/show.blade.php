@@ -177,61 +177,8 @@
           </div>
         </div>
         <div class="col-md-6">
-            <!--<div class="card direct-chat direct-chat-warning shadow">
-                <div class="card-header btn-comita text-white">
-                    <h3 class="card-title text-center">Mensajes</h3>
-                    <div class="card-tools">
-                      <span data-toggle="tooltip" title="3 New Messages" class="badge badge-warning"> Cantidad de mensajes: {{ $mensajes->count() }}</span>
-                      </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="direct-chat-messages">
-                        <div class="direct-chat-msg">
-                            @foreach($mensajes as $mensaje)
-                                @if(auth()->user()->id == $mensaje->envia)
-                                    <div class="direct-chat-msg right bg-light" >
-                                        <div class="direct-chat-infos clearfix">
-                                            <span class="direct-chat-name float-right">{{ $mensaje->recibidouser->fullname }}</span>
-                                            <span class="direct-chat-timestamp float-left">{{ $mensaje->created_at->format('M d H:i') }}</span>
-                                        </div>
-                                        <img class="direct-chat-img" src="{{ asset('img/sidebar/userdefault.svg') }}" alt="message user image">
-                                        <div class="direct-chat-text float-right">
-                                          {{ $mensaje->contenido }}
-                                        </div>
-                                    </div>
-                                @else
-                                  <div class="direct-chat-msg left  " >
-                                    <div class="direct-chat-infos clearfix ">
-                                      <span class="direct-chat-name float-left">{{ $mensaje->recibidouser->fullname }}</span>
-                                      <span class="direct-chat-timestamp float-right">{{ $mensaje->created_at->format('Y m H:i') }}</span>
-                                    </div>
-                                    <img class="direct-chat-img" src="{{ asset('img/sidebar/userdefault.svg') }}" alt="message user image">
 
-                                    <div class="direct-chat-text float-left">
-                                        {{ $mensaje->contenido }}
-                                    </div>
-                                  </div>
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer btn-comita">
-                    <form action="{{ route('admin.mensajes.store') }}" method="POST">
-                        @csrf
-                        <div class="input-group">
-                            <input type="hidden" name="cotiuser_id" value="{{ $cotizacion->user_id }}">
-                            <input type="hidden" name="cotizacion_id" value="{{ $cotizacion->id }}">
-                            <input type="text" name="mensaje" placeholder="Escriba su mensaje.." class="form-control  bg-light border-2 @error('mensaje') is-invalid @enderror" autofocus>
-                            <span class="input-group-append">
-                              <button type="submit" class="btn" style="background-color: cyan;">ENVIAR</button>
-                            </span>
-                        </div>
-                    </form>
-                </div>
-            </div>-->
-            <chat-vue :title="{{ $cotizacion->id }}" :userauth="{{ auth()->user()->id}}" :cotiuser="{{ $cotizacion->user_id }}"></chat-vue>
+            <chat-vue :title="{{ $cotizacion->id }}" :userauth="{{ auth()->user()->id }}" cotiuser="{{ $cotizacion->user->fullname }}" adminuser="{{ $adminuser }}"></chat-vue>
         </div>
     </div>
   </div>

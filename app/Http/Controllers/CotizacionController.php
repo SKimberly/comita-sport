@@ -122,7 +122,9 @@ class CotizacionController extends Controller
 
         $mensajes = Mensaje::where('cotizacion_id',$cotizacion->id)->orderBy('id','ASC')->get();
 
-        return view('cotizaciones.show', compact('cotizacion','fotos','mensajes' ));
+        $adminuser = User::where('tipo','Administrador')->pluck('fullname')->first();
+
+        return view('cotizaciones.show', compact('cotizacion','fotos','mensajes', 'adminuser'));
     }
 
     public function destroy($id)

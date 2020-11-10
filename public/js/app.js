@@ -1986,12 +1986,10 @@ __webpack_require__.r(__webpack_exports__);
       ruta: this.title,
       auth: this.userauth,
       usercoti: this.cotiuser,
-      newMensaje: '',
-      namee: '',
-      namer: ''
+      newMensaje: ''
     };
   },
-  props: ['title', 'userauth', 'cotiuser'],
+  props: ['title', 'userauth', 'cotiuser', 'adminuser'],
   created: function created() {
     var _this = this;
 
@@ -2001,42 +1999,26 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    nameEnvia: function nameEnvia(id) {
+    fetchMessages: function fetchMessages() {
       var _this2 = this;
 
-      axios.get('/admin/cotizaciones/name/' + id).then(function (res) {
-        // this.users = response.data.users
-        //console.log(res);
-        _this2.namee = res.data; //console.log(this.nomu[0])
-      });
-      return this.namee[0];
-    },
-    nameRecibe: function nameRecibe(id) {
-      var _this3 = this;
-
-      axios.get('/admin/cotizaciones/name/' + id).then(function (res) {
-        _this3.namer = res.data;
-      });
-      return this.namer[0];
-    },
-    fetchMessages: function fetchMessages() {
-      var _this4 = this;
-
       axios.get('/admin/cotizaciones/' + this.ruta + '/mensajesapi').then(function (res) {
-        _this4.mensajes = res.data;
+        _this2.mensajes = res.data;
       });
     },
     sendMensaje: function sendMensaje() {
       if (this.userauth == 2) {
         this.mensajes.push({
-          envia: this.userauth,
+          user_id: this.userauth,
+          envia: this.adminuser,
           recibe: this.usercoti,
           contenido: this.newMensaje
         });
       } else {
         this.mensajes.push({
+          user_id: this.userauth,
           envia: this.usercoti,
-          recibe: this.userauth,
+          recibe: this.adminuser,
           contenido: this.newMensaje
         });
       }
@@ -94105,13 +94087,13 @@ var render = function() {
           },
           _vm._l(_vm.mensajes, function(message, index) {
             return _c("div", { key: index, staticClass: "direct-chat-msg" }, [
-              message.envia == _vm.auth
+              message.user_id === _vm.auth
                 ? _c("div", { staticClass: "direct-chat-msg right bg-light" }, [
                     _c("div", { staticClass: "direct-chat-infos clearfix" }, [
                       _c(
                         "span",
                         { staticClass: "direct-chat-name float-right" },
-                        [_vm._v(_vm._s(_vm.nameEnvia(message.envia)))]
+                        [_vm._v(_vm._s(message.envia))]
                       ),
                       _vm._v(" "),
                       _c(
@@ -94146,7 +94128,7 @@ var render = function() {
                       _c(
                         "span",
                         { staticClass: "direct-chat-name float-left" },
-                        [_vm._v(_vm._s(_vm.nameRecibe(message.envia)))]
+                        [_vm._v(_vm._s(message.envia))]
                       ),
                       _vm._v(" "),
                       _c(

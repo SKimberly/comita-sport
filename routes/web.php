@@ -103,7 +103,7 @@ function(){
 
     /*Rutas para los mensajes*/
     Route::get('/cotizaciones/{id}/mensajesapi','MensajeController@fetchMessage');
-    Route::get('/cotizaciones/name/{id}','MensajeController@show')->name('admin.mensajes.name');
+    //Route::get('/cotizaciones/name/{id}','MensajeController@show')->name('admin.mensajes.name');
     Route::post('mensajes/cotizacion','MensajeController@store')->name('admin.mensajes.store');
 
 
