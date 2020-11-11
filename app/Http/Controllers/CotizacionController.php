@@ -37,8 +37,12 @@ class CotizacionController extends Controller
 
         $sl = Str::of($request['nombre'])->slug('-');
         $uid = Cotizacion::orderBy('id','DESC')->first();
-
-        $s=$uid->id+1;
+        if($uid){
+            $s=$uid->id+1;
+        }
+        else {
+            $s=1;
+        }
 
         $cotizacion = new Cotizacion;
         $cotizacion->nombre = $request['nombre'];

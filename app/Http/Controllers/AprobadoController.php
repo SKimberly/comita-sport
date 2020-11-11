@@ -16,18 +16,27 @@ class AprobadoController extends Controller
      */
     public function index()
     {
-        $carritos = Carrito::where('estado','Procesando')->orderBy('id','DESC')->paginate();
-        $cotizaciones = Cotizacion::where('estado','Procesando')->orderBy('id','DESC')->paginate();
         //dd($cotizaciones);
+        if(auth()->user()->tipo === 'Administrador'){
+            $carritos = Carrito::where('estado','Procesando')->orderBy('id','DESC')->paginate();
+            $cotizaciones = Cotizacion::where('estado','Procesando')->orderBy('id','DESC')->paginate();
+        }else{
+            $carritos = Carrito::where('user_id',auth()->user()->id)->where('estado','Procesando')->orderBy('id','DESC')->paginate();
+            $cotizaciones = Cotizacion::where('user_id',auth()->user()->id)->where('estado','Procesando')->orderBy('id','DESC')->paginate();
+        }
 
         return view('aprobado.index', compact('carritos','cotizaciones'));
     }
 
     public function indexview()
     {
-        $carritos = Carrito::where('estado','Rechazado')->orderBy('id','DESC')->paginate();
-        $cotizaciones = Cotizacion::where('estado','Rechazado')->orderBy('id','DESC')->paginate();
-
+        if(auth()->user()->tipo === 'Administrador'){
+            $carritos = Carrito::where('estado','Rechazado')->orderBy('id','DESC')->paginate();
+            $cotizaciones = Cotizacion::where('estado','Rechazado')->orderBy('id','DESC')->paginate();
+        }else{
+            $carritos = Carrito::where('user_id',auth()->user()->id)->where('estado','Rechazado')->orderBy('id','DESC')->paginate();
+            $cotizaciones = Cotizacion::where('user_id',auth()->user()->id)->where('estado','Rechazado')->orderBy('id','DESC')->paginate();
+        }
 
         return view('rechazado.index', compact('carritos','cotizaciones' ));
     }

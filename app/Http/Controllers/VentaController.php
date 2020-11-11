@@ -15,11 +15,13 @@ class VentaController extends Controller
      */
     public function index()
     {
-
-
-        $carritos = Carrito::where('estado','Finalizado')->orderBy('id','DESC')->get();
-        $cotizaciones = Cotizacion::where('estado','Finalizado')->orderBy('id','DESC')->get();
-
+        if(auth()->user()->tipo === 'Administrador'){
+            $carritos = Carrito::where('estado','Finalizado')->orderBy('id','DESC')->get();
+            $cotizaciones = Cotizacion::where('estado','Finalizado')->orderBy('id','DESC')->get();
+        }else{
+            $carritos = Carrito::where('user_id',auth()->user()->id)->where('estado','Finalizado')->orderBy('id','DESC')->paginate();
+            $cotizaciones = Cotizacion::where('user_id',auth()->user()->id)->where('estado','Finalizado')->orderBy('id','DESC')->paginate();
+        }
 
         return view('ventas.index', compact('carritos','cotizaciones'));
 

@@ -68,7 +68,7 @@
                                 <td class="text-center">
                                     <picture style="position: relative;">
                                         <div class="car_home_precio">
-                                            @if($producto->estado)
+                                            @if($producto->stock > 0)
                                                 <span style="color:cyan;"> DISPONIBLE </span>
                                             @else
                                                 <span style="color:red;"> AGOTADO </span>

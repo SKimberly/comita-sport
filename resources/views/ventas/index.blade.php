@@ -7,7 +7,7 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1 class="m-0 text-dark"><strong>VENTAS</strong></h1>
+				<h1 class="m-0 text-dark"><strong>LISTA DE VENTAS</strong></h1>
 			</div>
 			<div class="col-sm-6">
 				<ol class="breadcrumb float-sm-right">
@@ -28,8 +28,8 @@
 			<div class="card card-widget widget-user">
               	<div class="widget-user-header text-white"
                    	style="background: url('/img/welcome/potosi2.jpg') center center;">
-                	<h3 class="widget-user-username text-right">Nombre</h3>
-                	<h5 class="widget-user-desc text-right">Administrador</h5>
+                	<h3 class="widget-user-username text-right">VENTAS</h3>
+                	<h5 class="widget-user-desc text-right">Sport La Comita</h5>
               	</div>
               <div class="widget-user-image">
                 <img style="border:none;" src="{{ asset('img/welcome/ventas.svg') }}" alt="User Avatar">

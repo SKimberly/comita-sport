@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark"><strong>Gráficas de las ventas</strong></h1>
+                <h1 class="m-0 text-dark"><strong>Estadisticas</strong></h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -220,7 +220,7 @@ $fecha12 = $año."-12-".$ultimoDia;
             <div class="card card-widget widget-user">
                 <div class="widget-user-header text-white"
                     style="background: url('/img/welcome/potosi2.jpg') center center;">
-                    <h3 class="widget-user-username text-right">Gráficas</h3>
+                    <h3 class="widget-user-username text-right">GRÁFICAS</h3>
                     <h5 class="widget-user-desc text-right">Sport La Comita</h5>
                 </div>
                 <div class="widget-user-image">

@@ -28,8 +28,8 @@
 			<div class="card card-widget widget-user">
               	<div class="widget-user-header text-white"
                    	style="background: url('/img/welcome/potosi4.jpg') center center;">
-                	<h3 class="widget-user-username text-right">Nombre</h3>
-                	<h5 class="widget-user-desc text-right">Administrador</h5>
+                	<h3 class="widget-user-username text-right">RECHAZADOS</h3>
+                	<h5 class="widget-user-desc text-right">Sport La Comita</h5>
               	</div>
               <div class="widget-user-image">
                 <img style="border:none;" src="{{ asset('img/welcome/rechazados.svg') }}" alt="User Avatar">
@@ -65,7 +65,7 @@
 									<tbody>
 										@foreach($carritos as $key => $carrito)
 										<tr>
-											<td class="" style="text-align: center">{{ $carrito->id }}</td>
+											<td class="" style="text-align: center">{{ ++$key }}</td>
 											<td class="col-sm-5 col-md-5">
 												<div class="media">
 						                            <a class="thumbnail pull-left pr-2" href="{{ route('admin.pedidos.show', [$carrito->id]) }}" target="_blanck">

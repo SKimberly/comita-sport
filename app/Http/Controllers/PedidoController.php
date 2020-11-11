@@ -22,9 +22,13 @@ class PedidoController extends Controller
      */
     public function index()
     {
-
-        $carritos = Carrito::where('estado','Pendiente')->orderBy('id','DESC')->paginate();
-        $cotizaciones = Cotizacion::where('estado','Pendiente')->orderBy('id','DESC')->paginate();
+        if(auth()->user()->tipo === 'Administrador'){
+            $carritos = Carrito::where('estado','Pendiente')->orderBy('id','DESC')->paginate();
+            $cotizaciones = Cotizacion::where('estado','Pendiente')->orderBy('id','DESC')->paginate();
+        }else{
+            $carritos = Carrito::where('user_id',auth()->user()->id)->where('estado','Pendiente')->orderBy('id','DESC')->paginate();
+            $cotizaciones = Cotizacion::where('user_id',auth()->user()->id)->where('estado','Pendiente')->orderBy('id','DESC')->paginate();
+        }
 
 
         return view('pedidos.index', compact('carritos','cotizaciones' ));

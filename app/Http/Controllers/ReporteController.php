@@ -170,18 +170,44 @@ class ReporteController extends Controller
         ->limit(5)
         ->get();
 
-        //dd($itemvalores[0]->producto);
-
-        $nom1  = $itemvalores[0]->producto;
-        $cant1 = $itemvalores[0]->cantidad;
-        $nom2  = $itemvalores[1]->producto;
-        $cant2 = $itemvalores[1]->cantidad;
-        $nom3  = $itemvalores[2]->producto;
-        $cant3 = $itemvalores[2]->cantidad;
-        $nom4  = $itemvalores[3]->producto;
-        $cant4 = $itemvalores[3]->cantidad;
-        $nom5  = $itemvalores[4]->producto;
-        $cant5 = $itemvalores[4]->cantidad;
+        //dd($itemvalores);
+        if(isset($itemvalores[0])){
+            //dd("si");
+            $nom1  = $itemvalores[0]->producto;
+            $cant1 = $itemvalores[0]->cantidad;
+        }else{
+            //dd("no");
+            $nom1  = 'ninguno';
+            $cant1 = 0;
+        }
+        if(isset($itemvalores[1])){
+            $nom2  = $itemvalores[1]->producto;
+            $cant2 = $itemvalores[1]->cantidad;
+        }else{
+            $nom2  = 'ninguno';
+            $cant2 = 0;
+        }
+        if(isset($itemvalores[2])){
+            $nom3  = $itemvalores[2]->producto;
+            $cant3 = $itemvalores[2]->cantidad;
+        }else{
+            $nom3  = 'ninguno';
+            $cant3 = 0;
+        }
+        if(isset($itemvalores[3])){
+            $nom4  = $itemvalores[3]->producto;
+            $cant4 = $itemvalores[3]->cantidad;
+        }else{
+            $nom4  = 'ninguno';
+            $cant4 = 0;
+        }
+        if(isset($itemvalores[4])){
+            $nom5  = $itemvalores[4]->producto;
+            $cant5 = $itemvalores[4]->cantidad;
+        }else{
+            $nom5  = 'ninguno';
+            $cant5 = 0;
+        }
 
         return view('estadistica.index', compact('nom1','cant1','nom2','cant2','nom3','cant3','nom4','cant4','nom5','cant5'));
     }
