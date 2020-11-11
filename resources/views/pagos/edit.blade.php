@@ -109,24 +109,23 @@
 		                      </div>
 		                </div>
 		            </div>
-		        </div>
-		    	</div>
-        	</div>
-	        <div class="modal-footer">
-	            <button name="btnrespuesta" value="Aceptado" type="submit" class="btn btn-outline-success "  >
-	              	<i class="far fa-thumbs-up"></i>
-	                ACEPTAR PAGO
-	            </button>
 
-	            <button name="btnrespuesta" value="Rechazado" class="btn btn-outline-danger " type="submit" >
-	              	<i class="far fa-thumbs-down"></i>
-	                RECHAZAR PAGO
-	            </button>
-	        </div>
-	    	</form>
+
+					<button name="btnrespuesta" value="Aceptado" type="submit" class="btn btn-outline-success "  >
+						<i class="far fa-thumbs-up"></i>
+						ACEPTAR PAGO
+					</button>
+
+					<button name="btnrespuesta" value="Rechazado" class="btn btn-outline-danger " type="submit" >
+						<i class="far fa-thumbs-down"></i>
+						RECHAZAR PAGO
+					</button>
+
+				</form>
+
         </div>
     </div>
-  </div>
+  </div></div></div>
 </section>
 @endsection
 

@@ -33,7 +33,7 @@ class ReporteController extends Controller
     public function vertipo(Request $request)
     {
         Reportetipo::where('nombre','!=',$request['categoria'])->delete();
-        dd($request['categoria']);
+        //dd($request['categoria']);
         $desde = $request->inicio;
         $hasta = $request->final;
 

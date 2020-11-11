@@ -175,7 +175,7 @@ class PagoController extends Controller
             ]);
         }
 
-        return redirect('/admin/pagos')->with('success','Imagen enviada para su revisión.');
+        return redirect('/admin/pedidos')->with('success','Imagen enviada para su revisión.');
 
     }
 

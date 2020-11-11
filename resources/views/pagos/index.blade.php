@@ -27,8 +27,8 @@
 			<div class="card card-widget widget-user">
               	<div class="widget-user-header text-white"
                    	style="background: url('/img/welcome/potosi3.jpg') center center;">
-                	<h3 class="widget-user-username text-right">Nombre</h3>
-                	<h5 class="widget-user-desc text-right">Administrador</h5>
+                	<h3 class="widget-user-username text-right">PAGOS</h3>
+                	<h5 class="widget-user-desc text-right">Sport La Comita</h5>
               	</div>
               <div class="widget-user-image">
                 <img class="img-circle" src="{{ asset('img/sidebar/userdefault.svg') }}" alt="User Avatar">

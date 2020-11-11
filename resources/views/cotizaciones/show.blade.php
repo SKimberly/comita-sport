@@ -177,7 +177,7 @@
           </div>
         </div>
         <div class="col-md-6">
-
+            <!--Esto es un componente de vue -->
             <chat-vue :title="{{ $cotizacion->id }}" :userauth="{{ auth()->user()->id }}" cotiuser="{{ $cotizacion->user->fullname }}" adminuser="{{ $adminuser }}" ></chat-vue>
         </div>
     </div>

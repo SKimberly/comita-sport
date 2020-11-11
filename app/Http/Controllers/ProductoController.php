@@ -23,7 +23,7 @@ class ProductoController extends Controller
         //dd("estas aqui");
         Producto::where('codigo',null)->delete();
         //Aqui devuelves a un vista
-        $productos = Producto::orderBy('id','DESC')->paginate();
+        $productos = Producto::orderBy('id','DESC')->get();
         //dd(Producto::paginate(10));
         return view('admin.productos.index', compact('productos'));
     }
