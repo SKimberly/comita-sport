@@ -26,7 +26,7 @@
         "admin-lte": "^3.0.0-alpha.2",
         "animate.css": "^4.1.0",
         "bootstrap-switch": "^3.4.0",
-        "chart.js": "^2.9.3",
+        "chart.js": "^2.9.4",
         "dropzone": "^5.7.1",
         "ion-rangeslider": "^2.3.1",
         "laravel-echo": "^1.9.0",
